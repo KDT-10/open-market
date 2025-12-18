@@ -1,0 +1,124 @@
+{
+  "users": [
+    {
+      "username": "buyer@test.com",
+      "password": "1234",
+      "name": "이스트",
+      "phone_number": "010-1234-5678",
+      "user_type": "BUYER"
+    },
+    {
+      "username": "seller@test.com",
+      "password": "1234",
+      "name": "이스트2",
+      "phone_number": "010-1111-2222",
+      "company_registration_number": "1122334455",
+      "store_name": "이스트가게",
+      "user_type": "SELLER"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Hack Your Life 개구리 노트북 파우치",
+      "info": "우당탕탕 라이언의 실무생",
+      "image": "./assets/images/product1.png",
+      "price": 29000,
+      "shipping_method": "PARCEL",
+      "shipping_fee": 1000,
+      "stock": 8,
+      "seller": {
+        "username": "seller@test.com",
+        "name": "이스트2",
+        "phone_number": "010-1111-2222",
+        "user_type": "SELLER",
+        "company_registration_number": "1122334455",
+        "store_name": "이스트가게"
+      },
+      "created_at": "2024-10-27T10:30:00.000Z",
+      "updated_at": "2025-11-18T03:29:19.984Z"
+    },
+    {
+      "id": 2,
+      "name": "네 개발자니? 개발자팀 코딩키링",
+      "info": "개구쟁이코더들",
+      "image": "./assets/images/product2.png",
+      "price": 29000,
+      "shipping_method": "DELIVERY",
+      "shipping_fee": 1000,
+      "stock": 16,
+      "seller": {
+        "username": "seller@test.com",
+        "name": "이스트2",
+        "phone_number": "010-1111-2222",
+        "user_type": "SELLER",
+        "company_registration_number": "1122334455",
+        "store_name": "이스트가게"
+      },
+      "created_at": "2024-10-27T10:30:00.000Z",
+      "updated_at": "2025-10-22T08:28:58.816Z"
+    },
+    {
+      "id": 3,
+      "name": "일하냥 개발냥 달콤 담요",
+      "info": "헤헤코딩의콜",
+      "image": "./assets/images/product3.png",
+      "price": 29000,
+      "shipping_method": "PARCEL",
+      "shipping_fee": 1000,
+      "stock": 15,
+      "seller": {
+        "username": "seller@test.com",
+        "name": "이스트2",
+        "phone_number": "010-1111-2222",
+        "user_type": "SELLER",
+        "company_registration_number": "1122334455",
+        "store_name": "이스트가게"
+      },
+      "created_at": "2024-10-27T10:30:00.000Z",
+      "updated_at": "2025-10-22T08:28:58.816Z"
+    },
+    {
+      "id": 4,
+      "name": "우당탕탕 라이언의 실무생 스티커 팩",
+      "info": "헤헤코딩",
+      "image": "./assets/images/product4.png",
+      "price": 29000,
+      "shipping_method": "PARCEL",
+      "shipping_fee": 1000,
+      "stock": 10,
+      "seller": {
+        "username": "seller@test.com",
+        "name": "이스트2",
+        "phone_number": "010-1111-2222",
+        "user_type": "SELLER",
+        "company_registration_number": "1122334455",
+        "store_name": "이스트가게"
+      },
+      "created_at": "2024-10-27T10:30:00.000Z",
+      "updated_at": "2025-10-22T08:28:58.816Z"
+    },
+    {
+      "id": 5,
+      "name": "버그로 Java와 버그보는 개발자 키링 개발자선물...",
+      "info": "파이아노공구",
+      "image": "./assets/images/product5.png",
+      "price": 29000,
+      "shipping_method": "PARCEL",
+      "shipping_fee": 1000,
+      "stock": 30,
+      "seller": {
+        "username": "seller@test.com",
+        "name": "이스트2",
+        "phone_number": "010-1111-2222",
+        "user_type": "SELLER",
+        "company_registration_number": "1122334455",
+        "store_name": "이스트가게"
+      },
+      "created_at": "2024-10-27T10:30:00.000Z",
+      "updated_at": "2025-10-22T08:28:58.816Z"
+    }
+  ],
+  "cart": [],
+  "orders": []
+}

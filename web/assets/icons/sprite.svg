@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <!-- 장바구니 아이콘 -->
+  <symbol id="icon-cart" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12.889 28.4444C13.6254 28.4444 14.2223 27.8475 14.2223 27.1111C14.2223 26.3747 13.6254 25.7778 12.889 25.7778C12.1526 25.7778 11.5557 26.3747 11.5557 27.1111C11.5557 27.8475 12.1526 28.4444 12.889 28.4444Z" fill="black" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M25.3333 28.4444C26.0697 28.4444 26.6667 27.8475 26.6667 27.1111C26.6667 26.3747 26.0697 25.7778 25.3333 25.7778C24.597 25.7778 24 26.3747 24 27.1111C24 27.8475 24.597 28.4444 25.3333 28.4444Z" fill="black" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2.66675 2.66666H7.51523L10.7637 18.5359C10.8746 19.0815 11.1782 19.5717 11.6213 19.9205C12.0645 20.2694 12.6191 20.4547 13.188 20.444H24.9698C25.5386 20.4547 26.0932 20.2694 26.5364 19.9205C26.9796 19.5717 27.2832 19.0815 27.394 18.5359L29.3334 8.59245H8.72735" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- 사용자 아이콘 -->
+  <symbol id="icon-user" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M26.6666 28V25.3333C26.6666 23.9188 26.1047 22.5623 25.1045 21.5621C24.1043 20.5619 22.7477 20 21.3333 20H10.6666C9.2521 20 7.89554 20.5619 6.89535 21.5621C5.89515 22.5623 5.33325 23.9188 5.33325 25.3333V28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16.0001 14.6667C18.9456 14.6667 21.3334 12.2789 21.3334 9.33333C21.3334 6.38781 18.9456 4 16.0001 4C13.0546 4 10.6667 6.38781 10.6667 9.33333C10.6667 12.2789 13.0546 14.6667 16.0001 14.6667Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- 검색 아이콘 -->
+  <symbol id="icon-search" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12.8333 22.1667C17.988 22.1667 22.1667 17.988 22.1667 12.8333C22.1667 7.67868 17.988 3.5 12.8333 3.5C7.67868 3.5 3.5 7.67868 3.5 12.8333C3.5 17.988 7.67868 22.1667 12.8333 22.1667Z" stroke="#21BF48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24.5 24.5L19.425 19.425" stroke="#21BF48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  
+  <!-- 왼쪽 화살표 -->
+  <symbol id="icon-chevron-left" viewBox="0 0 10 18" fill="none">
+    <path d="M9 17L1 9L9 0.999999" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- 오른쪽 화살표 -->
+  <symbol id="icon-chevron-right" viewBox="0 0 10 18" fill="none" >
+    <path d="M1 1L9 9L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- 비밀번호 유효성 체크 아이콘 -->
+  <symbol id="icon-check-password" viewBox="0 0 28 28" fill="none">
+    <circle cx="14" cy="14" r="14" fill="currentColor"/>
+    <path d="M7 13.8571L12.6 19L21 10" stroke="white" stroke-width="2"/>
+  </symbol>
+
+  <!-- 눈 아이콘 (비밀번호 보기) -->
+  <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </symbol>
+
+  <!-- 인스타그램 아이콘 -->
+  <symbol id="icon-instagram" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="16" r="15.5" fill="#767676" stroke="#767676"/>
+    <g clip-path="url(#clip0_110560_2207)">
+      <path d="M20.1666 7.66699H11.8333C9.53211 7.66699 7.66663 9.53247 7.66663 11.8337V20.167C7.66663 22.4682 9.53211 24.3337 11.8333 24.3337H20.1666C22.4678 24.3337 24.3333 22.4682 24.3333 20.167V11.8337C24.3333 9.53247 22.4678 7.66699 20.1666 7.66699Z" stroke="#F2F2F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M19.3334 15.4753C19.4362 16.1688 19.3178 16.8771 18.9948 17.4994C18.6719 18.1218 18.161 18.6264 17.5347 18.9416C16.9085 19.2569 16.1987 19.3666 15.5065 19.2552C14.8143 19.1438 14.1748 18.817 13.6791 18.3212C13.1833 17.8254 12.8565 17.186 12.7451 16.4938C12.6337 15.8015 12.7434 15.0918 13.0586 14.4656C13.3739 13.8393 13.8785 13.3284 14.5009 13.0055C15.1232 12.6825 15.8315 12.5641 16.525 12.6669C17.2325 12.7718 17.8874 13.1015 18.3931 13.6072C18.8988 14.1129 19.2285 14.7678 19.3334 15.4753Z" stroke="#F2F2F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20.5834 11.417H20.5917" stroke="#F2F2F2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_110560_2207">
+        <rect width="20" height="20" fill="white" transform="translate(6 6)"/>
+      </clipPath>
+    </defs>
+  </symbol>
+
+  <!-- 페이스북 아이콘 -->
+  <symbol id="icon-facebook" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="16" r="16" fill="#767676"/>
+    <rect width="20" height="20" transform="translate(5 6)" fill="#767676"/>
+    <path d="M20 7.66699H17.5C16.395 7.66699 15.3352 8.10598 14.5538 8.88738C13.7724 9.66878 13.3334 10.7286 13.3334 11.8337V14.3337H10.8334V17.667H13.3334V24.3337H16.6667V17.667H19.1667L20 14.3337H16.6667V11.8337C16.6667 11.6126 16.7545 11.4007 16.9108 11.2444C17.0671 11.0881 17.279 11.0003 17.5 11.0003H20V7.66699Z" fill="#F2F2F2"/>
+  </symbol>
+
+  <!-- 유튜브 아이콘 -->
+  <symbol id="icon-youtube" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="16" r="16" fill="#767676"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.1989 10.2992C24.4828 10.5918 24.6844 10.9542 24.7834 11.3497C25.0477 12.8153 25.176 14.3021 25.1667 15.7913C25.172 17.2583 25.0437 18.7227 24.7834 20.1663C24.6844 20.5618 24.4828 20.9242 24.1989 21.2168C23.915 21.5095 23.559 21.722 23.1667 21.833C21.7334 22.2163 16 22.2163 16 22.2163C16 22.2163 10.2667 22.2163 8.83336 21.833C8.44905 21.7279 8.09835 21.5254 7.81515 21.2451C7.53195 20.9648 7.32583 20.6162 7.2167 20.233C6.95234 18.7674 6.82401 17.2805 6.83336 15.7913C6.82606 14.3133 6.95437 12.8376 7.2167 11.383C7.31569 10.9875 7.51729 10.6252 7.80115 10.3325C8.08501 10.0399 8.44107 9.82733 8.83336 9.71634C10.2667 9.33301 16 9.33301 16 9.33301C16 9.33301 21.7334 9.33301 23.1667 9.68301C23.559 9.794 23.915 10.0065 24.1989 10.2992ZM18.9167 15.7914L14.125 18.5164V13.0664L18.9167 15.7914Z" fill="#F2F2F2"/>
+  </symbol>
+
+  <!-- 닫기/삭제 아이콘 (X) -->
+  <symbol id="icon-close" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="15" y1="5" x2="5" y2="15"></line>
+    <line x1="5" y1="5" x2="15" y2="15"></line>
+  </symbol>
+
+  <!-- 주문하기 (-) 아이콘 -->
+  <symbol id="icon-order-minus" viewBox="0 0 34 34" fill="none">
+    <circle cx="17" cy="17" r="17" fill="white"/>
+    <path d="M7.55566 16.5273H26.4446" stroke="#C4C4C4" stroke-width="2"/>
+  </symbol>
+
+  <!-- 주문하기 (+) 아이콘 -->
+  <symbol id="icon-order-plus" viewBox="0 0 34 34" fill="none">
+    <circle cx="17" cy="17" r="17" fill="white"/>
+    <path d="M7.55566 16.5283H26.4446" stroke="#C4C4C4" stroke-width="2"/>
+    <path d="M17 26.4443L17 7.55545" stroke="#C4C4C4" stroke-width="2"/>
+  </symbol>
+
+  <!-- Plus 아이콘 (상품 등록 등) -->
+  <symbol id="icon-plus" viewBox="0 0 32 32" fill="none" >
+    <circle cx="16" cy="16" r="14" stroke="white" stroke-width="2"/>
+    <path d="M7.6665 15.584H24.3332" stroke="white" stroke-width="2"/>
+    <path d="M15.9998 24.334L15.9998 7.66732" stroke="white" stroke-width="2"/>
+  </symbol>
+
+  <!-- Image 아이콘 (이미지 업로드) -->
+  <symbol id="icon-image" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="5" width="50" height="50" rx="5"/>
+    <circle cx="20" cy="20" r="5"/>
+    <path d="M55 40 L40 25 L20 45"/>
+    <path d="M30 35 L40 25 L55 40 L55 50 Q55 55 50 55 L10 55 Q5 55 5 50 L5 45"/>
+  </symbol>
+
+  <!-- 판매자 센터 아이콘 -->
+  <symbol id="icon-seller-center" viewBox="0 0 32 32" fill="none">
+    <path d="M8 2.6665L4 7.99984V26.6665C4 27.3737 4.28095 28.052 4.78105 28.5521C5.28115 29.0522 5.95942 29.3332 6.66667 29.3332H25.3333C26.0406 29.3332 26.7189 29.0522 27.219 28.5521C27.719 28.052 28 27.3737 28 26.6665V7.99984L24 2.6665H8Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4 8H28" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M21.3333 13.3335C21.3333 14.748 20.7714 16.1045 19.7712 17.1047C18.771 18.1049 17.4144 18.6668 16 18.6668C14.5855 18.6668 13.2289 18.1049 12.2287 17.1047C11.2285 16.1045 10.6666 14.748 10.6666 13.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+</svg>
+
