@@ -1091,6 +1091,27 @@ sessionStorage.removeItem("cartData");
 
 ### 🔐 인증 처리
 
+#### API Base URL 설정
+
+로컬 개발과 배포 환경에서 다른 API URL을 사용해야 합니다.
+
+```javascript
+// API Base URL 설정
+const API_BASE_URL = 
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3000/api"  // 로컬 개발
+    : "https://open-market-jade.vercel.app/api";  // Vercel 배포
+
+// 사용 예시
+fetch(`${API_BASE_URL}/products`)
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+> **배포 시 주의사항:**
+> - 배포 환경에서는 `https://open-market-jade.vercel.app/api`를 API Base URL로 사용합니다.
+> - Vercel의 serverless 환경에서는 데이터 저장 기능이 제한적입니다 (읽기 전용).
+
 #### Authorization Header 설정
 
 모든 인증이 필요한 API 요청에는 Authorization 헤더를 포함해야 합니다.
@@ -1106,7 +1127,7 @@ function getAuthHeaders() {
 }
 
 // API 호출 예시
-fetch("http://localhost:3000/api/cart/", {
+fetch(`${API_BASE_URL}/cart/`, {
   method: "POST",
   headers: getAuthHeaders(),
   body: JSON.stringify({
