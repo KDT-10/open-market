@@ -30,10 +30,11 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url:
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000/api"
-            : "https://open-market-jade.vercel.app/api",
+        // url:
+        //   process.env.NODE_ENV === "development"
+        //     ? "http://localhost:3000/api"
+        //     : "https://open-market-jade.vercel.app/api",
+        url: "https://open-market-jade.vercel.app/api",
         description: "Development server",
       },
     ],
