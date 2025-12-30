@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU - 오픈 마켓 / 상품 상세</title>
+    <link rel="stylesheet" href="./styles/pages/detail.css" />
+    <style></style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="product-detail">
+        <!-- 상품 이미지 -->
+        <div class="product-image">
+          <img src="product.jpg" alt="딥러닝 개발자 무릎 담요" />
+        </div>
+
+        <!-- 상품 정보 -->
+        <div class="product-info">
+          <h2 class="product-name">딥러닝 개발자 무릎 담요</h2>
+
+          <p class="product-price"><strong>17,500</strong>원</p>
+
+          <!-- 수량 선택 -->
+          <div class="product-quantity">
+            <button type="button">-</button>
+            <input type="number" value="1" min="1" />
+            <button type="button">+</button>
+          </div>
+
+          <!-- 총 상품 금액 -->
+          <div class="total-price">
+            <span>총 상품금액</span>
+            <strong>17,500</strong>원
+          </div>
+
+          <!-- 버튼 영역 -->
+          <div class="product-actions">
+            <button class="btn-buy">바로 구매</button>
+            <button class="btn-cart">장바구니</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 탭 영역 -->
+      <section class="product-tabs">
+        <ul class="tab-menu">
+          <li class="active">상세정보</li>
+          <li>리뷰</li>
+          <li>Q&A</li>
+          <li>반품/교환정보</li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- 탭 내용 -->
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
