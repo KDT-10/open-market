@@ -1,0 +1,66 @@
+/* ===== 메인 페이지 ===== */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+}
+
+/* ===== Header ===== */
+.site-header {
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+}
+
+.logo img {
+  height: 32px;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+}
+
+.search input {
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.search button {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.gnb {
+  display: flex;
+  gap: 12px;
+}
+
+.gnb a {
+  text-decoration: none;
+  color: #222;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.gnb a:hover {
+  background: #f5f5f5;
+}
+
+

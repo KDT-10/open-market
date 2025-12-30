@@ -3,9 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ZADU - 오픈 마켓</title>
+    <title>코드한입 - 오픈 마켓</title>
+    <link rel="stylesheet" href="./styles/pages/index.css" />
   </head>
+
   <body>
-    오픈 마켓 프로젝트
+    <!-- ===== header ===== -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <!-- 로고 -->
+        <a class="brand" href="./index.html" aria-label="홈">
+          <img
+            src="./assets/images/logo-jadu.png"
+            alt="ZADU"
+            class="brand-logo"
+          />
+        </a>
+
+        <!-- 검색 -->
+        <form class="search" role="search">
+          <label class="sr-only" for="q">상품 검색</label>
+          <input
+            id="q"
+            class="search-input"
+            type="search"
+            placeholder="상품을 검색해주세요"
+          />
+          <button class="search-btn" type="submit" aria-label="검색">
+            <img src="./assets/icons/search.svg" alt="" class="icon" />
+          </button>
+        </form>
+
+        <!-- 아이콘 메뉴 -->
+        <nav class="header-actions" aria-label="유틸 메뉴">
+          <a class="action" href="./cart.html">
+            <img
+              src="./assets/icons/icon-shopping-cart.svg"
+              alt=""
+              class="icon"
+            />
+            <span class="action-text">장바구니</span>
+          </a>
+
+          <a class="action" href="./signin.html">
+            <img src="./assets/icons/icon-user.svg" alt="" class="icon" />
+            <span class="action-text">마이페이지</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===== Main ===== -->
+    <main class="main">
+      <!-- 히어로 영역 -->
+      <section class="hero">
+        <div class="container">
+          <h1 class="hero-title"></h1>
+          <p class="hero-desc"></p>
+        </div>
+      </section>
+
+      <!-- 상품 리스트 -->
+      <section class="products">
+        <div class="container">
+          <h2 class="section-title"></h2>
+
+          <ul class="product-grid">
+            <li class="card">
+              <img src="./assets/images/product1.png" alt="상품 이미지" />
+              <p class="product-name">상품 1</p>
+              <p class="product-price">29,000원</p>
+            </li>
+
+            <li class="card">
+              <img src="./assets/images/product2.png" alt="상품 이미지" />
+              <p class="product-name">상품 2</p>
+              <p class="product-price">29,000원</p>
+            </li>
+
+            <li class="card">
+              <img src="./assets/images/product3.png" alt="상품 이미지" />
+              <p class="product-name">상품 3</p>
+              <p class="product-price">29,000원</p>
+            </li>
+
+            <li class="card">
+              <img src="./assets/images/product4.png" alt="상품 이미지" />
+              <p class="product-name">상품 4</p>
+              <p class="product-price">29,000원</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>(주)ZADU SHOP</p>
+      </div>
+    </footer>
+
+    <!-- 메인 페이지 JS (지금은 비워둬도 됨) -->
+    <script type="module" src="./js/index.js"></script>
   </body>
 </html>
