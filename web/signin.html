@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU - Login</title>
+    <link rel="stylesheet" href="styles/signin.css" />
+    <script defer src="js/signin.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-wrapper">
+        <div class="logo">
+          <img
+            src="assets/images/Logo-jadu-lg.png"
+            alt="로그인로고"
+            class="logo-lg"
+          />
+        </div>
+        <div class="login-form-container">
+          <div class="tab-container">
+            <button class="tab-button common" id="commonTab">
+              구매회원 로그인
+            </button>
+            <button class="tab-button vender" id="venderTab">
+              판매회원 로그인
+            </button>
+          </div>
+          <form class="login-form">
+            <div class="input-group">
+              <input
+                type="text"
+                placeholder="아이디"
+                class="form-input"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="password"
+                placeholder="비밀번호"
+                class="form-input"
+                required
+              />
+            </div>
+            <button type="submit" class="login-button">로그인</button>
+            <div class="form-links">
+              <a href="#" class="link">회원가입</a>
+              <span class="separator">|</span>
+              <a href="#" class="link">비밀번호 찾기</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
