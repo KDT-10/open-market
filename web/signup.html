@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./styles/base/variables.css">
   <link rel="stylesheet" href="./styles/pages/signup.css">
   <script defer src="./js/common/layout.js"></script>
+  <script defer src="./js/signup.js"></script>
 </head>
 
 <body>
@@ -22,11 +23,11 @@
       <div class="form-tab-menu">
         <!-- 탭 메뉴 -->
         <div class="form-tab-menu-btns" role="tablist" aria-label="가입 회원 분류 탭">
-          <button class="form-tab-button active-form-tab" data-tab="buyer" role="tab" aria-selected="true"
-            aria-controls="buyer-content" tabindex="-1">
+          <button id="buyer-tab" class="form-tab-button active-form-tab" data-tab="buyer" role="tab"
+            aria-selected="true" aria-controls="buyer-content" tabindex="-1">
             구매회원가입
           </button>
-          <button class="form-tab-button" data-tab="seller" role="tab" aria-selected="false"
+          <button id="seller-tab" class="form-tab-button" data-tab="seller" role="tab" aria-selected="false"
             aria-controls="seller-content" tabindex="0">
             판매회원가입
           </button>
@@ -35,7 +36,10 @@
         <!-- 탭 컨텐츠 -->
         <form class="form-sign-up">
           <div class="form-tab-content-wrapper">
-            <div class="form-tab-content active-form-tab-content" id="buyer-content" role="tabpanel" tabindex="0">
+
+            <!-- 구매회원가입 탭 -->
+            <div id="buyer-fields" class="form-tab-content active-form-tab-content" id="buyer-content" role="tabpanel"
+              tabindex="0">
               <div class="input-wrapper">
                 <div class="input-title">아이디</div>
                 <div class="input-group">
@@ -71,10 +75,25 @@
                   <input type="text" class="text-input" id="phone3">
                 </div>
               </div>
+
+              <!-- 판매회원가입 탭 -->
+              <div id="seller-fields" class="hidden" id="seller-content" role="tabpanel" tabindex="0">
+                <div class="input-wrapper">
+                  <div class="input-title">사업자 등록번호</div>
+                  <div class="input-group">
+                    <input type="text" class="text-input" id="business-num">
+                    <button class="primary-btn">인증</button>
+                  </div>
+                </div>
+                <div class="input-wrapper">
+                  <div class="input-title">스토어 이름</div>
+                  <div class="input-group">
+                    <input type="text" class="text-input" id="store-name">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="form-tab-content hidden" id="seller-content" role="tabpanel" tabindex="0">
-              ...
-            </div>
+
           </div>
           <div class="form-footer-menu">
             <div class="terms">
