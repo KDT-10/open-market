@@ -1,0 +1,18 @@
+* {
+  outline: none;
+}
+
+a {
+  color: unset;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
