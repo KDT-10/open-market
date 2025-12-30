@@ -2,10 +2,16 @@
   /* Colors */
   --color-primary: #21bf48;
   --color-error: #eb5757;
-  --color-gray-c4: #c4c4c4;
+  --color-border-gray: #c4c4c4;
+  --color-footer-bg: #f2f2f2;
   --color-tab-btn-bg: #f2f2f2;
   --color-active-tab-btn-bg: white;
-  --color-gray-76: #767676;
+  --color-gray-term: #767676;
+  --color-btn-disabled: #c4c4c4;
+
+  /* Sizes */
+  --size-main: 1280px;
+  --size-footer-icon: 32px;
 
   /* Spacing */
   --spacing-xs: 4px;
