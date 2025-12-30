@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", loadCart);
 
 /**
  * 장바구니 조회
- */
-function loadCart() {
+ */ function loadCart() {
+  // 데이터를 불러오기 전 초기 상태 설정 (선택 사항)
+  emptyEl.style.display = "block";
+  listEl.style.display = "none";
+
   if (!Utils.isLoggedIn()) {
     alert("로그인이 필요합니다.");
     location.href = "/signin.html";
@@ -29,11 +32,16 @@ function loadCart() {
     .then((res) => res.json())
     .then((data) => {
       cartItems = data.results;
-      if (cartItems.length === 0) {
-        renderEmpty();
-      } else {
+      // 데이터 결과에 따라 화면 전환
+      if (cartItems && cartItems.length > 0) {
         renderCartList();
+      } else {
+        renderEmpty();
       }
+    })
+    .catch((err) => {
+      console.error("데이터 로딩 실패:", err);
+      renderEmpty(); // 에러 발생 시에도 빈 화면 표시
     });
 }
 

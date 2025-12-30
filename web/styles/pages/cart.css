@@ -11,7 +11,6 @@
 }
 
 body {
-  background-color: var(--disabled-tab-color);
   padding: 40px 0;
 }
 
@@ -35,7 +34,9 @@ body {
   font-size: 24px;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--main-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* =========================
@@ -150,4 +151,114 @@ body {
 .order-btn:disabled {
   background-color: var(--disabled-btn-color);
   cursor: not-allowed;
+}
+
+/* 장바구니 헤더 바 */
+.cart-header {
+  width: 100%;
+  max-width: 1280px; /* 전체적인 너비는 프로젝트에 맞춰 조절하세요 */
+  background-color: var(--disabled-tab-color);
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+  margin: 0 auto; /* 중앙 정렬 */
+  box-sizing: border-box;
+}
+.cart-header > div {
+  /* 핵심: 각 영역이 전체의 정확히 25%를 차지하게 합니다. */
+  flex: 1 1 25%;
+  text-align: center;
+  font-size: 18px;
+  color: var(--join-text-color);
+}
+/* 기본 체크박스 숨기기 */
+.check-container input {
+  display: none;
+}
+
+/* 체크박스가 들어갈 바구니 디자인 */
+.check-container {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* 우리가 직접 만드는 동그란 체크박스 (기본 상태) */
+.custom-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 2px solid var(--main-btn-color); /* #c4c4c4 */
+  border-radius: 50%; /* 이 설정이 핵심! 완벽한 원형으로 만듭니다 */
+  box-sizing: border-box;
+}
+
+/* 체크되었을 때의 스타일 */
+.check-container input:checked + .custom-checkbox {
+  background-color: var(--main-btn-color); /* #21bf48 */
+  border-color: var(--main-btn-color);
+}
+
+/* 체크되었을 때 안쪽에 나타날 하얀색 체크 표시(V) */
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  /* 체크 표시 모양 만들기 */
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* 체크박스가 활성화되면 체크 표시 보이기 */
+.check-container input:checked + .custom-checkbox::after {
+  display: block;
+}
+.col-info {
+  flex: 3;
+}
+.col-qty {
+  flex: 1;
+}
+.col-price {
+  flex: 1;
+}
+
+/* 빈 장바구니 메시지 영역 */
+#cart-empty {
+  margin-top: 150px; /* 상단 바와의 거리 */
+  text-align: center;
+  line-height: 1.4;
+  display: none; /* 기본은 숨김, JS로 제어 */
+}
+
+/* "장바구니에 담긴 상품이 없습니다." (굵고 검은색) */
+.empty-msg-main {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--main-text-color);
+  margin-bottom: 15px;
+}
+
+/* "원하는 상품을 장바구니에 담아보세요!" (회색) */
+.empty-msg-sub {
+  display: block;
+  font-size: 14px;
+  color: var(--sub-text-color);
+}
+
+#total-price {
+  color: var(--negative-text-color); /* 합계 금액은 강조색 사용 추천 */
+  font-size: 24px;
+  margin-left: 10px;
 }
