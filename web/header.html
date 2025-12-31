@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nav bar</title>
+    <link rel="stylesheet" href="style/components/header.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script defer src="js/common/header.js"></script>
+</head>
+
+<body>
+    <!--
+    TODO
+    서치 바 기능 구현
+    -->
+    <!-- Container for the header -->
+    <div id="header" class="header-container">
+
+        <!-- Header Section -->
+        <div class="header">
+
+            <!-- Logo -->
+            <div class="logo" button="main-logo" id="main-logo">
+                <img src="assets/images/Logo-jadu-lg.png" alt="Logo">
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar" button="search-bar" id="search-bar">
+                <input type="text" placeholder="Search...">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8">
+                    </circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65">
+                    </line>
+                </svg>
+            </div>
+
+            <!-- Header Icons -->
+            <div class="header-icons">
+
+                <!-- Cart Icon SVG -->
+                <svg class="cart-icon" button="cart-icon" id="cart-icon" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1">
+                    </circle>
+                    <circle cx="20" cy="21" r="1">
+                    </circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                    </path>
+                </svg>
+
+                <!-- User Icon SVG -->
+                <svg class="user-icon" button="user-icon" id="user-icon" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                    </path>
+                    <circle cx="12" cy="7" r="4">
+                    </circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
