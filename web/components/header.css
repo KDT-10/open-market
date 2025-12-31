@@ -1,0 +1,87 @@
+/* 기본 리셋 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.svg-sprite {
+  display: none;
+}
+
+/* 헤더 */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 .125rem .75rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.header-inner {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.25rem;
+}
+
+/* 로고 */
+.logo img {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  display: block;
+  padding-bottom: 0.5rem;
+}
+
+/* 검색창 */
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 26.25rem;
+  border: .125rem solid #21bf48;
+  border-radius: 62.4375rem;
+  padding: .375rem .75rem;
+}
+
+.search-form input {
+  flex: 1;
+  align-items: center;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-btn {
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* 아이콘 공통 */
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* 오른쪽 아이콘 영역 */
+.icon-group {
+  display: flex;
+  margin-left: auto;
+  gap: 1.5rem;
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  font-size: .75rem;
+  text-decoration: none;
+  color: #333;
+}
