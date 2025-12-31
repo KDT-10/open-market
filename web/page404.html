@@ -42,8 +42,12 @@
     }
 
     /* 4. 우측 텍스트 영역 */
+    .text-content {
+      text-align: center;
+    }
+
     .text-content h1 {
-      font-size: 42px;
+      font-size: 2rem;
       font-weight: 800;
       color: #000;
       margin-bottom: 16px;
@@ -51,7 +55,7 @@
     }
 
     .text-content p {
-      font-size: 18px;
+      font-size: 1rem;
       color: #666;
       line-height: 1.6;
       margin-bottom: 40px;
@@ -74,7 +78,6 @@
       font-size: 18px;
       font-weight: 600;
       text-decoration: none;
-      transition: 0.2s ease;
     }
 
     /* 메인으로 버튼 (초록색) */
@@ -97,6 +100,38 @@
 
     .btn-prev:hover {
       background-color: #f8f8f8;
+    }
+
+    @media (min-width: 768px) {
+      .text-content h1 {
+        font-size: 2.25rem;
+      }
+
+      .text-content p {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        flex-direction: row;
+      }
+
+      .btn-group * {
+        flex: 1;
+      }
+
+      .text-content {
+        text-align: left;
+      }
+
+      .text-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .text-content p {
+        font-size: 1.25rem;
+      }
     }
   </style>
 </head>
