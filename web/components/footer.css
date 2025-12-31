@@ -77,3 +77,30 @@
   font-weight: 600;
   margin-bottom: .25rem;
 }
+
+/* 모바일 */
+@media (max-width: 480px) {
+  /* FOOTER */
+  .footer-top {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .footer-sns {
+    justify-content: center;
+  }
+}
+
+/*  태블릿  */
+@media (min-width: 481px) and (max-width: 1024px) {
+  /* FOOTER */
+  .footer-inner {
+    padding: 2rem 1.25rem;
+  }
+}
