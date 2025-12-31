@@ -1,0 +1,282 @@
+import Validation from "./common/validation.js";
+
+let isUsernameChecked = false;
+
+// 탭 전환 (구매회원/판매회원)
+const buyerTab = document.getElementById("buyer-tab");
+const sellerTab = document.getElementById("seller-tab");
+const sellerFields = document.getElementById("seller-fields");
+
+buyerTab.addEventListener("click", () => {
+  buyerTab.classList.toggle("active-form-tab");
+  sellerTab.classList.toggle("active-form-tab");
+  sellerFields.classList.toggle("hidden");
+});
+
+sellerTab.addEventListener("click", () => {
+  buyerTab.classList.toggle("active-form-tab");
+  sellerTab.classList.toggle("active-form-tab");
+  sellerFields.classList.toggle("hidden");
+});
+
+// 중복 확인
+const usernameInput = document.getElementById("username");
+const usernameMessage = document.getElementById("username-message");
+const dupChkBtn = document.getElementById("dup-chk-btn");
+usernameInput.addEventListener("input", () => {
+  isUsernameChecked = false;
+});
+dupChkBtn.addEventListener("click", () => {
+  checkUsername();
+});
+
+// 비밀번호 확인
+const passwordInput = document.getElementById("password-input");
+const passwordConfirmInput = document.getElementById("password-confirm-input");
+passwordInput.addEventListener("input", () => {
+  validatePassword();
+});
+passwordConfirmInput.addEventListener("input", () => {
+  validatePassword();
+});
+
+// 약관
+const termsCbox = document.getElementById("terms-cbox");
+const signupBtn = document.getElementById("signup-btn");
+termsCbox.addEventListener("change", () => {
+  updateSubmitBtn();
+});
+
+// 회원가입
+const form = document.getElementById("signup-form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  handleBuyerSignup(e);
+});
+
+// 아이디(이메일) 중복 확인
+async function checkUsername() {
+  const username = usernameInput.value;
+
+  if (!username) {
+    Validation.showMessage(
+      usernameInput,
+      usernameMessage,
+      "아이디를 입력해주세요.",
+      "error"
+    );
+    return;
+  }
+
+  if (!Validation.isValidEmail(username)) {
+    Validation.showMessage(
+      usernameInput,
+      usernameMessage,
+      "올바른 이메일 형식이 아닙니다.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/accounts/validate-username",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
+      }
+    );
+
+    const data = await response.json();
+    const { message, status } = data;
+
+    if (response.ok) {
+      Validation.showMessage(
+        usernameInput,
+        usernameMessage,
+        message,
+        status
+      );
+      isUsernameChecked = true;
+    } else {
+      Validation.showMessage(
+        usernameInput,
+        usernameMessage,
+        message,
+        status
+      );
+      isUsernameChecked = false;
+    }
+  } catch (err) {
+    Validation.showMessage(
+      usernameInput,
+      usernameMessage,
+      "아이디 중복 확인에 실패했습니다.",
+      "error"
+    );
+    console.error("아이디 중복 확인 오류:", err);
+    alert("아이디 중복 확인에 실패했습니다.");
+  }
+}
+
+// 비밀번호 Validation
+function validatePassword() {
+  const password = passwordInput.value;
+  const passwordConfirm = passwordConfirmInput.value;
+  const passwordMessage = document.getElementById("password-message");
+  const passwordConfirmMessage = document.getElementById("password-confirm-message");
+
+  // 비밀번호 길이 체크
+  if (0 < password.length && password.length < 8) {
+    Validation.showMessage(
+      passwordInput,
+      passwordMessage,
+      "비밀번호는 8자 이상이어야 합니다.",
+      "error"
+    );
+    Validation.clearMessage(
+      passwordConfirmInput,
+      passwordConfirmMessage
+    );
+    return false;
+  }
+  else {
+    Validation.clearMessage(
+      passwordInput,
+      passwordMessage
+    );
+  }
+
+  // 비밀번호 일치 확인
+  if (password !== passwordConfirm) {
+    Validation.showMessage(
+      passwordConfirmInput,
+      passwordConfirmMessage,
+      "비밀번호가 일치하지 않습니다.",
+      "error"
+    );
+    return false;
+  }
+  else if (password.length === 0 && passwordConfirm.length === 0) {
+    Validation.clearMessage(
+      passwordInput,
+      passwordMessage
+    );
+    Validation.clearMessage(
+      passwordConfirmInput,
+      passwordConfirmMessage
+    );
+    return false;
+  }
+  Validation.showMessage(
+    passwordConfirmInput,
+    passwordConfirmMessage,
+    "비밀번호가 일치합니다.",
+    "success"
+  );
+  return true;
+}
+
+// 이름 Validation
+function validateName() {
+  const nameInput = document.getElementById("name");
+  const name = nameInput.value;
+  if (name.length === 0) return false;
+  return true;
+}
+
+// 전화번호 Validation
+function validatePhone() {
+  const phoneInput = document.getElementById("phone1");
+  const phoneMessage = document.getElementById("phone-message");
+  const phone1 = document.getElementById("phone1").value;
+  const phone2 = document.getElementById("phone2").value;
+  const phone3 = document.getElementById("phone3").value;
+
+  if (!Validation.isValidPhone(phone1, phone2, phone3)) {
+    Validation.showMessage(
+      phoneInput,
+      phoneMessage,
+      "올바른 전화번호 형식이 아닙니다.",
+      "error"
+    );
+    return false;
+  }
+
+  return true;
+}
+
+function validateTerms() {
+  return termsCbox.checked;
+}
+
+function updateSubmitBtn() {
+  if (validateTerms()) signupBtn.classList.remove("disabled-btn");
+  else signupBtn.classList.add("disabled-btn");
+}
+
+// 구매회원 회원가입 제출
+async function handleBuyerSignup(e) {
+  e.preventDefault();
+
+  // Validation 체크
+  if (!validateTerms()) {
+    alert("이용약관 및 개인정보처리방침에 동의해야 가입할 수 있습니다.");
+    return;
+  }
+
+  if (!isUsernameChecked) {
+    alert("아이디 중복 확인을 해주세요.");
+    return;
+  }
+
+  if (!validatePassword()) {
+    alert("비밀번호를 입력하세요.");
+    return;
+  }
+
+  if (!validateName()) {
+    alert("이름을 입력하세요.");
+    return;
+  }
+
+  if (!validatePhone()) {
+    alert("핸드폰 번호를 입력하세요.");
+    return;
+  }
+
+  const nameInput = document.getElementById("name");
+  const phone1 = document.getElementById("phone1");
+  const phone2 = document.getElementById("phone2");
+  const phone3 = document.getElementById("phone3");
+  const formData = {
+    username: usernameInput.value,
+    password: passwordInput.value,
+    name: nameInput.value,
+    phone_number: `${phone1.value}-${phone2.value}-${phone3.value}`,
+  };
+
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/accounts/buyer/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("회원가입이 완료되었습니다.");
+      window.location.href = "signin.html";
+    } else {
+      throw new Error(data.detail || "회원가입에 실패했습니다.");
+    }
+  } catch (error) {
+    console.error("회원가입 오류:", error);
+    alert(error.message);
+  }
+}
