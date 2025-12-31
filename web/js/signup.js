@@ -178,6 +178,14 @@ function validatePassword() {
   return true;
 }
 
+// 이름 Validation
+function validateName() {
+  const nameInput = document.getElementById("name");
+  const name = nameInput.value;
+  if (name.length === 0) return false;
+  return true;
+}
+
 // 전화번호 Validation
 function validatePhone() {
   const phoneInput = document.getElementById("phone1");
@@ -225,6 +233,11 @@ async function handleBuyerSignup(e) {
 
   if (!validatePassword()) {
     alert("비밀번호를 입력하세요.");
+    return;
+  }
+
+  if (!validateName()) {
+    alert("이름을 입력하세요.");
     return;
   }
 
