@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>주문/결제하기</title>
+
+    <!-- Pretendard (피그마 느낌 핵심) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+
+    <link rel="stylesheet" href="./order.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="page__title">주문/결제하기</h1>
+
+      <section class="paper">
+        <!-- 주문 상품 -->
+        <section class="orderSection">
+          <div class="tableHead">
+            <div>상품정보</div>
+            <div>할인</div>
+            <div>배송비</div>
+            <div class="right">주문금액</div>
+          </div>
+
+          <div class="tableBody" id="orderList"></div>
+
+          <div class="orderTotal">
+            <span>총 주문금액</span>
+            <strong id="totalTop">0원</strong>
+          </div>
+        </section>
+
+        <div class="contentGrid">
+          <!-- 좌측 -->
+          <section class="left">
+            <h2 class="sectionTitle">배송정보</h2>
+
+            <h3 class="subTitle">주문자 정보</h3>
+            <div class="formGrid">
+              <label>이름</label>
+              <input class="input" id="buyerName" />
+
+              <label>휴대폰</label>
+              <div class="phone">
+                <input class="input" />
+                <span>-</span>
+                <input class="input" />
+                <span>-</span>
+                <input class="input" />
+              </div>
+
+              <label>이메일</label>
+              <input class="input" />
+            </div>
+
+            <h3 class="subTitle">배송지 정보</h3>
+            <div class="formGrid">
+              <label>수령인</label>
+              <input class="input" />
+
+              <label>휴대폰</label>
+              <div class="phone">
+                <input class="input" />
+                <span>-</span>
+                <input class="input" />
+                <span>-</span>
+                <input class="input" />
+              </div>
+
+              <label>배송주소</label>
+              <div class="addr">
+                <div class="addrTop">
+                  <input class="input zip" />
+                  <button class="btn green">우편번호 조회</button>
+                </div>
+                <input class="input" />
+                <input class="input" />
+              </div>
+
+              <label>배송 메시지</label>
+              <input class="input" />
+            </div>
+
+            <h3 class="subTitle">결제수단</h3>
+            <div class="payRow">
+              <label
+                ><input type="radio" name="pay" checked /> 신용/체크카드</label
+              >
+              <label><input type="radio" name="pay" /> 무통장입금</label>
+              <label><input type="radio" name="pay" /> 휴대폰결제</label>
+              <label><input type="radio" name="pay" /> 네이버페이</label>
+              <label><input type="radio" name="pay" /> 카카오페이</label>
+            </div>
+          </section>
+
+          <!-- 우측 -->
+          <aside class="right">
+            <div class="payBox">
+              <h2>최종결제 정보</h2>
+
+              <div class="row">
+                <span>상품금액</span><span id="sumGoods">0원</span>
+              </div>
+              <div class="row">
+                <span>할인금액</span><span id="sumDiscount">0원</span>
+              </div>
+              <div class="row">
+                <span>배송비</span><span id="sumShip">0원</span>
+              </div>
+
+              <div class="total">
+                <span>결제금액</span>
+                <strong id="sumPay">0원</strong>
+              </div>
+
+              <label class="agree">
+                <input type="checkbox" id="agreeChk" />
+                주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+              </label>
+
+              <button class="btn pay" id="payBtn" disabled>결제하기</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script src="./order.js"></script>
+  </body>
+</html>
