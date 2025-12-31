@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="./styles/base/reset.css">
   <link rel="stylesheet" href="./styles/base/variables.css">
   <link rel="stylesheet" href="./styles/pages/signup.css">
+  <link rel="stylesheet" href="./styles/components/form.css">
   <script defer src="./js/common/layout.js"></script>
-  <script defer src="./js/signup.js"></script>
+  <script defer type="module" src="./js/signup.js"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
         </div>
 
         <!-- 탭 컨텐츠 -->
-        <form class="form-sign-up">
+        <form class="form-signup" id="signup-form">
           <div class="form-tab-content-wrapper">
 
             <!-- 구매회원가입 탭 -->
@@ -44,25 +45,28 @@
                 <div class="input-title">아이디</div>
                 <div class="input-group">
                   <input type="text" class="text-input" id="username">
-                  <button class="primary-btn">중복확인</button>
+                  <button id="dup-chk-btn" type="button" class="primary-btn">중복확인</button>
                 </div>
+                <div id="username-message"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">비밀번호</div>
                 <div class="input-group">
-                  <input type="password" class="text-input" id="password">
+                  <input type="password" class="text-input" id="password-input">
                 </div>
+                <div id="password-message"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">비밀번호 확인</div>
                 <div class="input-group">
-                  <input type="password" class="text-input" id="password-chk">
+                  <input type="password" class="text-input" id="password-confirm-input">
                 </div>
+                <div id="password-confirm-message"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">이름</div>
                 <div class="input-group">
-                  <input type="text" class="text-input" id="nickname">
+                  <input type="text" class="text-input" id="name">
                 </div>
               </div>
               <div class="input-wrapper">
@@ -71,9 +75,10 @@
                   <select class="select-input" id="phone1">
                     <option value="010">010</option>
                   </select>
-                  <input type="text" class="text-input" id="phone2">
-                  <input type="text" class="text-input" id="phone3">
+                  <input type="text" class="text-input phone-input" id="phone2" maxlength="4">
+                  <input type="text" class="text-input phone-input" id="phone3" maxlength="4">
                 </div>
+                <div id="phone-message"></div>
               </div>
 
               <!-- 판매회원가입 탭 -->
@@ -101,7 +106,7 @@
               <label for="terms-cbox">호두샵의 <a href="#" class="strong-link">이용약관</a> 및 <a href="#"
                   class="strong-link">개인정보처리방침</a>에 대한 내용을 확인하였고 동의합니다.</label>
             </div>
-            <button class="primary-btn disabled-btn">가입하기</button>
+            <button class="primary-btn disabled-btn" id="signup-btn">가입하기</button>
           </div>
         </form>
       </div>

@@ -37,7 +37,7 @@
   background-color: var(--color-active-tab-btn-bg);
 }
 
-.form-sign-up {
+.form-signup {
   display: flex;
   flex-direction: column;
 }
@@ -75,6 +75,9 @@
   font-weight: 400;
   flex: 1;
   min-width: 0;
+}
+.phone-input {
+  text-align: center;
 }
 .primary-btn {
   background-color: var(--color-primary);
@@ -115,6 +118,7 @@
   color: white;
   background-color: var(--color-btn-disabled);
   border-radius: 5px;
+  cursor: unset;
 }
 
 .hidden {

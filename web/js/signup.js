@@ -1,3 +1,7 @@
+import Validation from "./common/validation.js";
+
+let isUsernameChecked = false;
+
 // 탭 전환 (구매회원/판매회원)
 const buyerTab = document.getElementById("buyer-tab");
 const sellerTab = document.getElementById("seller-tab");
@@ -15,9 +19,44 @@ sellerTab.addEventListener("click", () => {
   sellerFields.classList.toggle("hidden");
 });
 
+// 중복 확인
+const usernameInput = document.getElementById("username");
+const usernameMessage = document.getElementById("username-message");
+const dupChkBtn = document.getElementById("dup-chk-btn");
+usernameInput.addEventListener("input", () => {
+  isUsernameChecked = false;
+});
+dupChkBtn.addEventListener("click", () => {
+  checkUsername();
+});
+
+// 비밀번호 확인
+const passwordInput = document.getElementById("password-input");
+const passwordConfirmInput = document.getElementById("password-confirm-input");
+passwordInput.addEventListener("input", () => {
+  validatePassword();
+});
+passwordConfirmInput.addEventListener("input", () => {
+  validatePassword();
+});
+
+// 약관
+const termsCbox = document.getElementById("terms-cbox");
+const signupBtn = document.getElementById("signup-btn");
+termsCbox.addEventListener("change", () => {
+  updateSubmitBtn();
+});
+
+// 회원가입
+const form = document.getElementById("signup-form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  handleBuyerSignup(e);
+});
+
 // 아이디(이메일) 중복 확인
 async function checkUsername() {
-  const username = document.getElementById("username").value;
+  const username = usernameInput.value;
 
   if (!username) {
     Validation.showMessage(
@@ -50,26 +89,33 @@ async function checkUsername() {
     );
 
     const data = await response.json();
+    const { message, status } = data;
 
-    if (response.ok && data.Success) {
+    if (response.ok) {
       Validation.showMessage(
         usernameInput,
         usernameMessage,
-        "사용 가능한 아이디입니다.",
-        "success"
+        message,
+        status
       );
       isUsernameChecked = true;
     } else {
       Validation.showMessage(
         usernameInput,
         usernameMessage,
-        "이미 사용 중인 아이디입니다.",
-        "error"
+        message,
+        status
       );
       isUsernameChecked = false;
     }
-  } catch (error) {
-    console.error("아이디 중복 확인 오류:", error);
+  } catch (err) {
+    Validation.showMessage(
+      usernameInput,
+      usernameMessage,
+      "아이디 중복 확인에 실패했습니다.",
+      "error"
+    );
+    console.error("아이디 중복 확인 오류:", err);
     alert("아이디 중복 확인에 실패했습니다.");
   }
 }
@@ -78,16 +124,28 @@ async function checkUsername() {
 function validatePassword() {
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
+  const passwordMessage = document.getElementById("password-message");
+  const passwordConfirmMessage = document.getElementById("password-confirm-message");
 
   // 비밀번호 길이 체크
-  if (password.length < 8) {
+  if (0 < password.length && password.length < 8) {
     Validation.showMessage(
       passwordInput,
       passwordMessage,
       "비밀번호는 8자 이상이어야 합니다.",
       "error"
     );
+    Validation.clearMessage(
+      passwordConfirmInput,
+      passwordConfirmMessage
+    );
     return false;
+  }
+  else {
+    Validation.clearMessage(
+      passwordInput,
+      passwordMessage
+    );
   }
 
   // 비밀번호 일치 확인
@@ -100,7 +158,17 @@ function validatePassword() {
     );
     return false;
   }
-
+  else if (password.length === 0 && passwordConfirm.length === 0) {
+    Validation.clearMessage(
+      passwordInput,
+      passwordMessage
+    );
+    Validation.clearMessage(
+      passwordConfirmInput,
+      passwordConfirmMessage
+    );
+    return false;
+  }
   Validation.showMessage(
     passwordConfirmInput,
     passwordConfirmMessage,
@@ -110,8 +178,18 @@ function validatePassword() {
   return true;
 }
 
+// 이름 Validation
+function validateName() {
+  const nameInput = document.getElementById("name");
+  const name = nameInput.value;
+  if (name.length === 0) return false;
+  return true;
+}
+
 // 전화번호 Validation
 function validatePhone() {
+  const phoneInput = document.getElementById("phone1");
+  const phoneMessage = document.getElementById("phone-message");
   const phone1 = document.getElementById("phone1").value;
   const phone2 = document.getElementById("phone2").value;
   const phone3 = document.getElementById("phone3").value;
@@ -129,30 +207,54 @@ function validatePhone() {
   return true;
 }
 
+function validateTerms() {
+  return termsCbox.checked;
+}
+
+function updateSubmitBtn() {
+  if (validateTerms()) signupBtn.classList.remove("disabled-btn");
+  else signupBtn.classList.add("disabled-btn");
+}
+
 // 구매회원 회원가입 제출
 async function handleBuyerSignup(e) {
   e.preventDefault();
 
   // Validation 체크
+  if (!validateTerms()) {
+    alert("이용약관 및 개인정보처리방침에 동의해야 가입할 수 있습니다.");
+    return;
+  }
+
   if (!isUsernameChecked) {
     alert("아이디 중복 확인을 해주세요.");
     return;
   }
 
   if (!validatePassword()) {
+    alert("비밀번호를 입력하세요.");
+    return;
+  }
+
+  if (!validateName()) {
+    alert("이름을 입력하세요.");
     return;
   }
 
   if (!validatePhone()) {
+    alert("핸드폰 번호를 입력하세요.");
     return;
   }
 
+  const nameInput = document.getElementById("name");
+  const phone1 = document.getElementById("phone1");
+  const phone2 = document.getElementById("phone2");
+  const phone3 = document.getElementById("phone3");
   const formData = {
-    username: document.getElementById("username").value,
-    password: document.getElementById("password").value,
-    name: document.getElementById("name").value,
-    phone_number: `${document.getElementById("phone1").value}-${document.getElementById("phone2").value
-      }-${document.getElementById("phone3").value}`,
+    username: usernameInput.value,
+    password: passwordInput.value,
+    name: nameInput.value,
+    phone_number: `${phone1.value}-${phone2.value}-${phone3.value}`,
   };
 
   try {
