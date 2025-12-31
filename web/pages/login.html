@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ZADU 로그인</title>
-    <link rel="stylesheet" href="./login.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
   </head>
   <body>
     <main class="login-page">
       <!-- 로고 -->
       <h1 class="brand">
-        <img src="web/assets/images/Logo-jadu-lg.png" alt="ZADU 로고" />
+        <img src="../assets/images/Logo-jadu-lg.png" alt="ZADU 로고" />
       </h1>
 
       <!-- 로그인 카드 -->
@@ -38,14 +38,15 @@
         </div>
 
         <!-- 폼 -->
-        <form class="form" action="#" method="post">
+        <form class="form" id="loginForm" action="#" method="post">
           <label class="field">
             <span class="label">아이디</span>
             <input
               type="text"
+              id="userId"
               name="id"
-              autocomplete="username "
               placeholder="아이디"
+              autocomplete="username"
             />
           </label>
 
@@ -53,35 +54,26 @@
             <span class="label">비밀번호</span>
             <input
               type="password"
+              id="userPw"
               name="pw"
-              autocomplete="current-password"
               placeholder="비밀번호"
+              autocomplete="current-password"
             />
           </label>
-
+          <!-- 에러 메시지 영역-->
+          <p class="error-message" id="errorMessage"></p>
+          <!--로그인 버튼-->
           <button class="submit" type="submit">로그인</button>
-
+          <!--회원가입 및 비밀번호 찾기 버튼-->
           <div class="links">
-            <a href="#">회원가입</a>
+            W
+            <a href="signup.html">회원가입</a>
             <span class="dot">|</span>
             <a href="#">비밀번호 찾기</a>
           </div>
         </form>
       </section>
     </main>
-
-    <script>
-      const tabs = document.querySelectorAll(".tab");
-      tabs.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          tabs.forEach((t) => {
-            t.classList.remove("is-active");
-            t.setAttribute("aria-selected", "false");
-          });
-          btn.classList.add("is-active");
-          btn.setAttribute("aria-selected", "true");
-        });
-      });
-    </script>
+    <script src="../scripts/login.js"></script>
   </body>
 </html>

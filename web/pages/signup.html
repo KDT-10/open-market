@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU 회원가입</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+  </head>
+  <body>
+    <main class="signup-page">
+      <!-- 로고 -->
+      <h1 class="brand">
+        <img src="../assets/images/Logo-jadu-lg.png" alt="ZADU 로고" />
+      </h1>
+
+      <!-- 회원가입 유형 -->
+      <section class="card" aria-label="회원가입 유형">
+        <!-- 탭 -->
+        <div class="tabs" role="tablist" aria-label="회원가입 유형 선택">
+          <button
+            type="button"
+            class="tab is-active"
+            role="tab"
+            aria-selected="true"
+          >
+            구매회원가입
+          </button>
+          <button type="button" class="tab" role="tab" aria-selected="false">
+            판매회원가입
+          </button>
+        </div>
+        <!-- 폼 -->
+        <form class="form" id="signupForm" action="#" method="post">
+          <label class="field">
+            <span class="label">아이디</span>
+            <input
+              type="text"
+              id="userId"
+              name="id"
+              placeholder="아이디"
+              autocomplete="username"
+            />
+          </label>
+
+          <label class="field">
+            <span class="label">비밀번호</span>
+            <input
+              type="password"
+              id="userPw"
+              name="pw"
+              placeholder="비밀번호"
+              autocomplete="new-password"
+            />
+          </label>
+
+          <label class="field">
+            <span class="label">비밀번호 확인</span>
+            <input
+              type="password"
+              id="userPwConfirm"
+              name="pwConfirm"
+              placeholder="비밀번호 확인"
+              autocomplete="new-password"
+            />
+          </label>
+
+          <label class="field">
+            <span class="label">이메일</span>
+            <input
+              type="email"
+              id="userEmail"
+              name="email"
+              placeholder="이메일"
+              autocomplete="email"
+            />
+          </label>
+
+          <button class="submit" type="submit">회원가입</button>
+      </section>
+    </main>
+  </body>
+</html>
