@@ -1,0 +1,55 @@
+/*
+모바일 우선 개발
+480 -> 768 -> 1280 -> 1920
+*/  
+.detail-container {
+  margin: 20px auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.detail-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.detail-info-btn :hover {
+  cursor: pointer;
+}
+
+.detail-info-btn :active {
+  color: #21BF48;
+  border-bottom: 2px solid #21BF48;
+}
+
+@media (min-width: 480px) {
+  .detail-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .product-detail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .product-shell {
+    width: 100%;
+  }
+
+  .detail-info-container {
+    gap: 5px;
+    border-bottom: 1px solid #E0E0E0;
+    margin-top: 5px; 
+    height: 20px;
+  }
+}

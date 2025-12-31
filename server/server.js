@@ -317,15 +317,15 @@ apiRouter.post("/accounts/validate-username", (req, res) => {
   const { username } = req.body;
 
   if (!username) {
-    return res.status(400).json({ error: "username 필드를 추가해주세요." });
+    return res.status(400).json({ message: "username 필드를 추가해주세요.", status: "error" });
   }
 
   const existingUser = db.get("users").find({ username }).value();
   if (existingUser) {
-    return res.status(400).json({ error: "이미 사용 중인 아이디입니다." });
+    return res.status(400).json({ message: "이미 사용 중인 아이디입니다.", status: "error" });
   }
 
-  res.status(200).json({ message: "사용 가능한 아이디입니다." });
+  res.status(200).json({ message: "사용 가능한 아이디입니다.", status: "success" });
 });
 
 /**
@@ -605,9 +605,8 @@ apiRouter.get("/products", (req, res) => {
 
   let previousUrl = null;
   if (startIndex > 0) {
-    previousUrl = `${baseUrl}?page=${
-      page - 1
-    }&page_size=${pageSize}${searchParam}`;
+    previousUrl = `${baseUrl}?page=${page - 1
+      }&page_size=${pageSize}${searchParam}`;
   }
 
   res.json({
