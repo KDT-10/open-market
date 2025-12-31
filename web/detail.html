@@ -1,0 +1,56 @@
+<!--
+detail.html  상품 상세 조회
+상품 카드 클릭 시 상세 페이지로 이동 (querystring으로 product_id 전달)
+상품 상세 정보 표시 (GET /api/products/:product_id)
+판매자명, 상품명, 가격, 배송비, 재고 표시
+수량 선택 기능 (+/- 버튼, 최소 1개, 최대 재고 수량)
+총 가격 계산 표시 ((가격 + 배송비) × 수량)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 구매 페이지</title>
+    <link rel="stylesheet" href="styles/pages/detail.css">
+    <link rel="stylesheet" href="styles/components/button.css">
+    <script defer src="./js/common/base.js"></script>
+    <script defer src="./js/common/layout.js"></script>
+    <script defer src="./js/pages/detail.js"></script> 
+</head>
+<body>
+    <div class="detail-container" id="detail-container">
+        <!-- 동적으로 로드되는 상품 상세 정보 -->
+         <div class="product-detail">
+            <img class="product-image" id="product-image" src="" alt="상품 이미지">
+
+            <div class="product-shell"><!-- 칸 정리 -->
+                <h2 class="product-name" id="product-name">상품명</h2>
+                <p class="seller-name" id="seller-name">판매자: </p>
+                <p class="price" id="price">가격: </p>
+                <p class="delivery-charge" id="delivery-charge">배송비: </p>
+                <p class="stock" id="stock">재고: </p>
+
+                <div class="quantity-selector">
+                    <button id="decrease-qty">-</button>
+                    <input type="text" id="quantity" value="1" readonly>
+                    <button id="increase-qty">+</button>
+                </div> 
+                <p class="total-price" id="total-price">총 가격: </p>
+
+                <button id="buy-now">바로 구매</button>
+            </div>
+         </div>
+
+         <div class="detail-info-container">
+            <div button="detail-info-btn" class="button-container">버튼
+            </div>
+            <div button="detail-info-btn" class="review-container">리뷰
+            </div>
+            <div button="detail-info-btn" class="qna-container">Q&A
+            </div>
+            <div button="detail-info-btn" class="Return-Exchange-container">반품/교환정보
+            </div>
+        </div>
+</body>
+</html>
