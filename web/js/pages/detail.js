@@ -1,0 +1,1 @@
+console.log('detail.js 로드됨');
