@@ -1,0 +1,201 @@
+body {
+  font-size: 0.75rem;
+}
+
+div {
+  margin: 0.5rem;
+}
+.header-title {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: space-evenly;
+  margin: 2rem;
+}
+
+.header-s-title {
+  background-color: #f2f2f2;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.header-s-title div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-p {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.header-p-fornt {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+
+.header-p-fornt-text {
+  color: #767676;
+  font-size: 0.55rem;
+}
+
+.header-p-midle {
+  color: #767676;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 0.5rem;
+}
+
+.header-p-back span {
+  font-size: 1rem;
+  color: red;
+}
+
+.header-p-back {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.main-front {
+  font-size: 1rem;
+  border-bottom: 2px solid #c4c4c4;
+  padding: 1rem;
+  padding-left: 0;
+}
+
+.main-front2 {
+  border-bottom: 2px solid #c4c4c4;
+  padding: 0.5rem;
+  padding-left: 0;
+}
+
+.main-back {
+  display: flex;
+  padding: 0.5rem;
+  margin-top: 0;
+  margin-left: 0;
+  padding-top: 0;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.main-back span {
+  width: 1rem;
+}
+
+.main-back-title {
+  width: 8rem;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.input-text {
+  border: 1px solid #c4c4c4;
+}
+
+.input-text2 {
+  border: 1px solid #c4c4c4;
+  width: 5rem;
+  height: 1.3rem;
+}
+
+.input-text3 {
+  border: 1px solid #c4c4c4;
+  width: 26rem;
+  height: 1.3rem;
+}
+
+main span {
+  text-align: center;
+}
+
+.input-text-number {
+  width: 2.2rem;
+  border: 1px solid #c4c4c4;
+}
+
+.input-text-number2 {
+  width: 2.8rem;
+  border: 1px solid #c4c4c4;
+}
+
+.main-back-add {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: 0.25rem;
+}
+
+.btn-div {
+  margin: 0;
+}
+
+.main-btn {
+  background-color: #21bf48;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.6rem;
+  padding: 0.35rem 0.8rem;
+}
+
+.checkbox {
+  border-bottom: 2px solid #c4c4c4;
+  padding-bottom: 0.5rem;
+  display: flex;
+  gap: 0.2rem;
+}
+.checkbox-input {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  border: 1px solid #999;
+  appearance: none;
+}
+
+.main-front1 {
+  font-size: 1rem;
+}
+
+.footer-last {
+  display: flex;
+  justify-content: space-between;
+}
+.footer-last-bill {
+  display: flex;
+}
+.header-p-fornt-text2 {
+  color: #767676;
+  font-size: 0.55rem;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  margin-left: 0.1rem;
+}
+
+.footer-box {
+  border: 2px solid #21bf48;
+  border-radius: 0.5rem;
+  width: 336px;
+  height: 280px;
+}
+
+hr {
+  width: 19rem;
+  color: #c4c4c4;
+}
+
+.footer-last-last {
+  background-color: #f2f2f2;
+  margin: 0;
+  display: flex;
+}
