@@ -3,6 +3,12 @@ import Validation from "/js/common/validation.js";
 let isUsernameChecked = false;
 let isRegistrationNumberChecked = false;
 
+// 로고 버튼
+const logoBtn = document.getElementById("signup-logo-btn");
+logoBtn.addEventListener("click", () => {
+  window.location.href = "/";
+});
+
 // 탭 전환 (구매회원/판매회원)
 const buyerTab = document.getElementById("buyer-tab");
 const sellerTab = document.getElementById("seller-tab");
