@@ -22,7 +22,7 @@ if (searchBar) {
 
     const searchInput = document.getElementById('search-input');
     const searchIcon = searchBar.querySelector('.search-icon');
-    
+
     const performSearch = () => {
         const query = searchInput.value.trim();
         if (query) {
@@ -60,9 +60,9 @@ if (userIcon) {
         // TODO: 로그인/마이페이지로 이동
         const isLoggedIn = false; // 추후 실제 로그인 상태 확인
         if (isLoggedIn) {
-            window.location.href = '/web/mypage.html';
+            window.location.href = '/mypage.html';
         } else {
-            window.location.href = '/web/login.html';
+            window.location.href = '/login.html';
         }
     });
 }
