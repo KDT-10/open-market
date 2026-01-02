@@ -1,7 +1,32 @@
 // 장바구니 데이터 (예시 데이터 - 실제로는 서버에서 가져오거나 localStorage에서 불러옴)
 let cartItems = [];
+// // ===== 테스트용: 장바구니에 상품 2개 보기 (주석 해제하면 상품 2개 표시됨) =====
 
-// 페이지 로드 시 실행
+cartItems = [
+  {
+    id: 1,
+    name: "담려낼 개발자 무릎 담요",
+    category: "책/엔드/굿즈",
+    price: 17500,
+    image: "../assets/images/product3.png",
+    option: "택배배송 / 무료배송",
+    quantity: 1,
+    checked: true,
+  },
+  {
+    id: 2,
+    name: "Hack Your Life 개발자 노트북 파우치",
+    category: "주당당틀 라이즈의 삼실집",
+    price: 29000,
+    image: "../assets/images/product1.png",
+    option: "택배배송 / 무료배송",
+    quantity: 1,
+    checked: true,
+  },
+];
+
+// // ===== 테스트 데이터 끝 =====
+// // 페이지 로드 시 실행
 document.addEventListener("DOMContentLoaded", function () {
   // 초기 렌더링
   renderCart();
@@ -96,19 +121,21 @@ function createProductCard(item, index) {
       <p class="product-option">${item.option}</p>
     </div>
 
-    <div class="product-quantity">
-      <button class="qty-btn minus" data-index="${index}">-</button>
-      <input type="number" class="qty-input" value="${
-        item.quantity
-      }" min="1" data-index="${index}" />
-      <button class="qty-btn plus" data-index="${index}">+</button>
-    </div>
+    <div class="product-right">
+      <div class="product-quantity">
+        <button class="qty-btn minus" data-index="${index}">-</button>
+        <input type="number" class="qty-input" value="${
+          item.quantity
+        }" min="1" data-index="${index}" />
+        <button class="qty-btn plus" data-index="${index}">+</button>
+      </div>
 
-    <div class="product-price-total">
-      <p class="price-amount">${formatPrice(item.price * item.quantity)}원</p>
-    </div>
+      <div class="product-price-total">
+        <p class="price-amount">${formatPrice(item.price * item.quantity)}원</p>
+      </div>
 
-    <button class="btn-order" data-index="${index}">주문하기</button>
+      <button class="btn-order" data-index="${index}">주문하기</button>
+    </div>
 
     <button class="btn-remove" data-index="${index}">
       <svg
