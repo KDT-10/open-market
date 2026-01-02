@@ -1,6 +1,6 @@
-loadHTMLToBody('/components/header.html', false);
+loadHTMLToBody('/components/footer.html', true);
 
-loadCSS('/components/header.css');
+loadCSS('/components/footer.css');
 
 async function loadHTMLToBody(url, append) {
   try {
