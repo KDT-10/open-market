@@ -2,9 +2,12 @@
   /* Colors */
   --color-primary: #21bf48;
   --color-error: #eb5757;
+  --color-border: #c4c4c4;
   --color-border-gray: #c4c4c4;
   --color-footer-bg: #f2f2f2;
   --color-tab-btn-bg: #f2f2f2;
+  --color-secondary-gray: #f2f2f2;
+  --color-secondary-gray2: #767676;
   --color-active-tab-btn-bg: white;
   --color-gray-term: #767676;
   --color-btn-disabled: #c4c4c4;
