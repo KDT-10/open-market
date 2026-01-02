@@ -441,3 +441,82 @@
     padding: 2rem 1.25rem;
   }
 }
+
+/*모달*/
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* 모달 박스 */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 320px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 28px 20px 24px;
+  text-align: center;
+}
+
+/* 닫기 버튼 */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 텍스트 */
+.modal-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+/* 버튼 영역 */
+.modal-actions {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 아니오 */
+.btn-cancel {
+  background: #f5f5f5;
+  color: #333;
+  border-right: 1px solid #eee;
+  border-bottom-left-radius: 8px;
+}
+
+/* 예 */
+.btn-confirm {
+  background: #2ecc71; /* 초록 */
+  color: #fff;
+  border-bottom-right-radius: 8px;
+}
