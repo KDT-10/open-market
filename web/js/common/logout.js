@@ -11,7 +11,7 @@ function handleLogout() {
   sessionStorage.clear();
 
   // 로그인 페이지로 이동
-  window.location.href = "signin.html";
+  window.location.href = "/signin.html";
 }
 
 // 로그아웃 버튼 이벤트 (예시)
