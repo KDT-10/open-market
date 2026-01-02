@@ -1,0 +1,119 @@
+/* 상품 아이템 */
+.cart-item {
+  padding: 1.25rem;
+  border: 1px solid #eee;
+  align-items: center;
+  position: relative;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  gap: 1rem;
+}
+.product-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  height: 8rem;
+}
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.item-info-text {
+  display: flex;
+  flex-direction: column;
+  align-self: unset;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.main-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.main-text-brand {
+  font-size: 0.75rem;
+  color: var(--color-secondary-gray2);
+}
+.main-text-name {
+  font-weight: bold;
+}
+.main-text-price-unit {
+  font-weight: bold;
+}
+.secondary-text {
+  display: flex;
+  flex-direction: column;
+}
+.secondary-text-delivery {
+  font-size: 0.75rem;
+  color: var(--color-secondary-gray2);
+}
+
+/* 수량 조절 */
+.quantity-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.quantity-control > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  aspect-ratio: 1 / 1;
+}
+.quantity-control-btn {
+  border: 1px solid var(--color-secondary-gray);
+}
+.quantity-amount {
+  border-left: 1px solid var(--color-secondary-gray);
+  border-right: 1px solid var(--color-secondary-gray);
+}
+.quantity-control button:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.quantity-control button:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* 상품별 금액 및 버튼 */
+.item-total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.price-red {
+  color: #e74c3c;
+  font-weight: bold;
+}
+.order-btn-small {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+}
