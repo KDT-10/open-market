@@ -4,3 +4,10 @@
 .error {
   color: var(--color-error);
 }
+input.error {
+  color: unset;
+  border-color: var(--color-error);
+}
+select.error {
+  color: unset;
+}

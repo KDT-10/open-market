@@ -1,5 +1,5 @@
 .main-content-container {
-  width: min(80%, var(--size-main));
+  width: var(--content-size);
   margin: 0 auto;
   padding: 3.75rem 0;
 }

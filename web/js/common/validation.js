@@ -1,19 +1,25 @@
 const Validation = {
-  showMessage(inputElement, messageElement, message, type) {
-    // inputElement.classList.remove("error", "success");
+  showMessage(_inputElements, messageElement, message, type) {
+    let inputElements;
+    if (!Array.isArray(_inputElements)) inputElements = [_inputElements];
+    else inputElements = [..._inputElements];
+    inputElements.forEach(e => e.classList.remove("error", "success"));
     messageElement.classList.remove("error", "success");
+    messageElement.classList.add("hidden");
 
     if (type === "error" || type === "success") {
-      // inputElement.classList.add(type);
+      inputElements.forEach(e => e.classList.add(type));
       messageElement.classList.add(type);
+      messageElement.classList.remove("hidden");
     }
 
     messageElement.textContent = message;
   },
 
   clearMessage(inputElement, messageElement) {
-    // inputElement.classList.remove("error", "success");
+    inputElement.classList.remove("error", "success");
     messageElement.classList.remove("error", "success");
+    messageElement.classList.add("hidden");
     messageElement.textContent = "";
   },
 
