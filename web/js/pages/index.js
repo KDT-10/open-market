@@ -1,6 +1,6 @@
-import { loadCSS, loadProductElem } from "./common/dom-utils.js";
+import { loadCSS, loadProductElem } from "/js/common/dom-utils.js";
 
-loadCSS('../../styles/components/product.css');
+loadCSS('/styles/components/product.css');
 
 createCards();
 
@@ -8,7 +8,7 @@ async function createCards() {
   const results = await fetchProducts();
   const productContainer = document.getElementById("product-container");
   for (const product of results) {
-    const card = await loadProductElem(productContainer, "../product.html", {
+    const card = await loadProductElem(productContainer, "/components/product.html", {
       img: product.image,
       seller: product.info,
       name: product.name,
