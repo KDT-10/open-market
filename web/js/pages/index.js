@@ -1,25 +1,10 @@
-import { loadCSS, loadProductElem } from "/js/common/dom-utils.js";
+let productData = [];
 
-loadCSS('/styles/components/product.css');
+loadProducts();
 
-createCards();
-
-async function createCards() {
-  const results = await fetchProducts();
-  const productContainer = document.getElementById("product-container");
-  for (const product of results) {
-    const card = await loadProductElem(productContainer, "/components/product.html", {
-      img: product.image,
-      seller: product.info,
-      name: product.name,
-      price: product.price.toLocaleString(),
-    });
-
-    // 상품 카드 클릭 시 querystring으로 product_id 전달
-    card.addEventListener("click", () => {
-      window.location.href = `detail.html?id=${product.id}`;
-    });
-  }
+async function loadProducts() {
+  productData = await fetchProducts();
+  renderProductCards();
 }
 
 // GET /api/products 호출하여 상품 목록 표시
@@ -29,4 +14,35 @@ async function fetchProducts(searchTerm = "") {
   const response = await fetch(url);
   const data = await response.json();
   return data.results;
+}
+
+function renderProductCards() {
+  const productContainer = document.getElementById("product-container");
+
+  productData.forEach((data) => {
+    const productCard = cloneProductCardElem(data);
+    productContainer.appendChild(productCard);
+    productCard.addEventListener("click", () => {
+      window.location.href = `detail.html?id=${data.id}`;
+    });
+  });
+}
+
+function cloneProductCardElem(data) {
+  const {
+    image,
+    name,
+    price,
+    seller: { store_name }
+  } = data;
+
+  const template = document.getElementById("product-card-template");
+  const node = template.content.cloneNode(true);
+  const el = node.querySelector(".product-card");
+  el.querySelector(".product-img-wrapper img").src = image;
+  el.querySelector(".product-seller").textContent = store_name;
+  el.querySelector(".product-name").textContent = name;
+  el.querySelector(".product-price-text").textContent = `${price.toLocaleString()}`;
+
+  return el;
 }

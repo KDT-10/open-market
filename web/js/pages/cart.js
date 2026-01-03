@@ -1,7 +1,3 @@
-import { loadCSS } from "/js/common/dom-utils.js";
-
-loadCSS('/styles/components/cart-item.css');
-
 // TODO: TEST: 임시 데이터 사용 중
 // sessionStorage에서 cartData 불러와서 표시
 const cartData = JSON.parse(sessionStorage.getItem("cartData")) || [
