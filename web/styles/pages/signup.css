@@ -29,7 +29,7 @@
   border: 1px solid var(--color-border-gray);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: var(--color-tab-btn-bg);
+  background-color: var(--color-secondary-gray);
 }
 .active-form-tab {
   border-bottom: 0;
@@ -57,7 +57,7 @@
   flex-direction: column;
 }
 .input-title {
-  color: var(--color-gray-term);
+  color: var(--color-secondary-gray2);
   font-weight: 400;
 }
 .input-group {
@@ -104,7 +104,7 @@
   display: flex;
   align-items: start;
   justify-content: center;
-  color: var(--color-gray-term);
+  color: var(--color-secondary-gray2);
 }
 .strong-link {
   font-weight: 700;
