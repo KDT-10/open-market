@@ -69,7 +69,7 @@ function bindQuantityEvents(cartItem, data, index) {
   const increaseBtn = cartItem.querySelector(".quantity-increase");
 
   const updateAmount = (delta) => {
-    if (data.quantity + delta < 0) return;
+    if (data.quantity + delta < 1) return;
 
     data.quantity += delta;
     modifyQuantity(index, data.quantity);

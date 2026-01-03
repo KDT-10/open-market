@@ -14,7 +14,6 @@
 .cart-container-inner {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 .cart-items {
   display: flex;
@@ -48,21 +47,23 @@ input[type="checkbox"] {
 .cart-summary {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   padding: 1.875rem;
   border-radius: 10px;
   background-color: var(--color-secondary-gray);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 .summary-detail {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 1rem;
 }
 .summary-result {
   display: flex;
   justify-content: center;
-  font-size: 2rem;
+  font-weight: 700;
 }
 
 .summary-box {
@@ -81,12 +82,14 @@ input[type="checkbox"] {
   color: var(--color-important);
 }
 .amount-red-value {
+  font-size: 1.75rem;
   font-weight: 700;
 }
 .operator {
   aspect-ratio: 1 / 1;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 1rem;
 }
 .operator svg {
   width: 100%;
@@ -116,4 +119,68 @@ input[type="checkbox"] {
 }
 .empty-sub-message {
   font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .cart-header {
+    margin-bottom: 2rem;
+  }
+  .cart-summary {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    gap: 2rem;
+  }
+  .cart-grid {
+    grid-template-columns: 4rem 1fr 4rem 8rem;
+  }
+  .amount-red-value {
+    font-size: 2rem;
+  }
+  .operator {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .order-btn-large {
+    align-self: center;
+  }
+}
+@media (min-width: 1200px) {
+  .cart-grid {
+    grid-template-columns: 4rem 1fr 6rem 12rem;
+  }
+  .cart-header {
+    margin-bottom: 2.25rem;
+  }
+  .cart-items {
+    gap: 0.625rem;
+  }
+  .summary-detail {
+    flex: 3;
+  }
+  .summary-result {
+    flex: 1;
+  }
+  .amount-value {
+    font-size: 1.5rem;
+  }
+  .operator {
+    width: 2rem;
+    height: 2rem;
+  }
+  .amount-red {
+    font-size: 1.125rem;
+  }
+  .amount-red-value {
+    font-size: 2.25rem;
+  }
+  .cart-summary {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5rem;
+    margin-bottom: 2.5rem;
+    gap: 8rem;
+  }
+  .summary-box {
+    gap: 0;
+  }
 }
