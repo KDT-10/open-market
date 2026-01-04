@@ -10,6 +10,7 @@
   <script defer type="module" src="/js/pages/cart.js"></script>
   <link rel="stylesheet" href="/styles/components/cart-item.css">
   <link rel="stylesheet" href="/styles/pages/cart.css">
+  <link rel="stylesheet" href="/styles/components/modal.css">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
     <div class="cart-container">
 
       <div class="cart-grid cart-header">
-        <input type="checkbox" id="select-all">
+        <input type="checkbox" id="include-in-total-all">
         <span>상품정보</span>
         <span>수량</span>
         <span>상품금액</span>
@@ -30,7 +31,7 @@
         <div class="cart-items" id="cart-items">
           <template id="cart-item-template">
             <div class="cart-grid cart-item">
-              <input type="checkbox">
+              <input type="checkbox" class="include-in-total">
               <div class="item-info">
                 <div class="product-img-wrapper">
                   <img src="/assets/images/product1.png" alt="무릎 담요">

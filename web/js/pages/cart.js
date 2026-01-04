@@ -1,3 +1,5 @@
+import { createModal } from "/js/common/modal.js";
+
 // TODO: TEST: 임시 데이터 사용 중
 // sessionStorage에서 cartData 불러와서 표시
 const cartData = JSON.parse(sessionStorage.getItem("cartData")) || [
@@ -43,6 +45,9 @@ const cartData = JSON.parse(sessionStorage.getItem("cartData")) || [
   },
 ];
 
+const modifyQuantityModalPromise = createModifyQuantityModal();
+const deleteCartItemModalPromise = createDeleteCartItemModal();
+const orderModalPromise = createOrderModal();
 renderCartItems();
 
 // 주문하기
@@ -52,28 +57,98 @@ orderBtnLarge.addEventListener("click", () => {
 });
 
 function renderCartItems() {
+  bindIncludeInTotalAllEvent();
+
   const cartItems = document.getElementById("cart-items");
 
   toggleEmptyState(cartData.length > 0);
 
-  cartData.forEach((data, index) => {
-    const cartItem = createCartItem(data, index);
+  cartData.forEach((data) => {
+    data.quantity ??= 1;
+    data.includeInTotal ??= false;
+    const cartItem = createCartItem(data);
     cartItems.appendChild(cartItem);
   });
 
   showFinalData();
 }
 
-function bindQuantityEvents(cartItem, data, index) {
+function bindIncludeInTotalAllEvent() {
+  const includeInTotalAll = document.getElementById("include-in-total-all");
+  includeInTotalAll.addEventListener("change", () => {
+    const includeInTotals = document.querySelectorAll(".include-in-total");
+    includeInTotals.forEach((elem) => {
+      elem.checked = includeInTotalAll.checked;
+      elem.dispatchEvent(new Event("change"));
+    });
+
+    showFinalData();
+  });
+}
+
+function toggleEmptyState(hasItems) {
+  document.getElementById("empty-message").classList.toggle("hidden", hasItems);
+  document.getElementById("cart-container-inner").classList.toggle("hidden", !hasItems);
+}
+
+function createCartItem(data) {
+  const { id } = data;
+  const cartItem = cloneCartItemElem(data);
+  cartItem.id = `item-${id}`;
+  bindDeleteCartItemEvent(cartItem);
+  bindModifyEvent(cartItem, data);
+  bindIncludeInTotalEvent(cartItem, data);
+  showCartItemData(cartItem, data);
+  showFinalData();
+  return cartItem;
+}
+
+// cartItem 생성
+function cloneCartItemElem(data) {
+  const {
+    image,
+    name,
+    price,
+    shipping_method,
+    seller: { store_name }
+  } = data;
+
+  const template = document.getElementById("cart-item-template");
+  const node = template.content.cloneNode(true);
+  const elem = node.querySelector(".cart-item");
+
+  elem.querySelector(".product-img-wrapper img").src = image;
+  elem.querySelector(".main-text-brand").textContent = store_name;
+  elem.querySelector(".main-text-name").textContent = name;
+  elem.querySelector(".main-text-price-unit").textContent = `${price.toLocaleString()}원`;
+  elem.querySelector(".secondary-text-delivery").textContent = shipping_method;
+  elem.querySelector(".price-red").textContent = `${price.toLocaleString()}원`;
+
+  return elem;
+}
+
+function bindDeleteCartItemEvent(cartItem) {
+  const deleteBtn = cartItem.querySelector(".delete-btn");
+  deleteBtn.addEventListener("click", async () => {
+    const modal = await deleteCartItemModalPromise;
+    modal.open(() => {
+      cartItem.remove();
+      const id = cartItem.id.split("-")[1];
+      deleteSessionStorage(id);
+      showFinalData();
+    });
+  });
+}
+
+function bindModifyEvent(cartItem, data) {
   const decreaseBtn = cartItem.querySelector(".quantity-decrease");
   const increaseBtn = cartItem.querySelector(".quantity-increase");
 
   const updateAmount = (delta) => {
-    if (data.quantity + delta < 0) return;
+    if (data.quantity + delta < 1) return;
 
     data.quantity += delta;
-    modifyQuantity(index, data.quantity);
-
+    updateSessionStorage();
     showCartItemData(cartItem, data);
     showFinalData();
   };
@@ -82,26 +157,21 @@ function bindQuantityEvents(cartItem, data, index) {
   increaseBtn.addEventListener("click", () => updateAmount(1));
 }
 
-function createCartItem(data, index) {
-  data.quantity ??= 1;
-
-  const cartItem = cloneCartItemElem(data);
-  cartItem.id = `item-${index}`;
-
-  showCartItemData(cartItem, data);
-  bindQuantityEvents(cartItem, data, index);
-
-  return cartItem;
+function bindIncludeInTotalEvent(cartItem, data) {
+  const includeInTotal = cartItem.querySelector(".include-in-total");
+  includeInTotal.addEventListener("change", () => {
+    data.includeInTotal = includeInTotal.checked;
+    showFinalData();
+  });
 }
 
-function toggleEmptyState(hasItems) {
-  document.getElementById("empty-message").classList.toggle("hidden", hasItems);
-  document.getElementById("cart-container-inner").classList.toggle("hidden", !hasItems);
+function deleteSessionStorage(id) {
+  const index = cartData.findIndex(data => data.id === Number(id));
+  if (index !== -1) cartData.splice(index, 1);
+  updateSessionStorage();
 }
 
-// 수량 변경 시 sessionStorage 업데이트
-function modifyQuantity(index, newQuantity) {
-  cartData[index].quantity = newQuantity;
+function updateSessionStorage() {
   sessionStorage.setItem("cartData", JSON.stringify(cartData));
 }
 
@@ -118,7 +188,7 @@ function showFinalData() {
     discountAmount,
     deliverySum,
     finalPrice
-  } = calculateCartSummary(cartData);
+  } = calcPriceSum(cartData);
 
   document.getElementById("total-price").textContent = priceSum.toLocaleString();
   document.getElementById("discount-amount").textContent = discountAmount.toLocaleString();
@@ -127,9 +197,13 @@ function showFinalData() {
 }
 
 // 결제 예정 금액 계산
-function calculateCartSummary(cartData, discountRate = 0) {
+function calcPriceSum(cartData) {
+  // TODO: discount는 db에 없음
+  let discountRate = 0.0;
+
   const { priceSum, deliverySum } = cartData.reduce(
-    (acc, { price, quantity, shipping_fee }) => {
+    (acc, { price, quantity, shipping_fee, includeInTotal }) => {
+      if (!includeInTotal) return acc;
       acc.priceSum += price * quantity;
       acc.deliverySum += quantity > 0 ? shipping_fee : 0;
       return acc;
@@ -155,26 +229,29 @@ function order() {
   window.location.href = "order.html";
 }
 
-// cartItem 생성
-function cloneCartItemElem(data) {
-  const {
-    image,
-    name,
-    price,
-    shipping_method,
-    seller: { store_name }
-  } = data;
+// TODO: 각 모달 상세 내용
+async function createModifyQuantityModal() {
+  // const modalObj = await createModal();
+  // modalObj.setContent();
+  // return modalObj;
+}
+async function createDeleteCartItemModal() {
+  const parent = document.body;
+  const content = document.createElement("p");
+  content.textContent = "상품을 삭제하시겠습니까?";
+  const cancelBtnTxt = "취소";
+  const confirmBtnTxt = "확인";
+  const modalObj = await createModal({
+    parent,
+    content,
+    cancelBtnTxt,
+    confirmBtnTxt
+  });
 
-  const template = document.getElementById("cart-item-template");
-  const node = template.content.cloneNode(true);
-  const el = node.querySelector(".cart-item");
-
-  el.querySelector(".product-img-wrapper img").src = image;
-  el.querySelector(".main-text-brand").textContent = store_name;
-  el.querySelector(".main-text-name").textContent = name;
-  el.querySelector(".main-text-price-unit").textContent = `${price.toLocaleString()}원`;
-  el.querySelector(".secondary-text-delivery").textContent = shipping_method;
-  el.querySelector(".price-red").textContent = `${price.toLocaleString()}원`;
-
-  return el;
+  return modalObj;
+}
+async function createOrderModal() {
+  // const modalObj = await createModal();
+  // modalObj.setContent();
+  // return modalObj;
 }

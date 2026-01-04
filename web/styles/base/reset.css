@@ -27,6 +27,10 @@ button {
   cursor: pointer;
 }
 
+input {
+  margin: 0;
+}
+
 .hidden {
   display: none;
 }
