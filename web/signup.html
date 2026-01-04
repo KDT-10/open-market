@@ -8,6 +8,7 @@
   <script defer type="module" src="/js/common/base.js"></script>
   <link rel="stylesheet" href="/styles/pages/signup.css">
   <link rel="stylesheet" href="/styles/components/form.css">
+  <link rel="stylesheet" href="/styles/components/checkbox.css">
   <script defer type="module" src="/js/pages/signup.js"></script>
 </head>
 
@@ -50,6 +51,11 @@
                 <div class="input-title">비밀번호</div>
                 <div class="input-group">
                   <input type="password" class="text-input" id="password-input">
+                  <div class="pw-chk-icon-wrapper">
+                    <svg width="34" height="34">
+                      <use href="/assets/icons/sprite.svg#icon-check-password"></use>
+                    </svg>
+                  </div>
                 </div>
                 <div id="password-message" class="hidden"></div>
               </div>
@@ -57,6 +63,11 @@
                 <div class="input-title">비밀번호 확인</div>
                 <div class="input-group">
                   <input type="password" class="text-input" id="password-confirm-input">
+                  <div class="pw-chk-icon-wrapper">
+                    <svg width="34" height="34">
+                      <use href="/assets/icons/sprite.svg#icon-check-password"></use>
+                    </svg>
+                  </div>
                 </div>
                 <div id="password-confirm-message" class="hidden"></div>
               </div>
@@ -101,9 +112,12 @@
 
         <div class="form-footer-menu">
           <div class="terms">
-            <input type="checkbox" id="terms-cbox">
-            <label for="terms-cbox">호두샵의 <a href="#" class="strong-link">이용약관</a> 및 <a href="#"
-                class="strong-link">개인정보처리방침</a>에 대한 내용을 확인하였고 동의합니다.</label>
+            <label class="primary-cbox" for="terms-cbox">
+              <input type="checkbox" id="terms-cbox">
+              <span class="checkmark"></span>
+              호두샵의 <a href="#" class="strong-link">이용약관</a> 및 <a href="#" class="strong-link">개인정보처리방침</a>에 대한 내용을 확인하였고
+              동의합니다.
+            </label>
           </div>
           <button type="submit" class="primary-btn disabled-btn" id="signup-btn" form="signup-form">가입하기</button>
         </div>
