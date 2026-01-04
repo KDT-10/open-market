@@ -74,7 +74,7 @@
 .quantity-control-btn {
   border: 1px solid var(--color-secondary-gray);
 }
-.quantity-amount {
+.quantity-amount-btn {
   border-left: 1px solid var(--color-secondary-gray);
   border-right: 1px solid var(--color-secondary-gray);
 }
@@ -132,7 +132,7 @@
   .quantity-control-btn {
     border: 1px solid var(--color-secondary-gray);
   }
-  .quantity-amount {
+  .quantity-amount-btn {
     border: none;
     border-top: 1px solid var(--color-secondary-gray);
     border-bottom: 1px solid var(--color-secondary-gray);

@@ -70,7 +70,7 @@ function renderCartItems() {
     cartItems.appendChild(cartItem);
   });
 
-  showFinalData();
+  updateFinalData();
 }
 
 function bindIncludeInTotalAllEvent() {
@@ -82,7 +82,7 @@ function bindIncludeInTotalAllEvent() {
       elem.dispatchEvent(new Event("change"));
     });
 
-    showFinalData();
+    updateFinalData();
   });
 }
 
@@ -98,8 +98,8 @@ function createCartItem(data) {
   bindDeleteCartItemEvent(cartItem);
   bindModifyEvent(cartItem, data);
   bindIncludeInTotalEvent(cartItem, data);
-  showCartItemData(cartItem, data);
-  showFinalData();
+  updateCartItemData(cartItem, data);
+  updateFinalData();
   return cartItem;
 }
 
@@ -130,12 +130,12 @@ function cloneCartItemElem(data) {
 function bindDeleteCartItemEvent(cartItem) {
   const deleteBtn = cartItem.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", async () => {
-    const modal = await deleteCartItemModalPromise;
-    modal.open(() => {
+    const modalObj = await deleteCartItemModalPromise;
+    modalObj.open(() => {
       cartItem.remove();
       const id = cartItem.id.split("-")[1];
       deleteSessionStorage(id);
-      showFinalData();
+      updateFinalData();
     });
   });
 }
@@ -143,30 +143,43 @@ function bindDeleteCartItemEvent(cartItem) {
 function bindModifyEvent(cartItem, data) {
   const decreaseBtn = cartItem.querySelector(".quantity-decrease");
   const increaseBtn = cartItem.querySelector(".quantity-increase");
+  const quantityAmountBtn = cartItem.querySelector(".quantity-amount-btn");
 
-  const updateAmount = (delta) => {
-    if (data.quantity + delta < 1) return;
-
-    data.quantity += delta;
+  const updateAmount = (amount) => {
+    if (data.quantity + amount < 1) return;
+    data.quantity += amount;
     updateSessionStorage();
-    showCartItemData(cartItem, data);
-    showFinalData();
+    updateCartItemData(cartItem, data);
+    updateFinalData();
   };
-
   decreaseBtn.addEventListener("click", () => updateAmount(-1));
   increaseBtn.addEventListener("click", () => updateAmount(1));
+
+  quantityAmountBtn.addEventListener("click", async () => {
+    const quantityAmount = quantityAmountBtn.textContent;
+    const modalObj = await modifyQuantityModalPromise;
+    const modalQuantityAmountBtn = modalObj.modal.querySelector(".quantity-amount-btn");
+    modalQuantityAmountBtn.textContent = quantityAmount;
+    modalObj.open(() => {
+      const modalQuantityAmount = Number(modalQuantityAmountBtn.textContent);
+      data.quantity = modalQuantityAmount;
+      updateSessionStorage();
+      updateCartItemData(cartItem, data);
+      updateFinalData();
+    });
+  });
 }
 
 function bindIncludeInTotalEvent(cartItem, data) {
   const includeInTotal = cartItem.querySelector(".include-in-total");
   includeInTotal.addEventListener("change", () => {
     data.includeInTotal = includeInTotal.checked;
-    showFinalData();
+    updateFinalData();
   });
 }
 
 function deleteSessionStorage(id) {
-  const index = cartData.findIndex(data => data.id === Number(id));
+  const index = cartData.findIndex(data => Number(data.id) === Number(id));
   if (index !== -1) cartData.splice(index, 1);
   updateSessionStorage();
 }
@@ -176,13 +189,13 @@ function updateSessionStorage() {
 }
 
 // 데이터 렌더링(카트 아이템)
-function showCartItemData(elem, data) {
-  elem.querySelector(".quantity-amount").textContent = data.quantity;
+function updateCartItemData(elem, data) {
+  elem.querySelector(".quantity-amount-btn").textContent = data.quantity;
   elem.querySelector(".price-red").textContent = `${(data.price * data.quantity).toLocaleString()}원`;
 }
 
 // 결제 예정 금액 렌더링
-function showFinalData() {
+function updateFinalData() {
   const {
     priceSum,
     discountAmount,
@@ -231,10 +244,41 @@ function order() {
 
 // TODO: 각 모달 상세 내용
 async function createModifyQuantityModal() {
-  // const modalObj = await createModal();
-  // modalObj.setContent();
-  // return modalObj;
+  const parent = document.body;
+  const content = document.createElement("div");
+  const template = document.getElementById("cart-item-template");
+  const templateContent = template.content;
+  const quantityControlTemplate = templateContent.querySelector(".quantity-control");
+  const quantityControl = quantityControlTemplate.cloneNode(true);
+  content.appendChild(quantityControl);
+  const cancelBtnTxt = "취소";
+  const confirmBtnTxt = "수정";
+  const modalObj = await createModal({
+    parent,
+    content,
+    cancelBtnTxt,
+    confirmBtnTxt
+  });
+
+  bindModalModifyEvent(modalObj.modal);
+
+  return modalObj;
 }
+function bindModalModifyEvent(modal) {
+  const decreaseBtn = modal.querySelector(".quantity-decrease");
+  const increaseBtn = modal.querySelector(".quantity-increase");
+
+  const updateAmount = (amount) => {
+    const quantityAmountBtn = modal.querySelector(".quantity-amount-btn");
+    let quantityAmount = Number(quantityAmountBtn.textContent);
+    if (quantityAmount + amount < 1) return;
+    quantityAmount += amount;
+    quantityAmountBtn.textContent = quantityAmount;
+  };
+  decreaseBtn.addEventListener("click", () => updateAmount(-1));
+  increaseBtn.addEventListener("click", () => updateAmount(1));
+}
+
 async function createDeleteCartItemModal() {
   const parent = document.body;
   const content = document.createElement("p");
