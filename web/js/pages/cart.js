@@ -1,58 +1,28 @@
 import { createModal } from "/js/common/modal.js";
+import { isLoggedIn, checkLogin } from "/js/common/auth.js";
 
-// TODO: TEST: 임시 데이터 사용 중
-// sessionStorage에서 cartData 불러와서 표시
-const cartData = JSON.parse(sessionStorage.getItem("cartData")) || [
-  {
-    "id": 1,
-    "name": "Hack Your Life 개구리 노트북 파우치",
-    "info": "우당탕탕 라이언의 실무생",
-    "image": "./assets/images/product1.png",
-    "price": 29000,
-    "shipping_method": "PARCEL",
-    "shipping_fee": 1000,
-    "stock": 8,
-    "seller": {
-      "username": "seller@test.com",
-      "name": "이스트2",
-      "phone_number": "010-1111-2222",
-      "user_type": "SELLER",
-      "company_registration_number": "1122334455",
-      "store_name": "이스트가게"
-    },
-    "created_at": "2024-10-27T10:30:00.000Z",
-    "updated_at": "2025-11-18T03:29:19.984Z"
-  },
-  {
-    "id": 2,
-    "name": "네 개발자니? 개발자팀 코딩키링",
-    "info": "개구쟁이코더들",
-    "image": "./assets/images/product2.png",
-    "price": 29000,
-    "shipping_method": "DELIVERY",
-    "shipping_fee": 1000,
-    "stock": 16,
-    "seller": {
-      "username": "seller@test.com",
-      "name": "이스트2",
-      "phone_number": "010-1111-2222",
-      "user_type": "SELLER",
-      "company_registration_number": "1122334455",
-      "store_name": "이스트가게"
-    },
-    "created_at": "2024-10-27T10:30:00.000Z",
-    "updated_at": "2025-10-22T08:28:58.816Z"
-  },
-];
+// 장바구니 데이터 로드
+let cartData;
+(async () => {
+  // 로그인 상태에 따른 데이터 로드
+  if (isLoggedIn()) {
+    cartData = await fetchCart();
+  } else {
+    cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
+  }
+  // 장바구니 아이템 렌더링
+  renderCartItems(cartData);
+})();
 
 const modifyQuantityModalPromise = createModifyQuantityModal();
 const deleteCartItemModalPromise = createDeleteCartItemModal();
-const orderModalPromise = createOrderModal();
-renderCartItems();
+const loginModalPromise = createLoginModal();
 
 // 주문하기
 const orderBtnLarge = document.getElementById("order-btn-large");
-orderBtnLarge.addEventListener("click", () => {
+orderBtnLarge.addEventListener("click", async () => {
+  const body = document.body;
+  if (!await checkLogin(body)) return;
   order();
 });
 
@@ -201,7 +171,7 @@ function updateFinalData() {
     discountAmount,
     deliverySum,
     finalPrice
-  } = calcPriceSum(cartData);
+  } = calcPriceSum();
 
   document.getElementById("total-price").textContent = priceSum.toLocaleString();
   document.getElementById("discount-amount").textContent = discountAmount.toLocaleString();
@@ -210,7 +180,7 @@ function updateFinalData() {
 }
 
 // 결제 예정 금액 계산
-function calcPriceSum(cartData) {
+function calcPriceSum() {
   // TODO: discount는 db에 없음
   let discountRate = 0.0;
 
@@ -294,8 +264,16 @@ async function createDeleteCartItemModal() {
 
   return modalObj;
 }
-async function createOrderModal() {
+async function createLoginModal() {
   // const modalObj = await createModal();
   // modalObj.setContent();
   // return modalObj;
+}
+
+// GET /api/cart 호출하여 상품 목록 표시
+async function fetchCart() {
+  const url = `http://localhost:3000/api/cart`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data.results;
 }

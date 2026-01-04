@@ -131,7 +131,7 @@ input[type="checkbox"] {
     gap: 2rem;
   }
   .cart-grid {
-    grid-template-columns: 4rem 1fr 4rem 8rem;
+    grid-template-columns: 4rem 1fr 6rem 8rem;
   }
   .amount-red-value {
     font-size: 2rem;
@@ -146,7 +146,7 @@ input[type="checkbox"] {
 }
 @media (min-width: 1200px) {
   .cart-grid {
-    grid-template-columns: 4rem 1fr 6rem 12rem;
+    grid-template-columns: 4rem 1fr 9rem 12rem;
   }
   .cart-header {
     margin-bottom: 2.25rem;
