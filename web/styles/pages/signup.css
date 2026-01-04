@@ -31,7 +31,7 @@
   border-top-right-radius: 10px;
   background-color: var(--color-secondary-gray);
 }
-.active-form-tab {
+.form-tab-button.active {
   border-bottom: 0;
   background-color: var(--color-active-tab-btn-bg);
 }
@@ -48,6 +48,9 @@
 }
 
 .form-tab-content {
+  display: none;
+}
+.form-tab-content.active {
   display: flex;
   flex-direction: column;
   gap: 1rem;

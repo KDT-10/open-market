@@ -1,48 +1,46 @@
-function setTabGroup(...tabs) {
+export function setTabGroup(activeClassName, tabsData) {
   // 초기 탭 렌더링
-  // 다른 탭 비활성화
-  tabs.forEach((tab) => tab.classList.remove("active"));
-  // 클릭된 탭 활성화
-  tabs[0].classList.add("active");
-  tabs[0].focus();
+  setTabActive(activeClassName, tabsData, 0);
 
-  tabs.forEach((tab) => {
+  tabsData.forEach((tabObj, i) => {
     // 클릭 이벤트 바인딩
-    tab.addEventListener("click", () => {
-      // 다른 탭 비활성화
-      tabs.forEach((tab) => tab.classList.remove("active"));
-      // 클릭된 탭 활성화
-      tab.classList.add("active");
-      tab.focus();
+    tabObj.tab.addEventListener("click", () => {
+      setTabActive(activeClassName, tabsData, i);
     });
 
     // 키보드 이벤트 바인딩
-    tab.addEventListener("keydown", (e) => {
+    tabObj.tab.addEventListener("keydown", (e) => {
       if (e.key === "Tab") {
         e.preventDefault();
 
         let currentIndex = null;
         switch (e.key) {
           case "ArrowLeft":
-            currentIndex = (index - 1 + tabs.length) % tabs.length;
+            currentIndex = (index - 1 + tabsData.length) % tabsData.length;
             break;
           case "ArrowRight":
-            currentIndex = (index + 1) % tabs.length;
+            currentIndex = (index + 1) % tabsData.length;
             break;
           case "Home":
             currentIndex = 0;
             break;
           case "End":
-            currentIndex = tabs.length - 1;
+            currentIndex = tabsData.length - 1;
             break;
         }
 
-        // 다른 탭 비활성화
-        tabs.forEach((tab) => tab.classList.remove("active"));
-        // 선택된 탭 활성화
-        tabs[currentIndex].classList.add("active");
-        tabs[currentIndex].focus();
+        setTabActive(activeClassName, tabsData, currentIndex);
       }
     });
   })
+}
+
+function setTabActive(activeClassName, tabsData, idx) {
+  tabsData.forEach((tabData) => {
+    tabData.tab.classList.remove(activeClassName);
+    if (tabData.content) tabData.content.classList.remove(activeClassName);
+  });
+  tabsData[idx].tab.classList.add(activeClassName);
+  if (tabsData[idx].content) tabsData[idx].content.classList.add(activeClassName);
+  tabsData[idx].tab.focus();
 }

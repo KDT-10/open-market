@@ -1,4 +1,5 @@
 import Validation from "/js/common/validation.js";
+import { setTabGroup } from "/js/common/tab-ui.js";
 
 let isUsernameChecked = false;
 let isRegistrationNumberChecked = false;
@@ -13,16 +14,10 @@ logoBtn.addEventListener("click", () => {
 const buyerTab = document.getElementById("buyer-tab");
 const sellerTab = document.getElementById("seller-tab");
 const sellerFields = document.getElementById("seller-fields");
-buyerTab.addEventListener("click", () => {
-  buyerTab.classList.toggle("active-form-tab");
-  sellerTab.classList.toggle("active-form-tab");
-  sellerFields.classList.toggle("hidden");
-});
-sellerTab.addEventListener("click", () => {
-  buyerTab.classList.toggle("active-form-tab");
-  sellerTab.classList.toggle("active-form-tab");
-  sellerFields.classList.toggle("hidden");
-});
+setTabGroup("active", [
+  { tab: buyerTab, content: null },
+  { tab: sellerTab, content: sellerFields }
+]);
 
 // 중복 확인
 const usernameInput = document.getElementById("username");
