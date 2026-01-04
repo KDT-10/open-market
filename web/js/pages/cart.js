@@ -16,7 +16,6 @@ let cartData;
 
 const modifyQuantityModalPromise = createModifyQuantityModal();
 const deleteCartItemModalPromise = createDeleteCartItemModal();
-const loginModalPromise = createLoginModal();
 
 // 주문하기
 const orderBtnLarge = document.getElementById("order-btn-large");
@@ -106,6 +105,7 @@ function bindDeleteCartItemEvent(cartItem) {
       const id = cartItem.id.split("-")[1];
       deleteSessionStorage(id);
       updateFinalData();
+      toggleEmptyState(cartData.length > 0);
     });
   });
 }
@@ -263,11 +263,6 @@ async function createDeleteCartItemModal() {
   });
 
   return modalObj;
-}
-async function createLoginModal() {
-  // const modalObj = await createModal();
-  // modalObj.setContent();
-  // return modalObj;
 }
 
 // GET /api/cart 호출하여 상품 목록 표시
