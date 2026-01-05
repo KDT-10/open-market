@@ -1,0 +1,48 @@
+@import './variables.css';
+@import './fonts.css';
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 사용 */
+    gap: 40px; /* 아이콘과 텍스트 사이 간격 */
+    font-family: 'Pretendard', sans-serif; /* 폰트 설정 */
+}
+
+.text-box h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text-box p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* 초록색 버튼 */
+.btn-main {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 흰색 버튼 */
+.btn-prev {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+}

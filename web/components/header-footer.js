@@ -18,9 +18,11 @@ loadHTMLToBody('/components/header.html', false)
     if (mypageBtn) {
       mypageBtn.addEventListener('click', () => {
         if (!getAccessToken()) {
+          //TODO: 로그인 페이지로 이동
           window.location.href = '/pages/login.html';
         } else {
-          window.location.href = '/pages/mypage.html';
+          //TODO: 마이페이지로 이동
+          window.location.href = '/pages/404.html';
         }
       });
     }

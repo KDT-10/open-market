@@ -6,7 +6,7 @@ const productId = params.get('id');
 let quantity = 1;
 let price = 0;
 
-// --- DOM ---
+// DOM
 const minusBtn = document.querySelector('.quantify button:first-child');
 const plusBtn = document.querySelector('.quantify button:last-child');
 const quantityInput = document.querySelector('.quantify input');
@@ -27,13 +27,13 @@ const modalYes = document.getElementById('modalYes');
 const overlay = document.querySelector('.modal-overlay');
 const closeBtn = document.querySelector('.modal-close');
 
-// --- 로그인 체크 함수 ---
+// 로그인 체크 함수
 function getAccessToken() {
   return localStorage.getItem('accessToken');
 }
 const isLogin = !!getAccessToken();
 
-// --- 수량/가격 계산 ---
+// 수량/가격 계산
 function updateTotal() {
   if (!quantityInput || !totalQuantityText || !totalPriceText) return;
 
@@ -42,7 +42,7 @@ function updateTotal() {
   totalPriceText.textContent = (price * quantity).toLocaleString() + '원';
 }
 
-// --- 상품 렌더링 함수 ---
+// 상품 렌더링 함수
 function renderProductDetails(product) {
   if (!product) return;
 
@@ -63,7 +63,7 @@ function renderProductDetails(product) {
   updateTotal();
 }
 
-// --- 상품 불러오기 (async/await) ---
+// 상품 불러오기 async/await
 async function fetchProduct(productId) {
   try {
     const response = await fetch(`http://localhost:3000/products/${productId}`);
@@ -80,7 +80,7 @@ async function fetchProduct(productId) {
   }
 }
 
-// --- 모달 ---
+// 모달
 function openModal() {
   modal.classList.remove('hidden');
 }
@@ -91,7 +91,7 @@ function openCartConfirmModal() {
   modal.classList.remove('hidden');
 }
 
-// --- 로그인 체크 공통 ---
+// 로그인 체크 공통
 function requireLogin(callback) {
   return function (e) {
     e.preventDefault();
@@ -103,7 +103,7 @@ function requireLogin(callback) {
   };
 }
 
-// --- DOMContentLoaded ---
+// DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
 
   // 상품 불러오기
