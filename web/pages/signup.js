@@ -111,7 +111,7 @@ function setupPassword(prefix) {
    아이디 중복검사 API 연결
 ========================= */
 async function validateUsername(username) {
-  return apiFetch("/api/accounts/validate-username", {
+  return apiFetch("http://localhost:3000/api/accounts/validate-username", {
     method: "POST",
     body: JSON.stringify({ username }),
   });

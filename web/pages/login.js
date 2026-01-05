@@ -40,7 +40,7 @@ form.addEventListener("submit", (e) => {
   const CORRECT_PW = "1234";
 
   if (id !== CORRECT_ID || pw !== CORRECT_PW) {
-    errorMessage.textContent = "아이디 또는 비밀번호가 일치하지W 않습니다.";
+    errorMessage.textContent = "아이디 또는 비밀번호가 일치하지 않습니다.";
     return;
   }
 
