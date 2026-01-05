@@ -22,28 +22,26 @@ form.addEventListener("submit", (e) => {
   const id = userId.value.trim();
   const pw = userPw.value.trim();
   // 아이디, 비밀번호 모두 공란 OR 비밀번호만 입력
-  if ((!id && !pw) || (!id && pw)) {
-    errorMessage.textContent = "아이디를 입력해 주세요.";
-    userId.focus();
+  if (!id || !pw) {
+    errorMessage.textContent = "아이디 또는 비밀번호를 입력해 주세요.";
+    if (!id) {
+      userId.focus();
+    } else {
+      userPw.focus();
+    }
     return;
   }
-
-  // 아이디만 입력
-  if (id && !pw) {
-    errorMessage.textContent = "비밀번호를 입력해 주세요.";
-    userPw.focus();
-    return;
-  }
-
-  // 아이디, 비밀번호 불일치 (임시 조건)
+  // === 로그인 검증 영역 (임시 → API로 교체 예정) ===
   const CORRECT_ID = "test";
   const CORRECT_PW = "1234";
 
-  if (id !== CORRECT_ID || pw !== CORRECT_PW) {
-    errorMessage.textContent = "아이디 또는 비밀번호가 일치하지W 않습니다.";
+  const isValidLogin = id === CORRECT_ID && pw === CORRECT_PW;
+
+  if (!isValidLogin) {
+    errorMessage.textContent = "아이디 또는 비밀번호가 일치하지 않습니다.";
     return;
   }
-
+  // ===============================================
   // 성공
   errorMessage.textContent = "";
   localStorage.setItem("auth", JSON.stringify({ isLogin: true, id }));
