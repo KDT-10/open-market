@@ -8,20 +8,22 @@ detail.html  상품 상세 조회
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 구매 페이지</title>
-    <link rel="stylesheet" href="styles/pages/detail.css">
-    <link rel="stylesheet" href="styles/components/button.css">
-    <script defer src="./js/common/base.js"></script>
-    <script defer src="./js/common/layout.js"></script>
-    <script defer src="./js/pages/detail.js"></script> 
+    <link rel="stylesheet" href="/styles/pages/detail.css">
+    <link rel="stylesheet" href="/styles/components/button.css">
+    <script defer type="module" src="/js/common/base.js"></script>
+    <script defer type="module" src="/js/common/layout.js"></script>
+    <script defer type="module" src="/js/pages/detail.js"></script>
 </head>
+
 <body>
     <div class="detail-container" id="detail-container">
         <!-- 동적으로 로드되는 상품 상세 정보 -->
-         <div class="product-detail">
+        <div class="product-detail">
             <img class="product-image" id="product-image" src="" alt="상품 이미지">
 
             <div class="product-shell"><!-- 칸 정리 -->
@@ -35,14 +37,14 @@ detail.html  상품 상세 조회
                     <button id="decrease-qty">-</button>
                     <input type="text" id="quantity" value="1" readonly>
                     <button id="increase-qty">+</button>
-                </div> 
+                </div>
                 <p class="total-price" id="total-price">총 가격: </p>
 
                 <button id="buy-now">바로 구매</button>
             </div>
-         </div>
+        </div>
 
-         <div class="detail-info-container">
+        <div class="detail-info-container">
             <div button="detail-info-btn" class="button-container">버튼
             </div>
             <div button="detail-info-btn" class="review-container">리뷰
@@ -53,4 +55,5 @@ detail.html  상품 상세 조회
             </div>
         </div>
 </body>
+
 </html>

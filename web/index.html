@@ -5,15 +5,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZADU - 오픈 마켓</title>
-  <script type="module" src="./js/common/base.js"></script>
-  <script type="module" src="./js/index.js"></script>
-  <script type="module" src="./js/common/layout.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="/styles/pages/index.css">
+  <link rel="stylesheet" href="/styles/components/product-card.css">
+  <script type="module" src="/js/common/base.js"></script>
+  <script type="module" src="/js/common/layout.js"></script>
+  <script type="module" src="/js/pages/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const swiper = new Swiper('.main-banner', {
+        loop: true,
+        spaceBetween: 0,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
 </head>
 
 <body>
   <main id="main">
+
+    <!-- 캐러셀 -->
+    <div class="swiper main-banner">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="/assets/images/product1.png" alt="배너 1"></div>
+        <div class="swiper-slide"><img src="/assets/images/product2.png" alt="배너 2"></div>
+        <div class="swiper-slide"><img src="/assets/images/product3.png" alt="배너 3"></div>
+        <div class="swiper-slide"><img src="/assets/images/product4.png" alt="배너 4"></div>
+        <div class="swiper-slide"><img src="/assets/images/product5.png" alt="배너 5"></div>
+      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- 상품 -->
     <div class="main-content-container">
-      <div class="product-container" id="product-container"></div>
+      <div class="product-container" id="product-container">
+        <template id="product-card-template">
+          <div class="product-card">
+            <div class="product-img-wrapper">
+              <img src="/assets/images/product1.png" alt="상품">
+            </div>
+            <div class="product-info">
+              <div class="product-seller">우당탕탕 라이캣의 실험실</div>
+              <div class="product-name">Hack Your Life 개발자 노트북 파우치</div>
+              <div class="product-price">
+                <span class="product-price-text">29,000</span>
+                <span class="product-price-unit-text">원</span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
   </main>
 </body>
