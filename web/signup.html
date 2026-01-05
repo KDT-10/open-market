@@ -5,26 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원가입</title>
-  <script type="module" src="./js/common/base.js"></script>
-  <link rel="stylesheet" href="./styles/pages/signup.css">
-  <link rel="stylesheet" href="./styles/components/form.css">
-  <script defer type="module" src="./js/common/layout.js"></script>
-  <script defer type="module" src="./js/signup.js"></script>
+  <script defer type="module" src="/js/common/base.js"></script>
+  <link rel="stylesheet" href="/styles/pages/signup.css">
+  <link rel="stylesheet" href="/styles/components/form.css">
+  <link rel="stylesheet" href="/styles/components/checkbox.css">
+  <script defer type="module" src="/js/pages/signup.js"></script>
 </head>
 
 <body>
   <main>
     <div class="container">
       <!-- 로고 -->
-      <button class="logo-btn">
-        <img src="./assets/images/Logo-jadu-lg.png" alt="로고">
+      <button id="signup-logo-btn" class="logo-btn">
+        <img src="/assets/images/Logo-jadu-lg.png" alt="로고">
       </button>
 
       <div class="form-tab-menu">
         <!-- 탭 메뉴 -->
         <div class="form-tab-menu-btns" role="tablist" aria-label="가입 회원 분류 탭">
-          <button id="buyer-tab" class="form-tab-button active-form-tab" data-tab="buyer" role="tab"
-            aria-selected="true" aria-controls="buyer-content" tabindex="-1">
+          <button id="buyer-tab" class="form-tab-button active" data-tab="buyer" role="tab" aria-selected="true"
+            aria-controls="buyer-content" tabindex="-1">
             구매회원가입
           </button>
           <button id="seller-tab" class="form-tab-button" data-tab="seller" role="tab" aria-selected="false"
@@ -38,29 +38,38 @@
           <div class="form-tab-content-wrapper">
 
             <!-- 구매회원가입 탭 -->
-            <div id="buyer-fields" class="form-tab-content active-form-tab-content" id="buyer-content" role="tabpanel"
-              tabindex="0">
+            <div id="buyer-fields" class="form-tab-content active" id="buyer-content" role="tabpanel" tabindex="0">
               <div class="input-wrapper">
                 <div class="input-title">아이디</div>
                 <div class="input-group">
                   <input type="text" class="text-input" id="username">
                   <button id="dup-chk-btn" type="button" class="primary-btn">중복확인</button>
                 </div>
-                <div id="username-message"></div>
+                <div id="username-message" class="hidden"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">비밀번호</div>
                 <div class="input-group">
                   <input type="password" class="text-input" id="password-input">
+                  <div class="pw-chk-icon-wrapper">
+                    <svg width="34" height="34">
+                      <use href="/assets/icons/sprite.svg#icon-check-password"></use>
+                    </svg>
+                  </div>
                 </div>
-                <div id="password-message"></div>
+                <div id="password-message" class="hidden"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">비밀번호 확인</div>
                 <div class="input-group">
                   <input type="password" class="text-input" id="password-confirm-input">
+                  <div class="pw-chk-icon-wrapper">
+                    <svg width="34" height="34">
+                      <use href="/assets/icons/sprite.svg#icon-check-password"></use>
+                    </svg>
+                  </div>
                 </div>
-                <div id="password-confirm-message"></div>
+                <div id="password-confirm-message" class="hidden"></div>
               </div>
               <div class="input-wrapper">
                 <div class="input-title">이름</div>
@@ -81,13 +90,14 @@
               </div>
 
               <!-- 판매회원가입 탭 -->
-              <div id="seller-fields" class="hidden" id="seller-content" role="tabpanel" tabindex="0">
+              <div id="seller-fields" class="form-tab-content" id="seller-content" role="tabpanel" tabindex="0">
                 <div class="input-wrapper">
                   <div class="input-title">사업자 등록번호</div>
                   <div class="input-group">
-                    <input type="text" class="text-input" id="business-num">
-                    <button class="primary-btn">인증</button>
+                    <input type="text" class="text-input" id="registration-number-input">
+                    <button type="button" id="registration-number-chk-btn" class="primary-btn">인증</button>
                   </div>
+                  <div id="registration-number-message" class="hidden"></div>
                 </div>
                 <div class="input-wrapper">
                   <div class="input-title">스토어 이름</div>
@@ -97,17 +107,20 @@
                 </div>
               </div>
             </div>
-
-          </div>
-          <div class="form-footer-menu">
-            <div class="terms">
-              <input type="checkbox" id="terms-cbox">
-              <label for="terms-cbox">호두샵의 <a href="#" class="strong-link">이용약관</a> 및 <a href="#"
-                  class="strong-link">개인정보처리방침</a>에 대한 내용을 확인하였고 동의합니다.</label>
-            </div>
-            <button class="primary-btn disabled-btn" id="signup-btn">가입하기</button>
           </div>
         </form>
+
+        <div class="form-footer-menu">
+          <div class="terms">
+            <label class="primary-cbox" for="terms-cbox">
+              <input type="checkbox" id="terms-cbox">
+              <span class="checkmark"></span>
+              호두샵의 <a href="#" class="strong-link">이용약관</a> 및 <a href="#" class="strong-link">개인정보처리방침</a>에 대한 내용을 확인하였고
+              동의합니다.
+            </label>
+          </div>
+          <button type="submit" class="primary-btn disabled-btn" id="signup-btn" form="signup-form">가입하기</button>
+        </div>
       </div>
     </div>
   </main>

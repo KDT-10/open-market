@@ -1,14 +1,7 @@
 .main-content-container {
-  width: min(80%, var(--size-main));
+  width: var(--content-size);
   margin: 0 auto;
   padding: 3.75rem 0;
-}
-
-.product-container {
-  display: grid;
-  grid-template-columns: repeat(2, 3fr);
-  column-gap: 1rem;
-  row-gap: 2rem;
 }
 
 .product-card {
@@ -26,7 +19,7 @@
   gap: 0.25rem;
 }
 .product-seller {
-  color: var(--color-seller-name);
+  color: var(--color-secondary-gray2);
   font-weight: 400;
 }
 .product-name {
