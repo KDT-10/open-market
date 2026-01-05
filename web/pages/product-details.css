@@ -84,12 +84,15 @@
 
 /*--------------------------------------------------------------------*/
 
+/* 공통 CSS 변수 import */
+@import '../styles/variables.css';
+
 /* 전체 영역 */
 .Product-detail {
   max-width: 68.75rem;
   margin: 3.75rem auto;
   padding: 0 1.25rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-family);
 }
 
 /* 상품 메인 영역 */
