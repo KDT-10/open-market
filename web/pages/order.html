@@ -10,6 +10,9 @@
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
     <link rel="stylesheet" href="./order.css" />
+
+    <!-- ✅ Daum(카카오) 우편번호 서비스: open() 방식에 필요 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </head>
   <body>
     <main class="wrap">
@@ -137,13 +140,17 @@
               <div class="field">
                 <div class="addr">
                   <div class="zipRow">
-                    <input class="input input--sm2" id="zip" />
+                    <input
+                      class="input input--sm2"
+                      id="zip"
+                      placeholder="우편번호"
+                    />
                     <button class="btnZip" type="button" id="zipBtn">
                       우편번호 조회
                     </button>
                   </div>
-                  <input class="input" id="addr1" />
-                  <input class="input" id="addr2" />
+                  <input class="input" id="addr1" placeholder="기본주소" />
+                  <input class="input" id="addr2" placeholder="상세주소" />
                 </div>
               </div>
             </div>

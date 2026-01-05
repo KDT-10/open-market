@@ -11,14 +11,14 @@
   --greenBorder: rgba(53, 178, 74, 0.6);
   --red: #e24b3b;
 
-  --w: 980px;
+  --w: 61.25rem;
 
-  --inputH: 22px;
-  --fs11: 11px;
-  --fs12: 12px;
-  --fs13: 13px;
-  --fs14: 14px;
-  --fs18: 18px;
+  --inputH: 1.375rem;
+  --fs11: 0.6875rem;
+  --fs12: 0.75rem;
+  --fs13: 0.8125rem;
+  --fs14: 0.875rem;
+  --fs18: 1.125rem;
 }
 
 * {
@@ -37,8 +37,8 @@ body {
 }
 
 .wrap {
-  width: min(var(--w), calc(100% - 48px));
-  margin: 36px auto 90px;
+  width: min(var(--w), calc(100% - 3rem));
+  margin: 2.25rem auto 5.625rem;
   background: #fff;
 }
 
@@ -46,14 +46,14 @@ body {
   text-align: center;
   font-size: var(--fs18);
   font-weight: 800;
-  margin: 0 0 18px;
+  margin: 0 0 1.125rem;
 }
 
 /* 주문상품 */
 .orderCard {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  border: 0.0625rem solid var(--line);
+  border-radius: 0.625rem;
   overflow: hidden;
 }
 
@@ -66,12 +66,12 @@ body {
 
 .otHead {
   background: var(--soft);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0.0625rem solid var(--line);
   font-size: var(--fs12);
   font-weight: 700;
 }
 .otHead > div {
-  padding: 10px 14px;
+  padding: 0.625rem 0.875rem;
   text-align: center;
 }
 .otBody {
@@ -79,22 +79,22 @@ body {
 }
 
 .otRow {
-  min-height: 78px;
-  border-bottom: 1px solid var(--line);
+  min-height: 4.875rem;
+  border-bottom: 0.0625rem solid var(--line);
   font-size: var(--fs12);
 }
 .otRow:last-child {
   border-bottom: none;
 }
 .otRow > div {
-  padding: 12px 14px;
+  padding: 0.75rem 0.875rem;
   text-align: center;
 }
 
 .cAmt,
 .amt {
   text-align: right;
-  padding-right: 22px !important;
+  padding-right: 1.375rem !important;
   font-weight: 700;
 }
 
@@ -102,15 +102,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 14px;
+  gap: 0.875rem;
   text-align: left;
 }
 .thumb {
-  width: 54px;
-  height: 54px;
-  border-radius: 10px;
+  width: 3.375rem;
+  height: 3.375rem;
+  border-radius: 0.625rem;
   background: #e7e7e7;
-  border: 1px solid #e2e2e2;
+  border: 0.0625rem solid #e2e2e2;
   flex: 0 0 auto;
   overflow: hidden;
 }
@@ -123,11 +123,11 @@ body {
 .meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
   min-width: 0;
 }
 .metaTop {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: #9a9a9a;
   line-height: 1;
 }
@@ -137,10 +137,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 520px;
+  max-width: 32.5rem;
 }
 .qty {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--muted);
 }
 .freeShip {
@@ -151,13 +151,13 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border-top: 1px solid var(--line);
-  padding: 10px 14px;
+  border-top: 0.0625rem solid var(--line);
+  padding: 0.625rem 0.875rem;
 }
 .footSum {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 0.625rem;
 }
 .footLabel {
   font-size: var(--fs12);
@@ -172,47 +172,47 @@ body {
 
 /* 배송정보 */
 .shipSection {
-  margin-top: 26px;
+  margin-top: 1.625rem;
   background: #fff;
 }
 
 .sectionTitleRow {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 10px;
+  gap: 1rem;
+  margin-bottom: 0.625rem;
 }
 .sectionTitle {
   font-size: var(--fs14);
   font-weight: 900;
   margin: 0;
-  min-width: 80px;
+  min-width: 5rem;
 }
 .sectionLine {
-  height: 1px;
+  height: 0.0625rem;
   background: var(--line);
   flex: 1;
 }
 
 .subBlock {
-  margin-top: 16px;
+  margin-top: 1rem;
 }
 
 .subHead {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin: 0 0 10px;
+  gap: 1rem;
+  margin: 0 0 0.625rem;
 }
 .subTitle {
   margin: 0;
   font-size: var(--fs12);
   font-weight: 900;
-  min-width: 80px;
+  min-width: 5rem;
   color: #222;
 }
 .subLine {
-  height: 1px;
+  height: 0.0625rem;
   background: var(--line);
   flex: 1;
 }
@@ -220,14 +220,14 @@ body {
 .formRows {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 5.625rem 1fr;
   align-items: center;
-  column-gap: 22px;
+  column-gap: 1.375rem;
 }
 
 .lab {
@@ -238,58 +238,58 @@ body {
 
 .input {
   height: var(--inputH);
-  width: 520px;
+  width: 32.5rem;
   max-width: 100%;
-  border: 1px solid var(--line2);
-  border-radius: 2px;
-  padding: 0 8px;
+  border: 0.0625rem solid var(--line2);
+  border-radius: 0.125rem;
+  padding: 0 0.5rem;
   font-size: var(--fs12);
   outline: none;
   background: #fff;
 }
 .input:focus {
   border-color: rgba(53, 178, 74, 0.7);
-  box-shadow: 0 0 0 2px rgba(53, 178, 74, 0.1);
+  box-shadow: 0 0 0 0.125rem rgba(53, 178, 74, 0.1);
 }
 
 .phone {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 .dash {
   color: #9a9a9a;
   font-weight: 700;
 }
 .input--sm {
-  width: 56px;
+  width: 3.5rem;
   text-align: center;
-  padding: 0 6px;
+  padding: 0 0.375rem;
 }
 .input--sm2 {
-  width: 90px;
+  width: 5.625rem;
   text-align: center;
-  padding: 0 6px;
+  padding: 0 0.375rem;
 }
 
 .addr {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  width: 520px;
+  gap: 0.5rem;
+  width: 32.5rem;
   max-width: 100%;
 }
 .zipRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .btnZip {
   height: var(--inputH);
   border: none;
-  border-radius: 2px;
-  padding: 0 12px;
+  border-radius: 0.125rem;
+  padding: 0 0.75rem;
   background: var(--green);
   color: #fff;
   font-size: var(--fs11);
@@ -300,9 +300,9 @@ body {
 /* 하단 */
 .bottomGrid {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 26px;
-  margin-top: 22px;
+  grid-template-columns: 1fr 22.5rem;
+  gap: 1.625rem;
+  margin-top: 1.375rem;
   align-items: start;
   background: #fff;
 }
@@ -310,8 +310,8 @@ body {
 .payHead {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 0.5rem;
+  margin-top: 0.375rem;
 }
 .payTitle {
   margin: 0;
@@ -319,7 +319,7 @@ body {
   font-weight: 900;
 }
 .payLine {
-  height: 1px;
+  height: 0.0625rem;
   background: var(--line);
   width: 100%;
 }
@@ -327,15 +327,15 @@ body {
 .payMethods {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   font-size: var(--fs12);
-  margin-top: 8px;
+  margin-top: 0.5rem;
   flex-wrap: wrap;
 }
 .radio {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   user-select: none;
 }
 .radio input {
@@ -343,28 +343,28 @@ body {
 }
 
 .sideTitle {
-  margin: 0 0 10px;
+  margin: 0 0 0.625rem;
   font-size: var(--fs14);
   font-weight: 900;
 }
 
 .payBox {
-  border: 2px solid var(--greenBorder);
-  border-radius: 6px;
-  padding: 14px 14px 16px;
+  border: 0.125rem solid var(--greenBorder);
+  border-radius: 0.375rem;
+  padding: 0.875rem 0.875rem 1rem;
   background: #fff;
 }
 
 .sumList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   font-size: var(--fs12);
 }
 .sumRow {
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
+  padding-left: 0.625rem;
   position: relative;
 }
 .sumRow::before {
@@ -378,9 +378,9 @@ body {
 }
 
 .sumDivider {
-  height: 1px;
+  height: 0.0625rem;
   background: var(--line);
-  margin: 12px 0;
+  margin: 0.75rem 0;
 }
 
 .payTotalRow {
@@ -400,25 +400,25 @@ body {
 
 .agree {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   align-items: flex-start;
-  margin: 12px 0 12px;
-  font-size: 10px;
+  margin: 0.75rem 0 0.75rem;
+  font-size: 0.625rem;
   color: #555;
   line-height: 1.35;
 }
 .agree input {
-  margin-top: 2px;
+  margin-top: 0.125rem;
   accent-color: var(--green);
 }
 
 .btnPay {
   display: block;
-  width: 260px;
-  height: 44px;
+  width: 16.25rem;
+  height: 2.75rem;
   margin: 0 auto;
   border: none;
-  border-radius: 2px;
+  border-radius: 0.125rem;
   background: #d9d9d9;
   color: #888;
   font-size: var(--fs13);
@@ -439,7 +439,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 1.25rem;
   z-index: 9999;
 }
 
@@ -449,60 +449,60 @@ body {
 }
 
 .modal {
-  width: 320px;
+  width: 20rem;
   background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  border-radius: 0.375rem;
+  box-shadow: 0 0.75rem 1.875rem rgba(0, 0, 0, 0.18);
   position: relative;
-  padding: 22px 18px 16px;
+  padding: 1.375rem 1.125rem 1rem;
 }
 
 .modalX {
   position: absolute;
-  top: 8px;
-  right: 10px;
+  top: 0.5rem;
+  right: 0.625rem;
   border: none;
   background: transparent;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1;
   color: #999;
   cursor: pointer;
 }
 
 .modalBody {
-  padding: 6px 6px 14px;
+  padding: 0.375rem 0.375rem 0.875rem;
   text-align: center;
 }
 
 .modalText {
   margin: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #333;
   line-height: 1.6;
 }
 
 .modalOk {
-  width: 120px;
-  height: 34px;
+  width: 7.5rem;
+  height: 2.125rem;
   margin: 0 auto;
   display: block;
   border: none;
-  border-radius: 2px;
+  border-radius: 0.125rem;
   background: var(--green);
   color: #fff;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 800;
   cursor: pointer;
 }
 
 /* 반응형 */
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .wrap {
-    width: calc(100% - 24px);
-    margin: 24px auto 70px;
+    width: calc(100% - 1.5rem);
+    margin: 1.5rem auto 4.375rem;
   }
   .name {
-    max-width: 220px;
+    max-width: 13.75rem;
   }
   .bottomGrid {
     grid-template-columns: 1fr;
@@ -511,11 +511,11 @@ body {
     width: 100%;
   }
 }
-@media (min-width: 481px) and (max-width: 1024px) {
+@media (min-width: 30.0625rem) and (max-width: 64rem) {
   .wrap {
-    width: min(var(--w), calc(100% - 48px));
+    width: min(var(--w), calc(100% - 3rem));
   }
   .bottomGrid {
-    grid-template-columns: 1fr 360px;
+    grid-template-columns: 1fr 22.5rem;
   }
 }

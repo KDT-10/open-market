@@ -23,12 +23,22 @@ const $ = (s) => document.querySelector(s);
 const won = (n) => n.toLocaleString("ko-KR") + "원";
 const onlyDigits = (v) => String(v || "").replace(/\D/g, "");
 
+/* ===== 합계 ===== */
 function calcTotals() {
   const goods = items.reduce((a, it) => a + it.price * it.qty, 0);
   const discount = items.reduce((a, it) => a + (it.discount || 0), 0);
   const ship = items.reduce((a, it) => a + (it.shipping || 0), 0);
   const pay = goods - discount + ship;
   return { goods, discount, ship, pay };
+}
+
+function updateTotals() {
+  const { goods, discount, ship, pay } = calcTotals();
+  $("#totalTop").textContent = won(pay);
+  $("#sumGoods").textContent = won(goods);
+  $("#sumDiscount").textContent = won(discount);
+  $("#sumShip").textContent = won(ship);
+  $("#sumPay").textContent = won(pay);
 }
 
 function renderItems() {
@@ -40,9 +50,7 @@ function renderItems() {
     row.className = "otRow";
     row.innerHTML = `
       <div class="infoCell">
-        <div class="thumb">
-          ${it.img ? `<img src="${it.img}" alt="">` : ``}
-        </div>
+        <div class="thumb">${it.img ? `<img src="${it.img}" alt="">` : ``}</div>
         <div class="meta">
           <div class="metaTop">${it.brand || ""}</div>
           <div class="name">${it.name}</div>
@@ -61,45 +69,42 @@ function renderItems() {
   updateTotals();
 }
 
-function updateTotals() {
-  const { goods, discount, ship, pay } = calcTotals();
-  $("#totalTop").textContent = won(pay);
-  $("#sumGoods").textContent = won(goods);
-  $("#sumDiscount").textContent = won(discount);
-  $("#sumShip").textContent = won(ship);
-  $("#sumPay").textContent = won(pay);
-}
-
-/* ====== 모달 ====== */
+/* ===== 모달 ===== */
 const modalBack = $("#modalBack");
 const modalClose = $("#modalClose");
 const modalOk = $("#modalOk");
 const modalText = $("#modalText");
 
-function openModal(message) {
+let lastFocusEl = null;
+
+function openModal(message, focusEl = null) {
   modalText.textContent = message;
-  modalBack.removeAttribute("hidden"); // 보이기
+  lastFocusEl = focusEl;
+
+  modalBack.removeAttribute("hidden");
   modalOk.focus();
 }
 
 function closeModal() {
-  modalBack.setAttribute("hidden", ""); // 숨기기
+  modalBack.setAttribute("hidden", "");
+
+  //  닫을 때, 안내했던 입력칸으로 이동
+  if (lastFocusEl && typeof lastFocusEl.focus === "function") {
+    lastFocusEl.focus();
+  }
+  lastFocusEl = null;
 }
 
 modalClose.addEventListener("click", closeModal);
 modalOk.addEventListener("click", closeModal);
-
-// 바깥 클릭 닫기
 modalBack.addEventListener("click", (e) => {
   if (e.target === modalBack) closeModal();
 });
-
-// ESC 닫기
 window.addEventListener("keydown", (e) => {
-  if (!modalBack.hidden && e.key === "Escape") closeModal();
+  if (!modalBack.hasAttribute("hidden") && e.key === "Escape") closeModal();
 });
 
-/* ====== 버튼 활성화 (동의 체크) ====== */
+/* ===== 동의 체크 -> 결제버튼 활성 ===== */
 const agreeChk = $("#agreeChk");
 const payBtn = $("#payBtn");
 
@@ -109,63 +114,111 @@ agreeChk.addEventListener("change", () => {
   payBtn.classList.toggle("enabled", ok);
 });
 
-/* ====== 배송정보 검증 ======
-   "배송정보" 입력 하나라도 비면 모달 띄우기
-*/
-function isShippingFilled() {
+/* =========================================================
+    Daum(카카오) 우편번호: open() 방식
+   - 버튼 클릭 때만 팝업
+   - 선택하면 #zip, #addr1 채우고 #addr2 포커스
+========================================================= */
+let postcodeDone = false; //  “우편번호 조회했는지” 플래그
+
+function openDaumPostcode() {
+  if (!window.daum || !window.daum.Postcode) {
+    openModal(
+      "우편번호 서비스를 불러오지 못했습니다. (스크립트 로딩 확인)",
+      $("#zipBtn")
+    );
+    return;
+  }
+
+  new daum.Postcode({
+    oncomplete: function (data) {
+      const addr =
+        data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
+
+      $("#zip").value = data.zonecode || "";
+      $("#addr1").value = addr || "";
+
+      postcodeDone = true; // ✅ 조회 완료!
+      $("#addr2").focus(); // ✅ 상세주소로 이동
+    },
+  }).open();
+}
+
+$("#zipBtn").addEventListener("click", openDaumPostcode);
+
+/* =========================================================
+   ✅ 결제하기 클릭 시: 부족한 항목을 “구체 메시지”로 안내
+   - 모달은 결제하기 클릭에서만 뜸
+========================================================= */
+function validateAndGetFirstError() {
+  // 주문자
   const buyerName = $("#buyerName").value.trim();
   const buyerEmail = $("#buyerEmail").value.trim();
-
   const bp =
     onlyDigits($("#buyerPhone1").value) +
     onlyDigits($("#buyerPhone2").value) +
     onlyDigits($("#buyerPhone3").value);
 
+  // 배송지
   const recvName = $("#recvName").value.trim();
   const rp =
     onlyDigits($("#recvPhone1").value) +
     onlyDigits($("#recvPhone2").value) +
     onlyDigits($("#recvPhone3").value);
 
-  const zip = $("#zip").value.trim();
-  const addr1 = $("#addr1").value.trim();
-  const addr2 = $("#addr2").value.trim();
+  // 주소
+  const zipEl = $("#zip");
+  const addr1El = $("#addr1");
+  const addr2El = $("#addr2");
 
-  // 하나라도 비어 있으면 false 반환
-  if (!buyerName) return false;
-  if (bp.length < 10) return false;
-  if (!buyerEmail) return false;
+  const zip = zipEl.value.trim();
+  const addr1 = addr1El.value.trim();
+  const addr2 = addr2El.value.trim();
 
-  if (!recvName) return false;
-  if (rp.length < 10) return false;
+  if (!postcodeDone && (!zip || !addr1)) {
+    return { message: "우편번호를 조회해주세요.", focusEl: $("#zipBtn") };
+  }
 
-  if (!zip || !addr1 || !addr2) return false;
+  if (!buyerName)
+    return { message: "주문자 이름을 입력해주세요.", focusEl: $("#buyerName") };
+  if (bp.length < 10)
+    return {
+      message: "주문자 휴대폰 번호를 정확히 입력해주세요.",
+      focusEl: $("#buyerPhone1"),
+    };
+  if (!buyerEmail)
+    return {
+      message: "주문자 이메일을 입력해주세요.",
+      focusEl: $("#buyerEmail"),
+    };
 
-  return true;
+  if (!recvName)
+    return { message: "수령인 이름을 입력해주세요.", focusEl: $("#recvName") };
+  if (rp.length < 10)
+    return {
+      message: "수령인 휴대폰 번호를 정확히 입력해주세요.",
+      focusEl: $("#recvPhone1"),
+    };
+
+  // 주소는 더 구체적으로
+  if (!zip)
+    return { message: "우편번호를 입력(조회)해주세요.", focusEl: zipEl };
+  if (!addr1) return { message: "기본주소를 입력해주세요.", focusEl: addr1El };
+  if (!addr2) return { message: "상세주소를 입력해주세요.", focusEl: addr2El };
+
+  return null; // 통과
 }
 
 payBtn.addEventListener("click", () => {
-  // 결제하기 버튼을 눌렀을 때만 여기로 들어옴
-  // (다른 이벤트에서는 절대 실행 안 됨)
-
-  // 동의 체크 안 되어 있으면 그냥 종료
   if (!agreeChk.checked) return;
 
-  // 배송정보 검증 → 실패 시에만 모달
-  if (!isShippingFilled()) {
-    openModal("배송정보를 빠짐없이 입력해주세요.");
+  const err = validateAndGetFirstError();
+  if (err) {
+    openModal(err.message, err.focusEl);
     return;
   }
 
-  // 여기까지 오면 모든 입력 완료 상태
-  openModal("결제가 완료되었습니다.");
-});
-
-/* ====== 우편번호 조회 샘플 ====== */
-$("#zipBtn").addEventListener("click", () => {
-  $("#zip").value = "06236";
-  $("#addr1").value = "서울특별시 강남구 테헤란로 123";
-  $("#addr2").focus();
+  openModal("입력이 완료되었습니다.");
 });
 
 renderItems();
