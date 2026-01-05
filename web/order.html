@@ -12,7 +12,7 @@
 
 <body>
   <div class="whole-container">
-    <div class="container">
+    <div class="container order-container">
       <div class="header-title"><strong>주문/결제하기</strong></div>
       <div class="order-list-grid header-s-title">
         <div>상품정보</div>
@@ -25,19 +25,19 @@
           <div class="header-p-fornt">
             <img src="assets/images/product3.png" alt="rabit" />
             <div>
-              <div class="header-p-fornt-text">백엔드글로벌</div>
-              <div>딥러닝 개발자 무릎 담요</div>
-              <div class="header-p-fornt-text">수량 : 1개</div>
+              <div class="header-p-fornt-text order-item-brand">백엔드글로벌</div>
+              <div class="order-item-name order-item-name">딥러닝 개발자 무릎 담요</div>
+              <div class="header-p-fornt-text order-item-quantity">수량 : 1개</div>
             </div>
           </div>
-          <div>-</div>
-          <div class="header-p-midle">무료배송</div>
-          <div><strong>17,500원</strong></div>
+          <div class="order-item-discount">-</div>
+          <div class="header-p-midle order-item-shopping-fee">무료배송</div>
+          <div class="order-item-price"><strong>17,500원</strong></div>
         </div>
       </template>
-      <div class="header-p-back">
-        <strong>총 주문금액 <span>-원</span></strong>
-      </div>
+    </div>
+    <div class="header-p-back" id="price-sum">
+      <strong>총 주문금액 <span>0</span>원</strong>
     </div>
     <div class="container">
       <div class="main-front"><strong>배송정보</strong></div>
@@ -45,40 +45,40 @@
       <div class="main-back">
         <div class="main-back-title">이름</div>
         <div class="main-back-input">
-          <input type="text" class="input-text" id="name" />
+          <input type="text" class="input-text" id="customerName" />
         </div>
       </div>
       <div class="main-back">
         <div class="main-back-title">휴대폰</div>
         <div class="main-back-input">
-          <input type="tel" class="input-text-number" id="phone" />
+          <input type="tel" class="input-text-number" id="customerPhone1" />
           <span>-</span>
-          <input type="tel" class="input-text-number2" id="phone" />
+          <input type="tel" class="input-text-number2" id="customerPhone2" />
           <span>-</span>
-          <input type="tel" class="input-text-number2" id="phone" />
+          <input type="tel" class="input-text-number2" id="customerPhone3" />
         </div>
       </div>
       <div class="main-back">
         <div class="main-back-title">이메일</div>
         <div class="main-back-input">
-          <input type="email" class="input-text" id="e-mail" />
+          <input type="email" class="input-text" id="email" />
         </div>
       </div>
       <div class="main-front2"><strong>배송지 정보</strong></div>
       <div class="main-back">
         <div class="main-back-title">수령인</div>
         <div class="main-back-input">
-          <input type="text" class="input-text" id="name" />
+          <input type="text" class="input-text" id="receiverName" />
         </div>
       </div>
       <div class="main-back">
         <div class="main-back-title">휴대폰</div>
         <div class="main-back-input">
-          <input type="tel" class="input-text-number" id="phone" />
+          <input type="tel" class="input-text-number" id="receiverPhone1" />
           <span>-</span>
-          <input type="tel" class="input-text-number2" id="phone" />
+          <input type="tel" class="input-text-number2" id="receiverPhone2" />
           <span>-</span>
-          <input type="tel" class="input-text-number2" id="phone" />
+          <input type="tel" class="input-text-number2" id="receiverPhone3" />
         </div>
       </div>
       <div class="main-back main-back-long">
@@ -86,16 +86,16 @@
         <div class="main-back-input">
           <div class="main-back-add">
             <div class="btn-div">
-              <input type="text" class="input-text2" id="address" />
+              <input type="text" class="input-text2" id="receiverAddress1" />
               <button class="main-btn">우편번호 조회</button>
             </div>
-            <input type="text" class="input-text3" id="address" />
-            <input type="text" class="input-text3" id="address" />
+            <input type="text" class="input-text3" id="receiverAddress2" />
+            <input type="text" class="input-text3" id="receiverAddress3" />
           </div>
         </div>
       </div>
       <div class="main-back main-back-long">
-        <div class="main-back-title">배송 메세지</div>
+        <div class="main-back-title">배송 메시지</div>
         <div class="main-back-input">
           <input type="text" class="input-text3" id="text" />
         </div>
@@ -119,21 +119,21 @@
             <div class="footer-bill-top">
               <div class="footer-last">
                 <div>- 상품금액</div>
-                <div class="footer-last-bill">
-                  <strong>46,500</strong>
+                <div class="footer-last-bill" id="bill-price">
+                  <strong>0</strong>
                   <div class="header-p-fornt-text2">원</div>
                 </div>
               </div>
               <div class="footer-last">
                 <div>- 할인금액</div>
-                <div class="footer-last-bill">
+                <div class="footer-last-bill" id="bill-discount-amount">
                   <strong>0</strong>
                   <div class="header-p-fornt-text2">원</div>
                 </div>
               </div>
               <div class="footer-last">
                 <div>- 배송비</div>
-                <div class="footer-last-bill">
+                <div class="footer-last-bill" id="bill-shopping-fee">
                   <strong>0</strong>
                   <div class="header-p-fornt-text2">원</div>
                 </div>
@@ -142,8 +142,9 @@
 
             <div class="footer-last">
               <div>- 결제금액</div>
-              <div class="footer-last-bill">
-                <strong class="red-strong">46,500원</strong>
+              <div class="footer-last-bill" id="bill-total-price">
+                <strong class="red-strong">0</strong>
+                <span class="header-p-fornt-red">원</span>
               </div>
             </div>
           </div>

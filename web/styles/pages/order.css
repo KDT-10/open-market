@@ -40,12 +40,14 @@
   align-items: center;
   justify-items: center;
   border-bottom: 1px solid #c4c4c4;
+  padding: 1rem 0;
 }
 
 .header-p-fornt {
   display: flex;
   align-items: center;
   justify-self: start;
+  gap: 1rem;
 }
 
 .header-p-fornt-text {
@@ -72,6 +74,7 @@ img {
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+  align-self: flex-end;
 }
 
 .main-front {
@@ -201,6 +204,9 @@ main span {
   align-items: flex-end;
   margin-left: 0.1rem;
 }
+.header-p-fornt-red {
+  color: var(--color-important);
+}
 
 .footer-box {
   display: flex;
@@ -295,6 +301,10 @@ main span {
   .container {
     max-width: 768px;
   }
+  .order-list-grid {
+    display: grid;
+    grid-template-columns: 1fr 6rem 6rem 6rem;
+  }
   .input-text2 {
     border: 1px solid #c4c4c4;
     width: 6rem;
@@ -315,7 +325,10 @@ main span {
   .container {
     max-width: 1024px;
   }
-
+  .order-list-grid {
+    display: grid;
+    grid-template-columns: 1fr 8rem 8rem 8rem;
+  }
   .pay-method {
     flex: 1;
   }

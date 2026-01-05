@@ -7,7 +7,6 @@ let cartData;
   // 로그인 상태에 따른 데이터 로드
   if (isLoggedIn()) {
     cartData = await fetchGetCart();
-    console.log(cartData)
   } else {
     cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
   }
