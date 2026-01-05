@@ -3,18 +3,17 @@
   --color-primary: #21bf48;
   --color-error: #eb5757;
   --color-border-gray: #c4c4c4;
-  --color-footer-bg: #f2f2f2;
-  --color-tab-btn-bg: #f2f2f2;
+  --color-secondary-gray: #f2f2f2;
+  --color-secondary-gray2: #767676;
   --color-active-tab-btn-bg: white;
-  --color-gray-term: #767676;
   --color-btn-disabled: #c4c4c4;
-  --color-success: green;
-  --color-error: red;
-  --color-seller-name: #767676;
+  --color-success: #21bf48;
+  --color-important: #e74c3c;
 
   /* Sizes */
   --size-main: 1280px;
-  --size-footer-icon: 32px;
+  --content-size: min(80%, var(--size-main));
+  --size-footer-icon: 2rem;
 
   /* Spacing */
   --spacing-xs: 4px;

@@ -16,9 +16,21 @@ body {
   /* font-family: 'Arial', sans-serif; */
 }
 
+p {
+  margin: 0;
+}
+
 button {
   background-color: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+input {
+  margin: 0;
+}
+
+.hidden {
+  display: none;
 }
