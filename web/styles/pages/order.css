@@ -207,7 +207,6 @@ hr {
   margin: 0;
   padding: 0.5rem;
   display: flex;
-<<<<<<< HEAD:web/styles/order.css
   align-items: center;
   flex-direction: column;
 }
@@ -238,17 +237,4 @@ hr {
 .red-strong {
   font-size: 1rem;
   color: red;
-=======
-  flex-direction: column;
-  align-items: center;
-}
-
-.btn-pay {
-  background-color: #c4c4c4;
-  border: none;
-  font-size: 1.25rem;
-  color: white;
-  border-radius: 0.25rem;
-  padding: 0.5rem 3rem;
->>>>>>> eb66cfb497577470275a592783c149ea6149e689:web/styles/pages/order.css
 }
