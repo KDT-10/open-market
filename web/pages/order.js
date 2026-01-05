@@ -218,7 +218,7 @@ payBtn.addEventListener("click", () => {
     return;
   }
 
-  openModal("입력이 완료되었습니다.");
+  openModal("결제가 완료되었습니다.");
 });
 
 renderItems();
