@@ -5,6 +5,9 @@
 /* 기본 스타일 (모바일 - ~479px) */
 
 .header-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   width: 100%;
 }
