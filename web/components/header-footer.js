@@ -1,18 +1,23 @@
-loadHTMLToBody('/components/footer.html', true);
+// header
+loadHTMLToBody('/components/header.html', false);
+loadCSS('/components/header.css');
 
+// footer
+loadHTMLToBody('/components/footer.html', true);
 loadCSS('/components/footer.css');
 
-async function loadHTMLToBody(url, append) {
+async function loadHTMLToBody(url, append = false) {
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTML 불러오기 실패');
 
-    const text = await res.text();
+    const html = await res.text();
     const parser = new DOMParser();
-    const doc = parser.parseFromString(text, 'text/html');
+    const doc = parser.parseFromString(html, 'text/html');
 
-    const body = document.body;
-    append ? body.append(...doc.body.children) : body.prepend(...doc.body.children);
+    append
+      ? document.body.append(...doc.body.children)
+      : document.body.prepend(...doc.body.children);
   } catch (err) {
     console.error(err);
   }
