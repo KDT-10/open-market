@@ -5,6 +5,11 @@ body {
 div {
   margin: 0.5rem;
 }
+
+.container {
+  width: 100%;
+  padding: 0 16px;
+}
 .header-title {
   display: flex;
   font-size: 1.5rem;
@@ -90,6 +95,7 @@ img {
 
 .main-back span {
   width: 1rem;
+  text-align: center;
 }
 
 .main-back-title {
@@ -110,7 +116,7 @@ img {
 
 .input-text3 {
   border: 1px solid #c4c4c4;
-  width: 26rem;
+  width: 17rem;
   height: 1.3rem;
 }
 
@@ -154,13 +160,6 @@ main span {
   display: flex;
   gap: 0.2rem;
 }
-.checkbox-input {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  border: 1px solid #999;
-  appearance: none;
-}
 
 .main-front1 {
   font-size: 1rem;
@@ -169,6 +168,7 @@ main span {
 .footer-last {
   display: flex;
   justify-content: space-between;
+  margin: 0;
 }
 .footer-last-bill {
   display: flex;
@@ -187,6 +187,13 @@ main span {
   border-radius: 0.5rem;
   width: 336px;
   height: 280px;
+  overflow: hidden;
+}
+
+.footer-box-in {
+  padding: 0.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 hr {
@@ -197,16 +204,80 @@ hr {
 .footer-last-last {
   background-color: #f2f2f2;
   margin: 0;
+  padding: 0.5rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 }
 
-.btn-pay {
+.footer-last-input {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.primary-cbox input {
+  display: none;
+}
+.checkmark {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid #c4c4c4;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 4px;
+  width: 4px;
+  height: 9px;
+  border: solid var(--color-primary);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.primary-cbox input:checked + .checkmark::after {
+  display: block;
+}
+.primary-cbox input:checked + .checkmark {
+  border-color: var(--color-primary);
+}
+
+.btn-last {
   background-color: #c4c4c4;
-  border: none;
-  font-size: 1.25rem;
   color: white;
+  border: none;
   border-radius: 0.25rem;
-  padding: 0.5rem 3rem;
+  font-size: 1.2rem;
+  padding: 0.5rem 2rem;
+  margin: 0.7rem;
+  cursor: not-allowed;
+}
+
+.red-strong {
+  font-size: 1rem;
+  color: red;
+}
+
+.btn-last.active {
+  background-color: #2fc24f;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 24px;
+  }
+}
+
+/* Desktop (1024px 이상) */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding: 0 32px;
+  }
 }
