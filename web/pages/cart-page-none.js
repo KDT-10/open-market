@@ -14,48 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 초기 렌더링
   renderCart();
-
-  // 검색 기능
-  const searchInput = document.querySelector(".search-input");
-  const searchBtn = document.querySelector(".search-btn");
-
-  if (searchBtn) {
-    searchBtn.addEventListener("click", function () {
-      const searchTerm = searchInput.value.trim();
-      if (searchTerm) {
-        console.log("검색어:", searchTerm);
-        // 검색 기능 구현
-      }
-    });
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm) {
-          console.log("검색어:", searchTerm);
-          // 검색 기능 구현
-        }
-      }
-    });
-  }
-
-  // 장바구니 버튼
-  const cartBtn = document.querySelector(".cart-btn");
-  if (cartBtn) {
-    cartBtn.addEventListener("click", function () {
-      console.log("장바구니 페이지");
-    });
-  }
-
-  // 마이페이지 버튼
-  const mypageBtn = document.querySelector(".mypage-btn");
-  if (mypageBtn) {
-    mypageBtn.addEventListener("click", function () {
-      console.log("마이페이지로 이동");
-    });
-  }
 });
 
 //  * fetch API를 사용하여 서버에서 데이터를 가져오기
