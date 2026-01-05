@@ -1,3 +1,5 @@
+import { isLoggedIn } from "/js/common/auth.js";
+
 const checkbox = document.getElementById("agreeCheckbox");
 const payButton = document.getElementById("payButton");
 
@@ -19,10 +21,92 @@ payButton.addEventListener("click", () => {
   alert("결제 완료되었습니다.");
 });
 
+let orderData;
+(async () => {
+  // 로그인 상태에 따른 데이터 로드
+  if (isLoggedIn()) {
+    orderData = await fetchGetOrder();
+  } else {
+    orderData = JSON.parse(sessionStorage.getItem("orderData")) || [];
+  }
+  renderOrderItems();
+})();
+
+function renderOrderItems() {
+  const orderItems = document.querySelector(".order-container");
+
+  orderData.forEach((data) => {
+    data.quantity ??= 1;
+    data.includeInTotal ??= false;
+    const orderItem = createOrderItem(data);
+    orderItems.appendChild(orderItem);
+  });
+
+  updateFinalData();
+}
+
+function createOrderItem(data) {
+  const orderItem = cloneOrderItemElem(data);
+  return orderItem;
+}
+
+function cloneOrderItemElem(data) {
+  const {
+    image,
+    name,
+    quantity = 1,
+    discount = 0.0,
+    price,
+    shipping_fee,
+    seller: { store_name }
+  } = data;
+
+  const template = document.getElementById("order-item-template");
+  const node = template.content.cloneNode(true);
+  const elem = node.querySelector(".header-p");
+
+  const discountAmount = Math.floor(price * discount);
+  const shoppingFee = Number(shipping_fee) === 0 ? '무료배송' : `${shipping_fee.toLocaleString()}원`;
+  const totalPrice = price - discountAmount + shipping_fee;
+
+  elem.querySelector(".header-p-fornt img").src = image;
+  elem.querySelector(".order-item-brand").textContent = store_name;
+  elem.querySelector(".order-item-name").textContent = name;
+  elem.querySelector(".order-item-quantity").textContent = `수량 : ${quantity}개`;
+  elem.querySelector(".order-item-discount").textContent = `${discountAmount}원`;
+  elem.querySelector(".order-item-shopping-fee").textContent = shoppingFee;
+  elem.querySelector(".order-item-price").textContent = `${totalPrice.toLocaleString()}원`;
+
+  return elem;
+}
+
+function updateFinalData() {
+  const priceSumEl = document.getElementById("price-sum");
+  const billPrice = document.getElementById("bill-price");
+  const billDiscountAmount = document.getElementById("bill-discount-amount");
+  const billShoppingFee = document.getElementById("bill-shopping-fee");
+  const billTotalPrice = document.getElementById("bill-total-price");
+  let priceSum = 0;
+  let discountAmount = 0;
+  let shoppingFee = 0;
+  let totalPrice = 0;
+  orderData.forEach(data => {
+    priceSum += data.price;
+    discountAmount += Math.floor(data.price * data.discountAmount ? data.discountAmount : 0.0);
+    shoppingFee += data.shipping_fee;
+  });
+  totalPrice = priceSum - discountAmount + shoppingFee;
+
+  priceSumEl.querySelector("span").textContent = priceSum.toLocaleString();
+  billPrice.querySelector("strong").textContent = priceSum.toLocaleString();
+  billDiscountAmount.querySelector("strong").textContent = discountAmount.toLocaleString();
+  billShoppingFee.querySelector("strong").textContent = shoppingFee.toLocaleString();
+  billTotalPrice.querySelector("strong").textContent = totalPrice.toLocaleString();
+}
+
 function validateInputs() {
-  // TODO: html에서 적절한 id로 수정해야 함
   const customerName = document.getElementById("customerName");
-  if (customerName.textContent === "") {
+  if (customerName.value === "") {
     alert("주문자 이름을 입력해주세요.");
     return false;
   }
@@ -31,13 +115,13 @@ function validateInputs() {
     alert("주문자 휴대폰을 입력해주세요.");
     return false;
   }
-  const email = document.getElementById("e-mail");
-  if (email.textContent === "") {
+  const email = document.getElementById("email");
+  if (email.value === "") {
     alert("이메일을 입력해주세요.");
     return false;
   }
   const receiverName = document.getElementById("receiverName");
-  if (receiverName.textContent === "") {
+  if (receiverName.value === "") {
     alert("배송지 수령인을 입력해주세요.");
     return false;
   }
