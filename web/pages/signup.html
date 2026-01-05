@@ -4,17 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ZADU 회원가입</title>
-    <link rel="stylesheet" href="../css/signup.css" />
+    <link rel="stylesheet" href="../styles/signup.css" />
+    <script defer src="signup.js"></script>
   </head>
   <body>
-    <main class="signup-page">
-      <!-- 로고 -->
+    <!-- SVG SYMBOLS (한 번만 선언) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <!-- 체크 아이콘(28x28) -->
+      <symbol id="icon-check-password" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="14" fill="currentColor" />
+        <path d="M7 13.8571L12.6 19L21 10" stroke="white" stroke-width="2" />
+      </symbol>
+    </svg>
+
+    <main class="page">
       <h1 class="brand">
         <img src="../assets/images/Logo-jadu-lg.png" alt="ZADU 로고" />
       </h1>
 
-      <!-- 회원가입 유형 -->
-      <section class="card" aria-label="회원가입 유형">
+      <section class="card" aria-label="회원가입">
         <!-- 탭 -->
         <div class="tabs" role="tablist" aria-label="회원가입 유형 선택">
           <button
@@ -22,60 +30,257 @@
             class="tab is-active"
             role="tab"
             aria-selected="true"
+            data-target="buyer"
           >
             구매회원가입
           </button>
-          <button type="button" class="tab" role="tab" aria-selected="false">
+          <button
+            type="button"
+            class="tab"
+            role="tab"
+            aria-selected="false"
+            data-target="seller"
+          >
             판매회원가입
           </button>
         </div>
-        <!-- 폼 -->
-        <form class="form" id="signupForm" action="#" method="post">
-          <label class="field">
-            <span class="label">아이디</span>
-            <input
-              type="text"
-              id="userId"
-              name="id"
-              placeholder="아이디"
-              autocomplete="username"
-            />
+
+        <!-- 구매자 폼 -->
+        <form class="form" id="buyerForm">
+          <!-- 아이디 + 중복확인 -->
+          <div class="field">
+            <label class="label" for="buyerId">아이디</label>
+            <div class="row">
+              <input id="buyerId" type="text" autocomplete="username" />
+              <button class="btn-side" type="button" id="buyerCheckIdBtn">
+                중복확인
+              </button>
+            </div>
+            <p class="hint" id="buyerIdHint"></p>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="field">
+            <label class="label" for="buyerPw">비밀번호</label>
+            <div class="input-icons" id="buyerPwWrap">
+              <input id="buyerPw" type="password" autocomplete="new-password" />
+              <!-- 체크 아이콘 버튼 -->
+              <button
+                type="button"
+                class="icon check-btn"
+                aria-label="비밀번호 체크"
+                data-mode="toggle"
+              >
+                <svg viewBox="0 0 28 28">
+                  <use href="#icon-check-password"></use>
+                </svg>
+              </button>
+            </div>
+            <p class="hint" id="buyerPwValidHint"></p>
+          </div>
+
+          <!-- 비밀번호 재확인 -->
+          <div class="field">
+            <label class="label" for="buyerPw2">비밀번호 재확인</label>
+            <div class="input-icons" id="buyerPw2Wrap">
+              <input
+                id="buyerPw2"
+                type="password"
+                autocomplete="new-password"
+              />
+              <!-- 일치하면 자동 활성화 -->
+              <button
+                type="button"
+                class="icon check-btn"
+                aria-label="비밀번호 확인 체크"
+                data-mode="auto"
+              >
+                <svg viewBox="0 0 28 28">
+                  <use href="#icon-check-password"></use>
+                </svg>
+              </button>
+            </div>
+            <p class="hint error" id="buyerPwHint"></p>
+          </div>
+
+          <!-- 이름 -->
+          <div class="field">
+            <label class="label" for="buyerName">이름</label>
+            <input id="buyerName" type="text" autocomplete="name" />
+          </div>
+
+          <!-- 휴대폰번호 -->
+          <div class="field">
+            <label class="label">휴대폰번호</label>
+            <div class="phone">
+              <select
+                class="select"
+                id="buyerPhone1"
+                aria-label="휴대폰 앞자리"
+              >
+                <option value="010" selected>010</option>
+                <option value="011">011</option>
+                <option value="012">012</option>
+                <option value="013">013</option>
+                <option value="014">014</option>
+                <option value="015">015</option>
+              </select>
+              <input
+                class="input"
+                id="buyerPhone2"
+                inputmode="numeric"
+                maxlength="4"
+              />
+              <input
+                class="input"
+                id="buyerPhone3"
+                inputmode="numeric"
+                maxlength="4"
+              />
+            </div>
+          </div>
+
+          <!-- 약관 -->
+          <label class="agree">
+            <input type="checkbox" id="buyerAgree" />
+            <span>
+              자두의 이용약관 및 개인정보처리방침에 대한 내용을 확인하였고
+              동의합니다.
+            </span>
           </label>
 
-          <label class="field">
-            <span class="label">비밀번호</span>
-            <input
-              type="password"
-              id="userPw"
-              name="pw"
-              placeholder="비밀번호"
-              autocomplete="new-password"
-            />
+          <button class="submit" type="submit" id="buyerSubmit" disabled>
+            가입하기
+          </button>
+        </form>
+
+        <!-- 판매자 폼 -->
+        <form class="form is-hidden" id="sellerForm">
+          <!-- 아이디 + 중복확인 -->
+          <div class="field">
+            <label class="label" for="sellerId">아이디</label>
+            <div class="row">
+              <input id="sellerId" type="text" autocomplete="username" />
+              <button class="btn-side" type="button" id="sellerCheckIdBtn">
+                중복확인
+              </button>
+            </div>
+            <p class="hint" id="sellerIdHint"></p>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="field">
+            <label class="label" for="sellerPw">비밀번호</label>
+            <div class="input-icons" id="sellerPwWrap">
+              <input
+                id="sellerPw"
+                type="password"
+                autocomplete="new-password"
+              />
+              <button
+                type="button"
+                class="icon check-btn"
+                aria-label="비밀번호 체크"
+                data-mode="toggle"
+              >
+                <svg viewBox="0 0 28 28">
+                  <use href="#icon-check-password"></use>
+                </svg>
+              </button>
+            </div>
+            <p class="hint" id="sellerPwValidHint"></p>
+          </div>
+
+          <!-- 비밀번호 재확인 -->
+          <div class="field">
+            <label class="label" for="sellerPw2">비밀번호 재확인</label>
+            <div class="input-icons" id="sellerPw2Wrap">
+              <input
+                id="sellerPw2"
+                type="password"
+                autocomplete="new-password"
+              />
+              <button
+                type="button"
+                class="icon check-btn"
+                aria-label="비밀번호 확인 체크"
+                data-mode="auto"
+              >
+                <svg viewBox="0 0 28 28">
+                  <use href="#icon-check-password"></use>
+                </svg>
+              </button>
+            </div>
+            <p class="hint error" id="sellerPwHint"></p>
+          </div>
+
+          <!-- 이름 -->
+          <div class="field">
+            <label class="label" for="sellerName">이름</label>
+            <input id="sellerName" type="text" autocomplete="name" />
+          </div>
+
+          <!-- 휴대폰번호 -->
+          <div class="field">
+            <label class="label">휴대폰번호</label>
+            <div class="phone">
+              <select
+                class="select"
+                id="sellerPhone1"
+                aria-label="휴대폰 앞자리"
+              >
+                <option value="010" selected>010</option>
+                <option value="011">011</option>
+                <option value="012">012</option>
+                <option value="013">013</option>
+                <option value="014">014</option>
+                <option value="015">015</option>
+              </select>
+              <input
+                class="input"
+                id="sellerPhone2"
+                inputmode="numeric"
+                maxlength="4"
+              />
+              <input
+                class="input"
+                id="sellerPhone3"
+                inputmode="numeric"
+                maxlength="4"
+              />
+            </div>
+          </div>
+
+          <!-- 사업자등록번호 + 인증 -->
+          <div class="field">
+            <label class="label" for="bizNo">사업자 등록번호</label>
+            <div class="row">
+              <input id="bizNo" type="text" />
+              <button class="btn-side" type="button" id="verifyBizBtn">
+                인증
+              </button>
+            </div>
+            <p class="hint" id="bizHint"></p>
+          </div>
+
+          <!-- 스토어 이름 -->
+          <div class="field">
+            <label class="label" for="storeName">스토어 이름</label>
+            <input id="storeName" type="text" />
+          </div>
+
+          <label class="agree">
+            <input type="checkbox" id="sellerAgree" />
+            <span>
+              자두의 이용약관 및 개인정보처리방침에 대한 내용을 확인하였고
+              동의합니다.
+            </span>
           </label>
 
-          <label class="field">
-            <span class="label">비밀번호 확인</span>
-            <input
-              type="password"
-              id="userPwConfirm"
-              name="pwConfirm"
-              placeholder="비밀번호 확인"
-              autocomplete="new-password"
-            />
-          </label>
-
-          <label class="field">
-            <span class="label">이메일</span>
-            <input
-              type="email"
-              id="userEmail"
-              name="email"
-              placeholder="이메일"
-              autocomplete="email"
-            />
-          </label>
-
-          <button class="submit" type="submit">회원가입</button>
+          <button class="submit" type="submit" id="sellerSubmit" disabled>
+            가입하기
+          </button>
+        </form>
       </section>
     </main>
   </body>
