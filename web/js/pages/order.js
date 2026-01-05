@@ -55,8 +55,7 @@ function validateInputs() {
     alert("배송지 주소를 입력해주세요.");
     return false;
   }
-  // TODO: checkbox 말고 다른 name 필요
-  const selected = document.querySelector('input[name="checkbox"]:checked');
+  const selected = document.querySelector('input[name="pay-radiobtn"]:checked');
   const value = selected ? selected.value : null;
   if (!value) {
     alert("결제수단을 선택해주세요.");
