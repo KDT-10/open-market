@@ -17,7 +17,7 @@ function getProductIdFromURL() {
 // 상품 상세 정보 가져오기
 async function fetchProductDetail(id) {
     try {
-        const response = await fetch(`http://192.168.0.114:3000/api/products/${id}`);
+        const response = await fetch(`http://127.0.0.1:3000/api/products/${id}`);
         if (!response.ok) throw new Error('상품 정보를 불러오지 못했습니다.');
         const product = await response.json();
         renderProductDetail(product);
@@ -78,7 +78,7 @@ function renderProductDetail(product) {
         if (!confirmBuy) return;
         const token = localStorage.getItem('access');
         try {
-            const res = await fetch('http://192.168.0.114:3000/api/order/', {
+            const res = await fetch('http://127.0.0.1:3000/api/order/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ function renderProductDetail(product) {
     const addToCartHandler = async () => {
         const token = localStorage.getItem('access');
         try {
-            const res = await fetch('http://192.168.0.114:3000/api/cart/', {
+            const res = await fetch('http://127.0.0.1:3000/api/cart/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
