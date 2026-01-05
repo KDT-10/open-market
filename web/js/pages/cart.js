@@ -1,12 +1,13 @@
 import { createModal } from "/js/common/modal.js";
-import { isLoggedIn, checkLogin } from "/js/common/auth.js";
+import { isLoggedIn, checkLogin, fetchWithAuth } from "/js/common/auth.js";
 
 // 장바구니 데이터 로드
 let cartData;
 (async () => {
   // 로그인 상태에 따른 데이터 로드
   if (isLoggedIn()) {
-    cartData = await fetchCart();
+    cartData = await fetchGetCart();
+    console.log(cartData)
   } else {
     cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
   }
@@ -101,13 +102,22 @@ function bindDeleteCartItemEvent(cartItem) {
   deleteBtn.addEventListener("click", async () => {
     const modalObj = await deleteCartItemModalPromise;
     modalObj.open(() => {
+      const id = getCartItemIdFromElem(cartItem);
+      if (isLoggedIn()) {
+        fetchDeleteCart();
+      }
+      else {
+        deleteSessionStorage(id);
+      }
       cartItem.remove();
-      const id = cartItem.id.split("-")[1];
-      deleteSessionStorage(id);
       updateFinalData();
       toggleEmptyState(cartData.length > 0);
     });
   });
+}
+
+function getCartItemIdFromElem(elem) {
+  return elem.id.split("-")[1];
 }
 
 function bindModifyEvent(cartItem, data) {
@@ -266,9 +276,39 @@ async function createDeleteCartItemModal() {
 }
 
 // GET /api/cart 호출하여 상품 목록 표시
-async function fetchCart() {
-  const url = `http://localhost:3000/api/cart`;
-  const response = await fetch(url);
+async function fetchGetCart() {
+  const endpoint = `cart`;
+  const response = await fetchWithAuth(endpoint, {
+    method: "GET"
+  });
   const data = await response.json();
   return data.results;
 }
+
+async function fetchDeleteCart(cartItemId) {
+  const endpoint = `/cart/${cartItemId}/`;
+
+  const response = await fetchWithAuth(endpoint, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("장바구니 삭제 실패");
+  }
+}
+
+// TODO: Quantity 키가 없음
+// async function fetchPutCart(cartItemId) {
+//   const endpoint = `/cart/${cartItemId}/`;
+
+//   const response = await fetchWithAuth(endpoint, {
+//     method: "PUT",
+//     body: JSON.stringify({
+//       "quantity": 0
+//     })
+//   });
+
+//   if (!response.ok) {
+//     throw new Error("장바구니 수정 실패");
+//   }
+// }

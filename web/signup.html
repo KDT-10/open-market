@@ -34,7 +34,7 @@
         </div>
 
         <!-- 탭 컨텐츠 -->
-        <form class="form-signup" id="signup-form">
+        <form class="form-signup" id="signup-form" novalidate>
           <div class="form-tab-content-wrapper">
 
             <!-- 구매회원가입 탭 -->
@@ -42,7 +42,7 @@
               <div class="input-wrapper">
                 <div class="input-title">아이디</div>
                 <div class="input-group">
-                  <input type="text" class="text-input" id="username">
+                  <input type="text" class="text-input" id="username" required>
                   <button id="dup-chk-btn" type="button" class="primary-btn">중복확인</button>
                 </div>
                 <div id="username-message" class="hidden"></div>
@@ -50,7 +50,7 @@
               <div class="input-wrapper">
                 <div class="input-title">비밀번호</div>
                 <div class="input-group">
-                  <input type="password" class="text-input" id="password-input">
+                  <input type="password" class="text-input" id="password-input" required>
                   <div class="pw-chk-icon-wrapper">
                     <svg width="34" height="34">
                       <use href="/assets/icons/sprite.svg#icon-check-password"></use>
@@ -62,7 +62,7 @@
               <div class="input-wrapper">
                 <div class="input-title">비밀번호 확인</div>
                 <div class="input-group">
-                  <input type="password" class="text-input" id="password-confirm-input">
+                  <input type="password" class="text-input" id="password-confirm-input" required>
                   <div class="pw-chk-icon-wrapper">
                     <svg width="34" height="34">
                       <use href="/assets/icons/sprite.svg#icon-check-password"></use>
@@ -74,7 +74,7 @@
               <div class="input-wrapper">
                 <div class="input-title">이름</div>
                 <div class="input-group">
-                  <input type="text" class="text-input" id="name">
+                  <input type="text" class="text-input" id="name" required>
                 </div>
               </div>
               <div class="input-wrapper">
@@ -83,8 +83,8 @@
                   <select class="select-input" id="phone1">
                     <option value="010">010</option>
                   </select>
-                  <input type="text" class="text-input phone-input" id="phone2" maxlength="4">
-                  <input type="text" class="text-input phone-input" id="phone3" maxlength="4">
+                  <input type="text" class="text-input phone-input" id="phone2" maxlength="4" required>
+                  <input type="text" class="text-input phone-input" id="phone3" maxlength="4" required>
                 </div>
                 <div id="phone-message"></div>
               </div>
@@ -94,7 +94,7 @@
                 <div class="input-wrapper">
                   <div class="input-title">사업자 등록번호</div>
                   <div class="input-group">
-                    <input type="text" class="text-input" id="registration-number-input">
+                    <input type="text" class="text-input" id="registration-number-input" required>
                     <button type="button" id="registration-number-chk-btn" class="primary-btn">인증</button>
                   </div>
                   <div id="registration-number-message" class="hidden"></div>
@@ -102,7 +102,7 @@
                 <div class="input-wrapper">
                   <div class="input-title">스토어 이름</div>
                   <div class="input-group">
-                    <input type="text" class="text-input" id="store-name">
+                    <input type="text" class="text-input" id="store-name" required>
                   </div>
                 </div>
               </div>
