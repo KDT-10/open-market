@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 탭 전환 (구매회원/판매회원)
-  const buyerTab = document.getElementById("buyer-tab");
-  const sellerTab = document.getElementById("seller-tab");
+  const buyerTab = document.getElementById("commonTab");
+  const sellerTab = document.getElementById("venderTab");
   let userType = "BUYER"; // 기본값: 구매회원
 
   buyerTab.classList.add("active");
@@ -53,8 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 사용자 타입 확인
       if (data.user.user_type !== userType) {
         alert(
-          `${
-            userType === "BUYER" ? "구매회원" : "판매회원"
+          `${userType === "BUYER" ? "구매회원" : "판매회원"
           } 계정으로 로그인해주세요.`
         );
         return;
@@ -78,6 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 폼 제출 이벤트
-  const signinForm = document.getElementById(".login-form");
+  const signinForm = document.querySelector(".login-form");
   signinForm.addEventListener("submit", handleSignin);
 });
