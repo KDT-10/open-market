@@ -43,10 +43,8 @@ function renderCartItems() {
     cartItems.appendChild(cartItem);
   });
 
-  const hasAnyExcluded = [...cartItems.querySelectorAll(".include-in-total")]
-    .some(checkbox => !checkbox.checked);
   const includeInTotalAll = document.getElementById("include-in-total-all");
-  includeInTotalAll.checked = !hasAnyExcluded;
+  includeInTotalAll.checked = !hasAnyExcluded();
 
   updateFinalData();
 }
@@ -256,16 +254,31 @@ function calcPriceSum() {
   };
 }
 
-setTimeout(() => {
-  const selectedItems = sessionCartData.filter(item => item.includeInTotal);
-  sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
-}, 1000);
 // "주문하기" 클릭 시 선택된 상품만 orderData로 전달
 function order() {
-  sessionStorage.remove("orderData");
-  const selectedItems = sessionCartData.filter(item => item.includeInTotal);
-  sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
-  window.location.href = "order.html";
+  if (hasAnyIncluded()) {
+    sessionStorage.remove("orderData");
+    const selectedItems = sessionCartData.filter(item => item.includeInTotal);
+    sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
+    window.location.href = "order.html";
+  }
+  else {
+    (async () => {
+      const modalObj = await modalPromise;
+      const parent = document.body;
+      const content = document.createElement("p");
+      content.textContent = "구매할 상품을 선택해주세요.";
+      const cancelBtnTxt = null;
+      const confirmBtnTxt = "확인";
+      modalObj.setModal({
+        parent,
+        content,
+        cancelBtnTxt,
+        confirmBtnTxt
+      });
+      modalObj.open(modalObj.close());
+    })();
+  }
 }
 
 async function loadModal() {
@@ -415,4 +428,13 @@ function modifyQuantity(data, amount) {
 
   item.quantity = newQuantity;
   updateCartSessionStorage();
+}
+
+function hasAnyExcluded() {
+  const cartItems = document.getElementById("cart-items");
+  return [...cartItems.querySelectorAll(".include-in-total")].some(checkbox => !checkbox.checked);
+}
+function hasAnyIncluded() {
+  const cartItems = document.getElementById("cart-items");
+  return [...cartItems.querySelectorAll(".include-in-total")].some(checkbox => checkbox.checked);
 }
