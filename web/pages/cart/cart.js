@@ -57,21 +57,43 @@ async function fetchCartItems() {
     const data = await response.json();
 
     // 데이터가 있는 경우
-    if (data.results && Array.isArray(data.results)) {
-      // API 응답 데이터를 화면에 맞게 변환
-      cartItems = data.results.map((item) => ({
-        id: item.id,
-        name: item.product.name,
-        category: item.product.seller?.store_name || "일반상품",
-        price: item.product.price,
-        image: item.product.image,
-        option: `${
-          item.product.shipping_method === "PARCEL" ? "택배배송" : "직접배송"
-        } / ${item.product.shipping_fee === 0 ? "무료배송" : "유료배송"}`,
-        quantity: item.quantity,
-        checked: true,
-        productId: item.product.id,
-      }));
+    if (Array.isArray(data) && data.length > 0) {
+      // 각 장바구니 아이템에 대해 상품 상세 정보 가져오기
+      const cartItemsWithProducts = await Promise.all(
+        data.map(async (item) => {
+          try {
+            const productResponse = await fetch(
+              `${API_BASE_URL}/products/${item.product_id}`
+            );
+            if (!productResponse.ok) {
+              throw new Error("상품 정보를 불러올 수 없습니다.");
+            }
+            const product = await productResponse.json();
+
+            return {
+              id: item.id,
+              name: product.name,
+              category: product.seller?.store_name || "일반상품",
+              price: product.price,
+              image: product.image.startsWith("./")
+                ? product.image.replace("./", "../../")
+                : product.image,
+              option: `${
+                product.shipping_method === "PARCEL" ? "택배배송" : "직접배송"
+              } / ${product.shipping_fee === 0 ? "무료배송" : "유료배송"}`,
+              quantity: item.quantity,
+              checked: true,
+              productId: product.id,
+            };
+          } catch (error) {
+            console.error(`상품 ID ${item.product_id} 정보 로드 실패:`, error);
+            return null;
+          }
+        })
+      );
+
+      // null이 아닌 항목만 필터링
+      cartItems = cartItemsWithProducts.filter((item) => item !== null);
 
       console.log(` 장바구니 데이터 로드 완료: ${cartItems.length}개 상품`);
     } else {
