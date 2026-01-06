@@ -1,3 +1,7 @@
+import { loadCSS } from "/js/common/dom-utils.js";
+
+loadCSS("/styles/components/modal.css");
+
 class Modal {
   #parent;
   #content;
