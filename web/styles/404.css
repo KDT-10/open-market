@@ -1,6 +1,3 @@
-@import './variables.css';
-@import './fonts.css';
-
 .error-container {
     display: flex;
     justify-content: center;
