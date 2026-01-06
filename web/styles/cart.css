@@ -1,5 +1,5 @@
 /* 공통 CSS 변수 import */
-@import "../styles/variables.css";
+@import "./variables.css";
 
 * {
   margin: 0;
