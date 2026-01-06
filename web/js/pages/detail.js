@@ -250,10 +250,6 @@ function setAddToCartHandler(product, getQuantity) {
 window.addToCart = function() {
   const productId = getProductIdFromURL();
   const quantity = parseInt(document.getElementById('quantity').value, 10);
-  const name = document.getElementById('product-name').textContent;
-  const image = document.getElementById('product-image').src;
-  const price = parseInt(document.getElementById('price').textContent.replace(/[^0-9]/g, ''), 10);
-  const shipping_fee = parseInt(document.getElementById('delivery-charge').textContent.replace(/[^0-9]/g, ''), 10);
 
   let cart = [];
   try {
@@ -277,13 +273,9 @@ window.addToCart = function() {
   }
   cart.push({
     product_id: productId,
-    name,
-    image,
-    price,
-    shipping_fee,
     quantity
   });
-  sessionStorage.setItem('cart', JSON.stringify(cart));
+  sessionStorage.setItem('cartdata', JSON.stringify(cart));
   createModal({
     parent: document.body,
     content: document.createTextNode('장바구니에 추가되었습니다. 장바구니로 가시겠습니까?'),
@@ -299,25 +291,17 @@ window.addToCart = function() {
 window.buyNow = function() {
   const productId = getProductIdFromURL();
   const quantity = parseInt(document.getElementById('quantity').value, 10);
-  const name = document.getElementById('product-name').textContent;
-  const image = document.getElementById('product-image').src;
-  const price = parseInt(document.getElementById('price').textContent.replace(/[^0-9]/g, ''), 10);
-  const shipping_fee = parseInt(document.getElementById('delivery-charge').textContent.replace(/[^0-9]/g, ''), 10);
 
   // 주문 정보 세션스토리지에 저장
   const order = {
     product_id: productId,
-    name,
-    image,
-    price,
-    shipping_fee,
     quantity
   };
-  sessionStorage.setItem('order', JSON.stringify(order));
+  sessionStorage.setItem('orderdata', JSON.stringify(order));
 
   createModal({
     parent: document.body,
-    content: document.createTextNode(`${name} ${quantity}개를 바로 구매하시겠습니까?`),
+    content: document.createTextNode(`${quantity}개를 바로 구매하시겠습니까?`),
     cancelBtnTxt: '취소',
     confirmBtnTxt: '구매'
   }).then(modal => {
