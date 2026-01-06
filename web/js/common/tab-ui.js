@@ -1,3 +1,16 @@
+/**
+ * 
+ * @param {string} activeClassName 
+ * @param {HTMLElement} tabsData 
+ * @example
+ * const buyerTab = document.getElementById("buyer-tab");
+ * const sellerTab = document.getElementById("seller-tab");
+ * const sellerFields = document.getElementById("seller-fields");
+ * setTabGroup("active", [
+ *   { tab: buyerTab, content: null },
+ *   { tab: sellerTab, content: sellerFields }
+ * ]);
+ */
 export function setTabGroup(activeClassName, tabsData) {
   // 초기 탭 렌더링
   setTabActive(activeClassName, tabsData, 0);

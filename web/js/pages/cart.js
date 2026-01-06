@@ -14,8 +14,7 @@ let cartData;
   renderCartItems(cartData);
 })();
 
-const modifyQuantityModalPromise = createModifyQuantityModal();
-const deleteCartItemModalPromise = createDeleteCartItemModal();
+const modalPromise = loadModal();
 
 // 주문하기
 const orderBtnLarge = document.getElementById("order-btn-large");
@@ -99,7 +98,8 @@ function cloneCartItemElem(data) {
 function bindDeleteCartItemEvent(cartItem) {
   const deleteBtn = cartItem.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", async () => {
-    const modalObj = await deleteCartItemModalPromise;
+    const modalObj = await modalPromise;
+    setDeleteModal(modalObj);
     modalObj.open(() => {
       const id = getCartItemIdFromElem(cartItem);
       if (isLoggedIn()) {
@@ -136,7 +136,8 @@ function bindModifyEvent(cartItem, data) {
 
   quantityAmountBtn.addEventListener("click", async () => {
     const quantityAmount = quantityAmountBtn.textContent;
-    const modalObj = await modifyQuantityModalPromise;
+    const modalObj = await modalPromise;
+    setModifyModal(modalObj);
     const modalQuantityAmountBtn = modalObj.modal.querySelector(".quantity-amount-btn");
     modalQuantityAmountBtn.textContent = quantityAmount;
     modalObj.open(() => {
@@ -146,6 +147,38 @@ function bindModifyEvent(cartItem, data) {
       updateCartItemData(cartItem, data);
       updateFinalData();
     });
+  });
+}
+function setModifyModal(modalObj) {
+  const parent = document.body;
+  const content = document.createElement("div");
+  const template = document.getElementById("cart-item-template");
+  const templateContent = template.content;
+  const quantityControlTemplate = templateContent.querySelector(".quantity-control");
+  const quantityControl = quantityControlTemplate.cloneNode(true);
+  content.appendChild(quantityControl);
+  const cancelBtnTxt = "취소";
+  const confirmBtnTxt = "수정";
+  modalObj.setModal({
+    parent,
+    content,
+    cancelBtnTxt,
+    confirmBtnTxt
+  });
+
+  bindModalModifyEvent(modalObj.modal);
+}
+function setDeleteModal(modalObj) {
+  const parent = document.body;
+  const content = document.createElement("p");
+  content.textContent = "상품을 삭제하시겠습니까?";
+  const cancelBtnTxt = "취소";
+  const confirmBtnTxt = "확인";
+  modalObj.setModal({
+    parent,
+    content,
+    cancelBtnTxt,
+    confirmBtnTxt
   });
 }
 
@@ -222,25 +255,8 @@ function order() {
 }
 
 // TODO: 각 모달 상세 내용
-async function createModifyQuantityModal() {
-  const parent = document.body;
-  const content = document.createElement("div");
-  const template = document.getElementById("cart-item-template");
-  const templateContent = template.content;
-  const quantityControlTemplate = templateContent.querySelector(".quantity-control");
-  const quantityControl = quantityControlTemplate.cloneNode(true);
-  content.appendChild(quantityControl);
-  const cancelBtnTxt = "취소";
-  const confirmBtnTxt = "수정";
-  const modalObj = await createModal({
-    parent,
-    content,
-    cancelBtnTxt,
-    confirmBtnTxt
-  });
-
-  bindModalModifyEvent(modalObj.modal);
-
+async function loadModal() {
+  const modalObj = await createModal();
   return modalObj;
 }
 function bindModalModifyEvent(modal) {
@@ -256,22 +272,6 @@ function bindModalModifyEvent(modal) {
   };
   decreaseBtn.addEventListener("click", () => updateAmount(-1));
   increaseBtn.addEventListener("click", () => updateAmount(1));
-}
-
-async function createDeleteCartItemModal() {
-  const parent = document.body;
-  const content = document.createElement("p");
-  content.textContent = "상품을 삭제하시겠습니까?";
-  const cancelBtnTxt = "취소";
-  const confirmBtnTxt = "확인";
-  const modalObj = await createModal({
-    parent,
-    content,
-    cancelBtnTxt,
-    confirmBtnTxt
-  });
-
-  return modalObj;
 }
 
 // GET /api/cart 호출하여 상품 목록 표시

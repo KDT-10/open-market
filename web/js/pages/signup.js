@@ -443,6 +443,6 @@ async function handleSellerSignup(e) {
 }
 
 function isSellerTabActive() {
-  if (sellerTab.classList.contains("active-form-tab")) return true;
+  if (sellerTab.classList.contains("active")) return true;
   return false;
 }
