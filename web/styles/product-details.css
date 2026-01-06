@@ -1,8 +1,9 @@
-/* 기본 리셋 */
+@import './variables.css';
+@import './fonts.css';
+
+/* 기본 리셋 (root 제외) */
 * {
-  margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .svg-sprite {

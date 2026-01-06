@@ -1,13 +1,23 @@
 @import './variables.css';
 @import './fonts.css';
 
+html, body {
+  height: 100%;
+}
 
-/* TODO: 기본 리셋 import에 있는지 확인하기 */
-/* 기본 리셋 */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* 기본 리셋 (root 제외) */
 * {
-  margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .svg-sprite {
@@ -94,7 +104,6 @@
 /* 푸터 */
 .site-footer {
   border-top: .0625rem solid #e5e5e5;
-  margin-top: 17rem;
   font-size: .8125rem;
   color: #777;
 }

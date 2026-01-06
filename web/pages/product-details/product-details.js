@@ -166,10 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
     buyBtn.addEventListener('click', (e) => {
       e.preventDefault();
       if (!isLoggedIn()) {
-        window.location.href = '/pages/login.html';
+        window.location.href = '/pages/login/login.html';
         return;
       }
-      window.location.href = `/pages/order.html?id=${productId}&quantity=${quantity}`;
+      window.location.href = `/pages/order/order.html?id=${productId}&quantity=${quantity}`;
     });
   }
 
@@ -194,7 +194,7 @@ if (cartBtn) {
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   if (modalYes) {
     modalYes.addEventListener('click', () => {
-      window.location.href = '/pages/cart-page-none.html';
+      window.location.href = '/pages/cart/cart.html';
     });
   }
 });

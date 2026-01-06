@@ -12,7 +12,7 @@ function requireLogin(callback) {
   return function (e) {
     e.preventDefault();
     if (!isLoggedIn()) {
-      window.location.href = '/pages/login.html';
+      window.location.href = '/pages/login/login.html';
       return;
     }
     callback();
@@ -41,15 +41,19 @@ async function loadLayout() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    // body 맨 위에 header/footer 삽입
+    // layout 삽입
     document.body.prepend(...doc.body.children);
 
-    // layout 삽입 후 이벤트 연결
+    // 페이지 콘텐츠를 main으로 이동
+    movePageContentToMain();
+
+    // header 이벤트 연결
     bindHeaderEvents();
   } catch (err) {
     console.error(err);
   }
 }
+
 
 // header 이벤트 바인딩
 function bindHeaderEvents() {
@@ -62,7 +66,7 @@ function bindHeaderEvents() {
     cartBtn.addEventListener(
       'click',
       requireLogin(() => {
-        window.location.href = '/pages/cart-page-none.html';
+        window.location.href = '/pages/cart/cart.html';
       })
     );
   }
@@ -75,10 +79,22 @@ function bindHeaderEvents() {
   if (mypageBtn) {
     mypageBtn.addEventListener('click', () => {
       if (!isLoggedIn()) {
-        window.location.href = '/pages/login.html';
+        window.location.href = '/pages/login/login.html';
       } else {
-        window.location.href = '/pages/404.html';
+        window.location.href = '/pages/404/404.html';
       }
     });
   }
+}
+
+function movePageContentToMain() {
+  const main = document.querySelector('#main-content');
+  if (!main) return;
+
+  const pageContents = [...document.body.children].filter(
+    el =>
+      !el.matches('header, footer, #main-content, script, link')
+  );
+
+  pageContents.forEach(el => main.appendChild(el));
 }
