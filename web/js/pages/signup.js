@@ -90,7 +90,7 @@ form.addEventListener("submit", (e) => {
 
 // 아이디(이메일) 중복 확인
 async function checkUsername() {
-  const username = usernameInput.value;
+  const username = usernameInput.value.trim();
 
   if (!username) {
     Validation.showMessage(
@@ -219,14 +219,14 @@ function validatePassword() {
 // 이름 Validation
 function validateName() {
   const nameInput = document.getElementById("name");
-  const name = nameInput.value;
+  const name = nameInput.value.trim();
   if (name.length === 0) return false;
   return true;
 }
 
 // 전화번호 Validation
 function validatePhone() {
-  const [phone1, phone2, phone3] = phoneInputs.map(input => input.value);
+  const [phone1, phone2, phone3] = phoneInputs.map(input => input.value.trim());
 
   if (!Validation.isValidPhone(phone1, phone2, phone3)) {
     Validation.showMessage(
@@ -284,10 +284,10 @@ async function handleBuyerSignup(e) {
   const phone2 = document.getElementById("phone2");
   const phone3 = document.getElementById("phone3");
   const formData = {
-    username: usernameInput.value,
+    username: usernameInput.value.trim(),
     password: passwordInput.value,
-    name: nameInput.value,
-    phone_number: `${phone1.value}-${phone2.value}-${phone3.value}`,
+    name: nameInput.value.trim(),
+    phone_number: `${phone1.value.trim()}-${phone2.value.trim()}-${phone3.value.trim()}`,
   };
 
   try {
@@ -316,7 +316,7 @@ async function handleBuyerSignup(e) {
 
 // 사업자등록번호 검증
 async function validateRegistrationNumber() {
-  const registrationNumber = registrationNumberInput.value.replace(/-/g, "");
+  const registrationNumber = registrationNumberInput.value.trim().replace(/-/g, "");
 
   if (registrationNumber.length !== 10) {
     Validation.showMessage(
@@ -399,7 +399,7 @@ async function handleSellerSignup(e) {
     return;
   }
 
-  const storeName = document.getElementById("store-name").value;
+  const storeName = document.getElementById("store-name").value.trim();
   if (!storeName) {
     alert("스토어명을 입력해주세요.");
     return;
@@ -410,11 +410,11 @@ async function handleSellerSignup(e) {
   const phone2 = document.getElementById("phone2");
   const phone3 = document.getElementById("phone3");
   const formData = {
-    username: usernameInput.value,
+    username: usernameInput.value.trim(),
     password: passwordInput.value,
-    name: nameInput.value,
-    phone_number: `${phone1.value}-${phone2.value}-${phone3.value}`,
-    registration_number: registrationNumberInput.value.replace(/-/g, ""),
+    name: nameInput.value.trim(),
+    phone_number: `${phone1.value.trim()}-${phone2.value.trim()}-${phone3.value.trim()}`,
+    registration_number: registrationNumberInput.value.trim().replace(/-/g, ""),
     store_name: storeName,
   };
 
