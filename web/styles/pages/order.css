@@ -176,6 +176,7 @@ main span {
   padding: 0.5rem 0;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 0.5rem;
 }
 .pay-radiobtn label {
   display: flex;
@@ -298,9 +299,6 @@ main span {
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
   .order-list-grid {
     display: grid;
     grid-template-columns: 1fr 6rem 6rem 6rem;
@@ -322,9 +320,6 @@ main span {
 
 /* Desktop (1024px 이상) */
 @media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
   .order-list-grid {
     display: grid;
     grid-template-columns: 1fr 8rem 8rem 8rem;
@@ -334,7 +329,6 @@ main span {
   }
   .pay-container {
     width: 100%;
-    max-width: 1024px;
     flex-direction: row;
     gap: 2rem;
   }
