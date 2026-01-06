@@ -228,6 +228,17 @@ function renderProductDetail(product) {
             window.location.href = '/cart.html';
           });
         });
-      }
+        }
     });
-}
+};
+
+// 하단 탭 버튼 클릭 시 active 유지
+const tabBtns = document.querySelectorAll(
+  '.button-container, .review-container, .qna-container, .Return-Exchange-container'
+);
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});

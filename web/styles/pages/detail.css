@@ -1,123 +1,130 @@
 /* 모바일 우선, 카드형 디자인, 컬러 포인트, 반응형 개선 */
 
-/* 480px 해상도(모바일) 기준 스타일 */
 .detail-container {
   width: var(--content-size);
   margin: 0 auto;
-  padding: 12px 4px;
+  padding: 16px 8px;
   box-sizing: border-box;
   background: #fff;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
 
 .product-detail {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
   align-items: center;
 }
 
 .product-image {
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.06);
-  background: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.10);
+  background: #f8f9fa;
+  border: 1.5px solid #e3e5e8;
 }
 
 .product-shell {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 6px 0;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1.5px solid #e3e5e8;
 }
 
 .product-name {
-  font-size: 1.1rem;
+  font-size: 1.18rem;
   font-weight: 700;
   margin-bottom: 2px;
+  color: #222;
 }
 .seller-name {
-  color: #888;
-  font-size: 0.95rem;
+  color: #7c7c7c;
+  font-size: 0.98rem;
+  font-weight: 500;
 }
 .price {
-  font-size: 1.05rem;
-  color: #21BF48;
-  font-weight: 600;
+  font-size: 1.12rem;
+  color: #03c75a;
+  font-weight: 700;
 }
 .delivery-charge, .stock {
-  font-size: 0.95rem;
-  color: #666;
+  font-size: 0.98rem;
+  color: #555;
+  font-weight: 500;
 }
 
 .quantity-selector {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin: 8px 0;
+  gap: 10px;
+  margin: 12px 0;
 }
 .quantity-selector button {
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: #f0f0f0;
-  color: #21BF48;
-  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid #03c75a;
+  background: #fff;
+  color: #03c75a;
+  font-size: 1.2rem;
   border-radius: 50%;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, border 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 .quantity-selector button:hover {
-  background: #21BF48;
+  background: #03c75a;
   color: #fff;
+  border: 1.5px solid #03c75a;
 }
 .quantity-selector input {
-  width: 36px;
-  height: 28px;
+  width: 44px;
+  height: 32px;
   text-align: center;
-  font-size: 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  background: #fafafa;
+  font-size: 1.08rem;
+  border: 1.5px solid #e3e5e8;
+  border-radius: 7px;
+  background: #f8f9fa;
+  font-weight: 600;
 }
 
 .total-price {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin: 6px 0 0 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #222;
+  margin: 10px 0 0 0;
 }
 
 #buy-now, #add-to-cart {
   width: 100%;
-  padding: 10px 0;
-  margin-top: 6px;
-  font-size: 1rem;
+  padding: 12px 0;
+  margin-top: 8px;
+  font-size: 1.08rem;
   font-weight: 700;
   border: none;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #21BF48 60%, #6be585 100%);
+  border-radius: 8px;
+  background: #03c75a;
   color: #fff;
-  box-shadow: 0 1px 4px 0 rgba(33,191,72,0.08);
+  box-shadow: 0 2px 8px 0 rgba(3,199,90,0.08);
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0.01em;
 }
 #add-to-cart {
-  background: linear-gradient(90deg, #fff 0%, #21BF48 100%);
-  color: #21BF48;
-  border: 1.2px solid #21BF48;
-  margin-top: 4px;
+  background: #767676;
+  color: #fff;
+  border: 1.5px solid #767676;
+  margin-top: 6px;
 }
 #buy-now:hover, #add-to-cart:hover {
-  background: linear-gradient(90deg, #21BF48 80%, #21BF48 100%);
+  background: #03c75a;
   color: #fff;
-  transform: translateY(-1px) scale(1.02);
+  transform: translateY(-1px) scale(1.03);
 }
 
 .detail-info-container {
@@ -126,25 +133,42 @@
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  gap: 6px;
-  border-bottom: 1px solid #E0E0E0;
-  margin-top: 6px;
-  padding-bottom: 4px;
-  background: #fafafa;
-  border-radius: 6px 6px 0 0;
+  border-bottom: 1.5px solid #e3e5e8;
+  margin-top: 10px;
+  padding-bottom: 6px;
+  background: #f8f9fa;
+  border-radius: 8px 8px 0 0;
 }
+
 .button-container, .review-container, .qna-container, .Return-Exchange-container {
-  font-size: 0.98rem;
-  font-weight: 500;
+  font-size: 1.02rem;
+  font-weight: 600;
   color: #555;
-  padding: 6px 10px;
-  border-radius: 5px 5px 0 0;
+  padding: 12px 0;
+  border-radius: 7px 7px 0 0;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  user-select: none;
+  flex: 1 1 0;
+  text-align: center;
+  min-width: 0;
+  border-right: 1px solid #e3e5e8;
+  background: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.button-container:last-child, .review-container:last-child, .qna-container:last-child, .Return-Exchange-container:last-child {
+  border-right: none;
 }
 .button-container:hover, .review-container:hover, .qna-container:hover, .Return-Exchange-container:hover {
-  background: #21BF48;
+  background: #03c75a;
   color: #fff;
+}
+.button-container.active, .review-container.active, .qna-container.active, .Return-Exchange-container.active {
+  background: #03c75a;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(3,199,90,0.12) inset;
 }
 
 @media (min-width: 768px) {
