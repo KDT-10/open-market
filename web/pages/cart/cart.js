@@ -64,9 +64,7 @@ async function fetchCartItems() {
         name: item.product.name,
         category: item.product.seller?.store_name || "일반상품",
         price: item.product.price,
-        image: item.product.image.startsWith("/web")
-          ? item.product.image
-          : `/web${item.product.image}`,
+        image: item.product.image,
         option: `${
           item.product.shipping_method === "PARCEL" ? "택배배송" : "직접배송"
         } / ${item.product.shipping_fee === 0 ? "무료배송" : "유료배송"}`,
@@ -384,7 +382,7 @@ function goToOrderPage(orderItems) {
   localStorage.setItem("orderData", JSON.stringify(orderData));
 
   // order 페이지로 이동
-  window.location.href = "/web/pages/order/order.html";
+  window.location.href = "../order/order.html";
 }
 
 // 가격 포맷팅 (천 단위 콤마)
@@ -536,7 +534,7 @@ function initModalEventListeners() {
     // 예 버튼 - 로그인 페이지로 이동 (장바구니로 돌아오기 위한 redirect 파라미터 추가)
     confirmBtn.addEventListener("click", () => {
       closeModal(loginModal);
-      window.location.href = "/web/pages/login/login.html?redirect=cart";
+      window.location.href = "../login/login.html?redirect=cart";
     });
   }
 }
