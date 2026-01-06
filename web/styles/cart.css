@@ -1,5 +1,5 @@
 /* 공통 CSS 변수 import */
-@import '../styles/variables.css';
+@import "../styles/variables.css";
 
 * {
   margin: 0;
@@ -433,6 +433,201 @@ body {
   background-color: #1da93e;
 }
 
+/* 모달 스타일 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  width: 360px;
+  height: 200px;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999999;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #000000;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.modal-message {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.modal-submessage {
+  font-size: 0.8125rem;
+  color: #767676;
+  text-align: center;
+  margin: -0.875rem 0 0 0;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* 수량 선택 모달 스타일 */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 0.0625rem solid #c4c4c4;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.qty-modal-btn {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #c4c4c4;
+  transition: all 0.2s ease;
+  font-weight: 400;
+}
+
+.qty-modal-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.qty-modal-btn.minus {
+  border-right: 0.0625rem solid #c4c4c4;
+}
+
+.qty-modal-btn.plus {
+  border-left: 0.0625rem solid #c4c4c4;
+}
+
+.qty-modal-input {
+  width: 4rem;
+  height: 3rem;
+  text-align: center;
+  border: none;
+  font-size: 1.125rem;
+  font-weight: 500;
+  outline: none;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.qty-modal-input::-webkit-inner-spin-button,
+.qty-modal-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 모달 버튼 */
+.modal-buttons {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-btn.cancel {
+  background-color: #ebebeb;
+  color: #767676;
+}
+
+.modal-btn.cancel:hover {
+  background-color: #d9d9d9;
+}
+
+.modal-btn.confirm {
+  background-color: #21bf48;
+  color: #ffffff;
+}
+
+.modal-btn.confirm:hover {
+  background-color: #1da93e;
+}
+
 /* 반응형 - 모바일 */
 @media (max-width: 48rem) {
   .product-card {
@@ -458,5 +653,10 @@ body {
   .btn-remove {
     top: 0.75rem;
     right: 0.75rem;
+  }
+
+  .modal-content {
+    min-width: 16rem;
+    padding: 1.5rem;
   }
 }

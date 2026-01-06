@@ -67,5 +67,57 @@
         </div>
       </div>
     </main>
+
+    <!-- 모달 컨테이너 -->
+    <!-- 수량 선택 모달 -->
+    <div id="quantityModal" class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <div class="quantity-selector">
+            <button class="qty-modal-btn minus">-</button>
+            <input type="number" class="qty-modal-input" value="1" min="1" />
+            <button class="qty-modal-btn plus">+</button>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">취소</button>
+            <button class="modal-btn confirm">수정</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 삭제 확인 모달 -->
+    <div id="deleteModal" class="modal modal-to-check">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <p class="modal-message">상품을 삭제하시겠습니까?</p>
+          <p class="modal-submessage">&nbsp;</p>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">아니오</button>
+            <button class="modal-btn confirm">예</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 로그인 요청 모달 -->
+    <div id="loginModal" class="modal modal-to-check">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <p class="modal-message">로그인이 필요합니다.</p>
+          <p class="modal-submessage">로그인 하시겠습니까?</p>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">아니오</button>
+            <button class="modal-btn confirm">예</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
