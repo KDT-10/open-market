@@ -1233,7 +1233,7 @@ apiRouter.delete("/cart/:cart_item_id/", checkAuth, (req, res) => {
     return res.status(403).json({ detail: "접근권한이 없습니다." });
   }
 
-  cartItem.remove().write();
+  db.get("cart").remove({ id: cartItemId }).write();
 
   res.status(200).json({ detail: "장바구니에 담긴 상품이 삭제되었습니다." });
 });
