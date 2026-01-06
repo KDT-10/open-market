@@ -22,12 +22,19 @@ payButton.addEventListener("click", () => {
 });
 
 let orderData;
+let sessionOrderData;
 (async () => {
   // 로그인 상태에 따른 데이터 로드
   if (isLoggedIn()) {
-    orderData = await fetchGetOrder();
+    sessionOrderData = JSON.parse(sessionStorage.getItem("orderData")) || [];
+    orderData = await Promise.all(
+      sessionOrderData.map(async ({ product_id }) => ({
+        ...(await fetchGetProduct(product_id)),
+        includeInTotal: false,
+      }))
+    );
   } else {
-    orderData = JSON.parse(sessionStorage.getItem("orderData")) || [];
+    window.location.href = "signin.html";
   }
   renderOrderItems();
 })();
@@ -54,7 +61,6 @@ function cloneOrderItemElem(data) {
   const {
     image,
     name,
-    quantity = 1,
     discount = 0.0,
     price,
     shipping_fee,
@@ -65,14 +71,14 @@ function cloneOrderItemElem(data) {
   const node = template.content.cloneNode(true);
   const elem = node.querySelector(".header-p");
 
-  const discountAmount = Math.floor(price * discount);
+  const discountAmount = Math.floor(price * discount * getQuantity(data.id));
   const shoppingFee = Number(shipping_fee) === 0 ? '무료배송' : `${shipping_fee.toLocaleString()}원`;
-  const totalPrice = price - discountAmount + shipping_fee;
+  const totalPrice = price * getQuantity(data.id);
 
   elem.querySelector(".header-p-fornt img").src = image;
   elem.querySelector(".order-item-brand").textContent = store_name;
   elem.querySelector(".order-item-name").textContent = name;
-  elem.querySelector(".order-item-quantity").textContent = `수량 : ${quantity}개`;
+  elem.querySelector(".order-item-quantity").textContent = `수량 : ${getQuantity(data.id)}개`;
   elem.querySelector(".order-item-discount").textContent = `${discountAmount}원`;
   elem.querySelector(".order-item-shopping-fee").textContent = shoppingFee;
   elem.querySelector(".order-item-price").textContent = `${totalPrice.toLocaleString()}원`;
@@ -91,13 +97,13 @@ function updateFinalData() {
   let shoppingFee = 0;
   let totalPrice = 0;
   orderData.forEach(data => {
-    priceSum += data.price;
-    discountAmount += Math.floor(data.price * data.discountAmount ? data.discountAmount : 0.0);
+    priceSum += (data.price * getQuantity(data.id));
+    discountAmount -= Math.floor(data.price * data.discountAmount ? data.discountAmount : 0.0);
     shoppingFee += data.shipping_fee;
   });
   totalPrice = priceSum - discountAmount + shoppingFee;
 
-  priceSumEl.querySelector("span").textContent = priceSum.toLocaleString();
+  priceSumEl.querySelector("span").textContent = totalPrice.toLocaleString();
   billPrice.querySelector("strong").textContent = priceSum.toLocaleString();
   billDiscountAmount.querySelector("strong").textContent = discountAmount.toLocaleString();
   billShoppingFee.querySelector("strong").textContent = shoppingFee.toLocaleString();
@@ -147,4 +153,15 @@ function validateInputs() {
   }
 
   return true;
+}
+
+async function fetchGetProduct(id) {
+  const url = `http://localhost:3000/api/products/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
+
+function getQuantity(id) {
+  return sessionOrderData.find(item => Number(item.product_id) === Number(id)).quantity;
 }

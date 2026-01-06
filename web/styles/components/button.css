@@ -1,3 +1,62 @@
+/*
+detail 시작
+*/
+#buy-now, #add-to-cart {
+  width: 100%;
+  padding: 12px 0;
+  margin-top: 8px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  background: #03c75a;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(3,199,90,0.08);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0.01em;
+}
+#add-to-cart {
+  background: #767676;
+  color: #fff;
+  border: 1.5px solid #767676;
+  margin-top: 6px;
+}
+#buy-now:hover, #add-to-cart:hover {
+  background: #03c75a;
+  color: #fff;
+  transform: translateY(-1px) scale(1.03);
+}
+.button-container, .review-container, .qna-container, .Return-Exchange-container {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #555;
+  padding: 12px 0;
+  border-radius: 7px 7px 0 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  user-select: none;
+  flex: 1 1 0;
+  text-align: center;
+  min-width: 0;
+  border-right: 1px solid #e3e5e8;
+  background: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.button-container:last-child, .review-container:last-child, .qna-container:last-child, .Return-Exchange-container:last-child {
+  border-right: none;
+}
+.button-container:hover, .review-container:hover, .qna-container:hover, .Return-Exchange-container:hover {
+  background: #03c75a;
+  color: #fff;
+}
+.button-container.active, .review-container.active, .qna-container.active, .Return-Exchange-container.active {
+  background: #03c75a;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(3,199,90,0.12) inset;
+}
 .decrease-qty {
   background-color: #ff4d4d;
   border: none;
@@ -32,3 +91,6 @@
 .increase-qty:hover {
   background-color: #45a049;
 }
+/*
+detail 끝
+*/

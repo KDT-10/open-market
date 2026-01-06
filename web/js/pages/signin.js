@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { createModal } from "/js/common/modal.js";
+
+const modalObj = createModal();
+
+document.addEventListener("DOMContentLoaded", async () => {
   // 탭 전환 (구매회원/판매회원)
   const buyerTab = document.getElementById("commonTab");
   const sellerTab = document.getElementById("venderTab");
@@ -86,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password").value;
 
     if (!username || !password) {
-      alert("아이디와 비밀번호를 입력해주세요.");
+      showSimpleModal("아이디와 비밀번호를 입력해주세요.");
       return;
     }
 
@@ -107,11 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (data.user.user_type !== userType) {
-        alert(
-          `${
-            userType === "BUYER" ? "구매회원" : "판매회원"
-          } 계정으로 로그인해주세요.`
-        );
+        showSimpleModal(`${userType === "BUYER" ? "구매회원" : "판매회원"} 계정으로 로그인해주세요.`);
         return;
       }
 
@@ -131,10 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.error("로그인 오류:", error);
-      alert(error.message || "아이디 또는 비밀번호를 확인해주세요.");
+      showSimpleModal(error.message || "아이디 또는 비밀번호를 확인해주세요.");
     }
   }
 
   const signinForm = document.querySelector(".login-form");
   signinForm.addEventListener("submit", handleSignin);
 });
+
+async function showSimpleModal(infoTxt) {
+  const content = document.createElement("p");
+  content.textContent = infoTxt;
+  (await modalObj).setModal({
+    parent: document.body,
+    content: content,
+    cancelBtnTxt: null,
+    confirmBtnTxt: "확인"
+  });
+  (await modalObj).open((await modalObj).close());
+}
