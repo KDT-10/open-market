@@ -29,7 +29,7 @@ const closeBtn = document.querySelector('.modal-close');
 
 // 로그인 체크 함수
 function getAccessToken() {
-  return localStorage.getItem('accessToken');
+  return localStorage.getItem('access_token');
 }
 
 function isLoggedIn() {
