@@ -6,7 +6,7 @@ const productId = params.get('id');
 let quantity = 1;
 let price = 0;
 
-// DOM
+// DOM (TODO: 확인하기01.06)
 const minusBtn = document.querySelector('.quantify button:first-child');
 const plusBtn = document.querySelector('.quantify button:last-child');
 const quantityInput = document.querySelector('.quantify input');
