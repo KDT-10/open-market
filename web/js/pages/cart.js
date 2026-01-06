@@ -43,6 +43,11 @@ function renderCartItems() {
     cartItems.appendChild(cartItem);
   });
 
+  const hasAnyExcluded = [...cartItems.querySelectorAll(".include-in-total")]
+    .some(checkbox => !checkbox.checked);
+  const includeInTotalAll = document.getElementById("include-in-total-all");
+  includeInTotalAll.checked = !hasAnyExcluded;
+
   updateFinalData();
 }
 
@@ -54,8 +59,6 @@ function bindIncludeInTotalAllEvent() {
       elem.checked = includeInTotalAll.checked;
       elem.dispatchEvent(new Event("change"));
     });
-
-    updateFinalData();
   });
 }
 
@@ -72,7 +75,6 @@ function createCartItem(data) {
   bindModifyEvent(cartItem, data);
   bindIncludeInTotalEvent(cartItem, data);
   updateCartItemData(cartItem, data);
-  updateFinalData();
   return cartItem;
 }
 
@@ -90,6 +92,7 @@ function cloneCartItemElem(data) {
   const node = template.content.cloneNode(true);
   const elem = node.querySelector(".cart-item");
 
+  elem.querySelector(".include-in-total").checked = getIncludeInTotal(data.id);
   elem.querySelector(".product-img-wrapper img").src = image;
   elem.querySelector(".main-text-brand").textContent = store_name;
   elem.querySelector(".main-text-name").textContent = name;
@@ -130,8 +133,8 @@ function bindModifyEvent(cartItem, data) {
   const quantityAmountBtn = cartItem.querySelector(".quantity-amount-btn");
 
   const updateAmount = (amount) => {
-    modifyQuantity(data.id, amount);
-    updateSessionStorage();
+    modifyQuantity(data, amount);
+    updateCartSessionStorage();
     updateCartItemData(cartItem, data);
     updateFinalData();
   };
@@ -146,8 +149,8 @@ function bindModifyEvent(cartItem, data) {
     modalQuantityAmountBtn.textContent = quantityAmount;
     modalObj.open(() => {
       const modalQuantityAmount = Number(modalQuantityAmountBtn.textContent);
-      data.quantity = modalQuantityAmount;
-      updateSessionStorage();
+      setQuantity(data, modalQuantityAmount);
+      updateCartSessionStorage();
       updateCartItemData(cartItem, data);
       updateFinalData();
     });
@@ -189,7 +192,7 @@ function setDeleteModal(modalObj) {
 function bindIncludeInTotalEvent(cartItem, data) {
   const includeInTotal = cartItem.querySelector(".include-in-total");
   includeInTotal.addEventListener("change", () => {
-    toggleIncludeInTotal(data.id, includeInTotal.checked);
+    setIncludeInTotal(data.id, includeInTotal.checked);
     updateFinalData();
   });
 }
@@ -197,11 +200,13 @@ function bindIncludeInTotalEvent(cartItem, data) {
 function deleteSessionStorage(id) {
   const index = cartData.findIndex(data => Number(data.id) === Number(id));
   if (index !== -1) cartData.splice(index, 1);
-  updateSessionStorage();
+  if (index !== -1) sessionCartData.splice(index, 1);
+  updateCartSessionStorage();
 }
 
-function updateSessionStorage() {
+function updateCartSessionStorage() {
   sessionStorage.setItem("cart", JSON.stringify(cartData));
+  sessionStorage.setItem("cartData", JSON.stringify(sessionCartData));
 }
 
 // 데이터 렌더링(카트 아이템)
@@ -231,8 +236,8 @@ function calcPriceSum() {
   let discountRate = 0.0;
 
   const { priceSum, deliverySum } = cartData.reduce(
-    (acc, { price, id, shipping_fee, includeInTotal }) => {
-      if (!includeInTotal) return acc;
+    (acc, { price, id, shipping_fee }) => {
+      if (!getIncludeInTotal(id)) return acc;
       acc.priceSum += price * getQuantity(id);
       acc.deliverySum += getQuantity(id) > 0 ? shipping_fee : 0;
       return acc;
@@ -251,15 +256,22 @@ function calcPriceSum() {
   };
 }
 
+setTimeout(() => {
+  const selectedItems = sessionCartData.filter(item => item.includeInTotal);
+  console.log(selectedItems)
+  console.log(JSON.stringify(selectedItems))
+  sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
+}, 1000);
 // "주문하기" 클릭 시 선택된 상품만 orderData로 전달
 function order() {
   sessionStorage.remove("orderData");
-  const selectedItems = cartData.filter(item => document.getElementById(`item-${item.id}`).checked);
+  const selectedItems = sessionCartData.filter(item => item.includeInTotal);
+  console.log(selectedItems)
+  console.log(JSON.stringify(selectedItems))
   sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
   window.location.href = "order.html";
 }
 
-// TODO: 각 모달 상세 내용
 async function loadModal() {
   const modalObj = await createModal();
   return modalObj;
@@ -324,20 +336,87 @@ async function fetchDeleteCart(cartItemId) {
 //   }
 // }
 
-function toggleIncludeInTotal(id, state) {
+function setIncludeInTotal(id, state) {
   sessionCartData.find(item => Number(item.product_id) === Number(id)).includeInTotal = state;
+  updateCartSessionStorage();
+}
+function getIncludeInTotal(id) {
+  return sessionCartData.find(item => Number(item.product_id) === Number(id)).includeInTotal;
 }
 function getQuantity(id) {
   return sessionCartData.find(item => Number(item.product_id) === Number(id)).quantity;
 }
-function modifyQuantity(id, amount) {
+function setQuantity(data, newQuantity) {
   const item = sessionCartData.find(
-    item => Number(item.product_id) === Number(id)
+    item => Number(item.product_id) === Number(data.id)
+  );
+
+  if (newQuantity > data.stock) {
+    (async () => {
+      const modalObj = await modalPromise;
+      const parent = document.body;
+      const content = document.createElement("p");
+      content.textContent = "재고가 부족합니다.";
+      const cancelBtnTxt = null;
+      const confirmBtnTxt = "확인";
+      modalObj.setModal({
+        parent,
+        content,
+        cancelBtnTxt,
+        confirmBtnTxt
+      });
+      modalObj.open(modalObj.close());
+    })();
+    return;
+  }
+
+  item.quantity = newQuantity;
+  updateCartSessionStorage();
+}
+function modifyQuantity(data, amount) {
+  const item = sessionCartData.find(
+    item => Number(item.product_id) === Number(data.id)
   );
 
   const newQuantity = item.quantity + amount;
-  if (newQuantity < 1) return;
+
+  if (newQuantity < 1) {
+    (async () => {
+      const modalObj = await modalPromise;
+      const parent = document.body;
+      const content = document.createElement("p");
+      content.textContent = "최소 1개 이상 선택해야 합니다.";
+      const cancelBtnTxt = null;
+      const confirmBtnTxt = "확인";
+      modalObj.setModal({
+        parent,
+        content,
+        cancelBtnTxt,
+        confirmBtnTxt
+      });
+      modalObj.open(modalObj.close());
+    })();
+    return;
+  }
+  if (newQuantity > data.stock) {
+    (async () => {
+      const modalObj = await modalPromise;
+      const parent = document.body;
+      const content = document.createElement("p");
+      content.textContent = "재고가 부족합니다.";
+      const cancelBtnTxt = null;
+      const confirmBtnTxt = "확인";
+      modalObj.setModal({
+        parent,
+        content,
+        cancelBtnTxt,
+        confirmBtnTxt
+      });
+      modalObj.open(modalObj.close());
+    })();
+    return;
+  }
 
   item.quantity = newQuantity;
-  sessionStorage.setItem("cartData", JSON.stringify(sessionCartData));
+  updateCartSessionStorage();
 }
