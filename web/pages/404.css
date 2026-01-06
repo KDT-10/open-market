@@ -6,25 +6,25 @@
     justify-content: center;
     align-items: center;
     height: 100vh; /* 화면 전체 높이 사용 */
-    gap: 40px; /* 아이콘과 텍스트 사이 간격 */
+    gap: 2.5rem; /* 아이콘과 텍스트 사이 간격 */
     font-family: 'Pretendard', sans-serif; /* 폰트 설정 */
 }
 
 .text-box h1 {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: .625rem;
 }
 
 .text-box p {
     color: #666;
     line-height: 1.5;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 }
 
 .button-group {
     display: flex;
-    gap: 10px;
+    gap: .625rem;
 }
 
 /* 초록색 버튼 */
@@ -32,8 +32,8 @@
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 4px;
+    padding: .75rem 1.5625rem;
+    border-radius: .25rem;
     cursor: pointer;
 }
 
@@ -41,8 +41,8 @@
 .btn-prev {
     background-color: white;
     color: #333;
-    border: 1px solid #ddd;
-    padding: 12px 25px;
-    border-radius: 4px;
+    border: .0625rem solid #ddd;
+    padding: .75rem 1.5625rem;
+    border-radius: .25rem;
     cursor: pointer;
 }

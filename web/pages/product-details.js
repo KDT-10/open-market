@@ -94,6 +94,27 @@ function openCartConfirmModal() {
   modal.classList.remove('hidden');
 }
 
+// 장바구니 추가 API
+async function addToCart(productId, quantity) {
+  const token = getAccessToken();
+
+  const res = await fetch('http://localhost:3000/cart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      product_id: productId,
+      quantity
+    })
+  });
+
+  if (!res.ok) throw new Error('장바구니 추가 실패');
+  return await res.json();
+}
+
+
 // 로그인 체크 공통
 function requireLogin(callback) {
   return function (e) {
@@ -153,11 +174,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 장바구니 버튼
-  if (cartBtn) {
-    cartBtn.addEventListener('click', requireLogin(() => {
-      openCartConfirmModal();
-    }));
-  }
+if (cartBtn) {
+  cartBtn.addEventListener(
+    'click',
+    requireLogin(async () => {
+      try {
+        await addToCart(productId, quantity);
+        openCartConfirmModal();
+      } catch (e) {
+        alert('장바구니 추가 실패');
+      }
+    })
+  );
+}
 
   // 모달 버튼
   if (modalNo) modalNo.addEventListener('click', closeModal);

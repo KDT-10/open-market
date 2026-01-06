@@ -87,7 +87,7 @@
 }
 
 /*  모바일  */
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
 
   /* 헤더 */
   .header-inner {
@@ -110,7 +110,7 @@
   }
 }
 /*  태블릿  */
-@media (min-width: 481px) and (max-width: 1024px) {
+@media (min-width: 30.0625rem) and (max-width: 64rem) {
 
   /* HEADER */
   .header-inner {
