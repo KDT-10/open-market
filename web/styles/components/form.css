@@ -1,0 +1,9 @@
+.success:not(:is(input, select)) {
+  color: var(--color-success);
+}
+.error:not(:is(input, select)) {
+  color: var(--color-error);
+}
+.error:not(:is(select)) {
+  border-color: var(--color-error);
+}
