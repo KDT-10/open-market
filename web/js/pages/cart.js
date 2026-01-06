@@ -3,15 +3,22 @@ import { isLoggedIn, checkLogin, fetchWithAuth } from "/js/common/auth.js";
 
 // 장바구니 데이터 로드
 let cartData;
+let sessionCartData;
+// 장바구니 데이터 로드
 (async () => {
   // 로그인 상태에 따른 데이터 로드
   if (isLoggedIn()) {
     cartData = await fetchGetCart();
   } else {
-    cartData = JSON.parse(sessionStorage.getItem("cart")) || [];
+    sessionCartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
+    cartData = await Promise.all(
+      sessionCartData.map(async ({ product_id }) => ({
+        ...(await fetchGetProduct(product_id)),
+        includeInTotal: false,
+      }))
+    );
+    renderCartItems();
   }
-  // 장바구니 아이템 렌더링
-  renderCartItems(cartData);
 })();
 
 const modalPromise = loadModal();
@@ -32,8 +39,6 @@ function renderCartItems() {
   toggleEmptyState(cartData.length > 0);
 
   cartData.forEach((data) => {
-    data.quantity ??= 1;
-    data.includeInTotal ??= false;
     const cartItem = createCartItem(data);
     cartItems.appendChild(cartItem);
   });
@@ -125,8 +130,7 @@ function bindModifyEvent(cartItem, data) {
   const quantityAmountBtn = cartItem.querySelector(".quantity-amount-btn");
 
   const updateAmount = (amount) => {
-    if (data.quantity + amount < 1) return;
-    data.quantity += amount;
+    modifyQuantity(data.id, amount);
     updateSessionStorage();
     updateCartItemData(cartItem, data);
     updateFinalData();
@@ -185,7 +189,7 @@ function setDeleteModal(modalObj) {
 function bindIncludeInTotalEvent(cartItem, data) {
   const includeInTotal = cartItem.querySelector(".include-in-total");
   includeInTotal.addEventListener("change", () => {
-    data.includeInTotal = includeInTotal.checked;
+    toggleIncludeInTotal(data.id, includeInTotal.checked);
     updateFinalData();
   });
 }
@@ -202,8 +206,8 @@ function updateSessionStorage() {
 
 // 데이터 렌더링(카트 아이템)
 function updateCartItemData(elem, data) {
-  elem.querySelector(".quantity-amount-btn").textContent = data.quantity;
-  elem.querySelector(".price-red").textContent = `${(data.price * data.quantity).toLocaleString()}원`;
+  elem.querySelector(".quantity-amount-btn").textContent = getQuantity(data.id);
+  elem.querySelector(".price-red").textContent = `${(data.price * getQuantity(data.id)).toLocaleString()}원`;
 }
 
 // 결제 예정 금액 렌더링
@@ -227,10 +231,10 @@ function calcPriceSum() {
   let discountRate = 0.0;
 
   const { priceSum, deliverySum } = cartData.reduce(
-    (acc, { price, quantity, shipping_fee, includeInTotal }) => {
+    (acc, { price, id, shipping_fee, includeInTotal }) => {
       if (!includeInTotal) return acc;
-      acc.priceSum += price * quantity;
-      acc.deliverySum += quantity > 0 ? shipping_fee : 0;
+      acc.priceSum += price * getQuantity(id);
+      acc.deliverySum += getQuantity(id) > 0 ? shipping_fee : 0;
       return acc;
     },
     { priceSum: 0, deliverySum: 0 }
@@ -249,8 +253,9 @@ function calcPriceSum() {
 
 // "주문하기" 클릭 시 선택된 상품만 orderData로 전달
 function order() {
+  sessionStorage.remove("orderData");
   const selectedItems = cartData.filter(item => document.getElementById(`item-${item.id}`).checked);
-  sessionStorage.setItem("orders", JSON.stringify(selectedItems));
+  sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
   window.location.href = "order.html";
 }
 
@@ -272,6 +277,13 @@ function bindModalModifyEvent(modal) {
   };
   decreaseBtn.addEventListener("click", () => updateAmount(-1));
   increaseBtn.addEventListener("click", () => updateAmount(1));
+}
+
+async function fetchGetProduct(id) {
+  const url = `http://localhost:3000/api/products/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 }
 
 // GET /api/cart 호출하여 상품 목록 표시
@@ -311,3 +323,21 @@ async function fetchDeleteCart(cartItemId) {
 //     throw new Error("장바구니 수정 실패");
 //   }
 // }
+
+function toggleIncludeInTotal(id, state) {
+  sessionCartData.find(item => Number(item.product_id) === Number(id)).includeInTotal = state;
+}
+function getQuantity(id) {
+  return sessionCartData.find(item => Number(item.product_id) === Number(id)).quantity;
+}
+function modifyQuantity(id, amount) {
+  const item = sessionCartData.find(
+    item => Number(item.product_id) === Number(id)
+  );
+
+  const newQuantity = item.quantity + amount;
+  if (newQuantity < 1) return;
+
+  item.quantity = newQuantity;
+  sessionStorage.setItem("cartData", JSON.stringify(sessionCartData));
+}

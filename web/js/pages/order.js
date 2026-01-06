@@ -27,7 +27,7 @@ let orderData;
   if (isLoggedIn()) {
     orderData = await fetchGetOrder();
   } else {
-    orderData = JSON.parse(sessionStorage.getItem("orders")) || [];
+    orderData = JSON.parse(sessionStorage.getItem("orderData")) || [];
   }
   renderOrderItems();
 })();
