@@ -1,0 +1,9 @@
+/* ===================================
+   Google Fonts Import
+   =================================== */
+
+/* Noto Sans KR (한글) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+/* Noto Sans Lao (추가 언어 지원) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');

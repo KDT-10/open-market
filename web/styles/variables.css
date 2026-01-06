@@ -1,0 +1,60 @@
+/* ===================================
+   CSS 변수 정의 (전체 프로젝트 공통)
+   =================================== */
+
+/* Google Fonts Import */
+@import './fonts.css';
+
+:root {
+  /* 메인 색상 */
+  --green: #1db954;
+  --primary-color: #1db954; /* --green과 동일 (별칭) */
+
+  /* 텍스트 색상 */
+  --text: #222;
+  --text-dark: #222;
+  --muted: #666;
+  --text-muted: #555;
+
+  /* 배경 색상 */
+  --bg: #ffffff;
+  --soft: #f3f3f3;
+  --soft2: #ededed;
+
+  /* 테두리 */
+  --border: #e7e7e7;
+
+  /* 상태 색상 */
+  --error: #e60023;
+  --success: #1db954;
+  --warning: #ffa500;
+
+  /* 폰트 */
+  --font-family: "Noto Sans KR", "Noto Sans Lao", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* 간격 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* 반응형 브레이크포인트 */
+  --mobile-max: 30rem;        /* 480px */
+  --tablet-min: 30.0625rem;   /* 481px */
+  --tablet-max: 64rem;        /* 1024px */
+  --desktop-min: 64.0625rem;  /* 1025px */
+}
+
+/* 박스 사이징 초기화 */
+* {
+  box-sizing: border-box;
+}
+
+/* 기본 body 스타일 */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text);
+  background: var(--bg);
+}
