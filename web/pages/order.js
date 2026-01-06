@@ -138,8 +138,8 @@ function openDaumPostcode() {
       $("#zip").value = data.zonecode || "";
       $("#addr1").value = addr || "";
 
-      postcodeDone = true; // ✅ 조회 완료!
-      $("#addr2").focus(); // ✅ 상세주소로 이동
+      postcodeDone = true; // 조회 완료
+      $("#addr2").focus(); // 상세주소로 이동
     },
   }).open();
 }
@@ -147,7 +147,7 @@ function openDaumPostcode() {
 $("#zipBtn").addEventListener("click", openDaumPostcode);
 
 /* =========================================================
-   ✅ 결제하기 클릭 시: 부족한 항목을 “구체 메시지”로 안내
+    결제하기 클릭 시: 부족한 항목을 “구체 메시지”로 안내
    - 모달은 결제하기 클릭에서만 뜸
 ========================================================= */
 function validateAndGetFirstError() {
@@ -218,7 +218,7 @@ payBtn.addEventListener("click", () => {
     return;
   }
 
-  openModal("입력이 완료되었습니다.");
+  openModal("결제가 완료되었습니다.");
 });
 
 renderItems();
