@@ -1,6 +1,6 @@
 // 로그인 관련 공통
 function getAccessToken() {
-  return localStorage.getItem('accessToken');
+  return localStorage.getItem('access_token'); // login.js랑 맞춤
 }
 
 function isLoggedIn() {
@@ -30,6 +30,8 @@ function loadCSS(url) {
 }
 
 // layout.html 로드 (header + footer)
+loadLayout();
+
 async function loadLayout() {
   try {
     const res = await fetch('/components/layout.html');
@@ -39,13 +41,12 @@ async function loadLayout() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    // layout 삽입 (안전하게)
-    if (doc && doc.body) {
-      document.body.prepend(...doc.body.children);
-    } else {
-      console.error('layout.html 문서 구조가 잘못됨');
-      return;
-    }
+    // layout에서 header와 footer만 가져오기
+    const header = doc.querySelector('header');
+    const footer = doc.querySelector('footer');
+
+    if (header) document.body.prepend(header);
+    if (footer) document.body.appendChild(footer);
 
     // 페이지 콘텐츠를 main으로 이동
     movePageContentToMain();
@@ -57,29 +58,30 @@ async function loadLayout() {
   }
 }
 
+// 페이지 콘텐츠를 main 안으로 이동
+function movePageContentToMain() {
+  const main = document.querySelector('#main-content');
+  if (!main) return;
 
+  const pageContents = [...document.body.children].filter(
+    el => !el.matches('header, footer, #main-content, script, link')
+  );
+
+  pageContents.forEach(el => main.appendChild(el));
+}
 
 // header 이벤트 바인딩
 function bindHeaderEvents() {
   // 장바구니 버튼
-  const cartBtn = document.querySelector(
-    'header .icon-item[aria-label="장바구니"]'
-  );
-
+  const cartBtn = document.querySelector('header .icon-item[aria-label="장바구니"]');
   if (cartBtn) {
-    cartBtn.addEventListener(
-      'click',
-      requireLogin(() => {
-        window.location.href = '/pages/cart/cart.html';
-      })
-    );
+    cartBtn.addEventListener('click', requireLogin(() => {
+      window.location.href = '/pages/cart/cart.html';
+    }));
   }
 
   // 마이페이지 버튼
-  const mypageBtn = document.querySelector(
-    'header .icon-item[aria-label="마이페이지"]'
-  );
-
+  const mypageBtn = document.querySelector('header .icon-item[aria-label="마이페이지"]');
   if (mypageBtn) {
     mypageBtn.addEventListener('click', () => {
       if (!isLoggedIn()) {
@@ -89,16 +91,4 @@ function bindHeaderEvents() {
       }
     });
   }
-}
-
-function movePageContentToMain() {
-  const main = document.querySelector('#main-content');
-  if (!main) return;
-
-  const pageContents = [...document.body.children].filter(
-    el =>
-      !el.matches('header, footer, #main-content, script, link')
-  );
-
-  pageContents.forEach(el => main.appendChild(el));
 }
