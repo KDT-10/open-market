@@ -2,7 +2,7 @@
 let cartItems = [];
 
 // API 기본 URL 설정
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:3000";
 
 // 로딩 상태 관리
 let isLoading = false;
@@ -471,7 +471,9 @@ function initModalEventListeners() {
           currentModalItem.quantity = newQuantity;
           renderCart();
           closeModal(quantityModal);
-          console.log(`✓ "${currentModalItem.name}" 수량이 ${newQuantity}개로 변경되었습니다.`);
+          console.log(
+            `✓ "${currentModalItem.name}" 수량이 ${newQuantity}개로 변경되었습니다.`
+          );
         } catch (error) {
           // 에러 처리는 updateCartItemQuantity에서 수행
         }
@@ -503,7 +505,9 @@ function initModalEventListeners() {
           }
           closeModal(deleteModal);
           // 삭제 성공 알림 (선택사항 - 원하면 제거 가능)
-          console.log(`✓ "${currentModalItem.name}" 상품이 장바구니에서 삭제되었습니다.`);
+          console.log(
+            `✓ "${currentModalItem.name}" 상품이 장바구니에서 삭제되었습니다.`
+          );
         } catch (error) {
           console.error("삭제 실패:", error);
         }
