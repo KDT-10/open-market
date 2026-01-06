@@ -3,7 +3,6 @@ const productId = getProductIdFromURL();
 import { createModal } from "/js/common/modal.js";
 import { checkLogin } from "/js/common/auth.js";
 
-
 // 상품 ID가 유효한지 확인
 if (productId) {
     fetchProductDetail(productId);
