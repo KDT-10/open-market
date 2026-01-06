@@ -1,14 +1,5 @@
 const API_BASE = "http://localhost:3000";
-
-// =======================
-// ⚠️ 중요: 로그인 페이지는 반드시 프론트 서버(8080)에서 열려야 함
-// 만약 3000에서 열리면 localStorage가 분리되어 로그인 유지가 안 됨
-// =======================
-if (location.port === "3000") {
-  location.replace("http://localhost:8080/pages/login/login.html");
-}
-
-// 탭 전환
+//탭 전환
 const tabs = document.querySelectorAll(".tab");
 tabs.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -20,7 +11,6 @@ tabs.forEach((btn) => {
     btn.setAttribute("aria-selected", "true");
   });
 });
-
 // 로그인 로직
 const form = document.getElementById("loginForm");
 const userId = document.getElementById("userId");
@@ -66,23 +56,6 @@ async function authFetch(url, options = {}) {
   return res;
 }
 
-// =======================
-// redirect 파라미터 처리
-// 예: /pages/login/login.html?redirect=/pages/cart/cart.html
-// =======================
-function getRedirectUrl() {
-  const params = new URLSearchParams(location.search);
-  const redirect = params.get("redirect");
-
-  // 내부 경로만 허용 (보안)
-  if (redirect && redirect.startsWith("/")) {
-    return redirect;
-  }
-
-  // 기본 이동: 메인 페이지
-  return "/index.html";
-}
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -106,17 +79,17 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify({ username, password }),
     });
 
-    const data = await response.json().catch(() => ({}));
-
     if (!response.ok) {
-      setError(
-        data.message ||
-          data.error ||
-          data.detail ||
-          "아이디 또는 비밀번호가 올바르지 않습니다."
-      );
+      let msg = "아이디 또는 비밀번호가 올바르지 않습니다.";
+      try {
+        const err = await response.json();
+        msg = err.message || err.error || err.detail || msg;
+      } catch (_) {}
+      setError(msg);
       return;
     }
+
+    const data = await response.json();
 
     if (!data?.access || !data?.refresh) {
       setError(
@@ -124,15 +97,22 @@ form.addEventListener("submit", async (e) => {
       );
       return;
     }
+    // // === 로그인 검증 영역 (임시 → API로 교체 예정) ===
+    // const CORRECT_ID = "test";
+    // const CORRECT_PW = "1234";
 
+    // const isValidLogin = id === CORRECT_ID && pw === CORRECT_PW;
+
+    // if (!isValidLogin) {
+    //   errorMessage.textContent = "아이디 또는 비밀번호가 일치하지 않습니다.";
+    //   return;
+    // }
     // ===============================================
     // 성공 (토큰 저장)
     saveLogin(data, username);
 
     alert("로그인에 성공했습니다!");
-
-    // ✅ 원래 가려던 페이지로 이동 (없으면 메인)
-    window.location.replace(getRedirectUrl());
+    window.location.href = "/index.html";
   } catch (err) {
     console.error(err);
     setError(err?.message || "서버에 연결할 수 없습니다.");
