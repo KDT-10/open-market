@@ -2,13 +2,12 @@
 
 /* 480px 해상도(모바일) 기준 스타일 */
 .detail-container {
-  max-width: 100vw;
+  width: var(--content-size);
   margin: 0 auto;
   padding: 12px 4px;
   box-sizing: border-box;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   gap: 18px;

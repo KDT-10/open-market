@@ -9,17 +9,17 @@
   top: 0;
   z-index: 100;
   display: flex;
-  width: 100%;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
 .header {
   display: flex;
-  width: 100%;
+  width: var(--content-size);
+  margin: auto;
   min-height: 60px;
   align-items: center;
-  justify-content: space-around;
-  border-bottom: 2px solid #ffffff;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
   background-color: #fff;
 }
 
