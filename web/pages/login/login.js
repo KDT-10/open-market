@@ -72,7 +72,7 @@ form.addEventListener("submit", async (e) => {
   try {
     setError("");
 
-    // ✅ 로그인 요청 (server.use("/api", apiRouter) 때문에 /api 붙여야 맞음)
+    // 로그인 요청
     const response = await fetch(`${API_BASE}/api/accounts/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
