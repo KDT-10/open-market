@@ -271,3 +271,23 @@ sellerForm?.addEventListener("submit", async (e) => {
     alert(err.message);
   }
 });
+// =========================
+// 전화번호 입력: 숫자만 허용
+// =========================
+function onlyDigits(el, maxLen) {
+  if (!el) return;
+  el.addEventListener("input", () => {
+    el.value = el.value.replace(/\D/g, "");
+    if (maxLen) el.value = el.value.slice(0, maxLen);
+  });
+}
+
+// 구매자 전화번호
+onlyDigits(buyerPhone1, 3);
+onlyDigits(buyerPhone2, 4);
+onlyDigits(buyerPhone3, 4);
+
+// 판매자 전화번호
+onlyDigits(sellerPhone1, 3);
+onlyDigits(sellerPhone2, 4);
+onlyDigits(sellerPhone3, 4);

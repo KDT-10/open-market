@@ -1,5 +1,5 @@
 /* 공통 CSS 변수 import */
-@import './variables.css';
+@import "./variables.css";
 
 .page {
   min-height: 100vh;
@@ -22,9 +22,9 @@
 
 /* 카드 */
 .card {
-  width: 360px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  width: 22.5rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: 0.375rem;
   overflow: hidden;
   background: #fff;
 
@@ -32,10 +32,10 @@
   flex-direction: column;
 }
 .card.is-buyer {
-  height: 520px;
+  height: 32.5rem;
 }
 .card.is-seller {
-  height: 620px;
+  height: 38.75rem;
 }
 
 /* 탭 */
