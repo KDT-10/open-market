@@ -30,8 +30,6 @@ function loadCSS(url) {
 }
 
 // layout.html 로드 (header + footer)
-loadLayout();
-
 async function loadLayout() {
   try {
     const res = await fetch('/components/layout.html');
@@ -41,8 +39,13 @@ async function loadLayout() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    // layout 삽입
-    document.body.prepend(...doc.body.children);
+    // layout 삽입 (안전하게)
+    if (doc && doc.body) {
+      document.body.prepend(...doc.body.children);
+    } else {
+      console.error('layout.html 문서 구조가 잘못됨');
+      return;
+    }
 
     // 페이지 콘텐츠를 main으로 이동
     movePageContentToMain();
@@ -50,9 +53,10 @@ async function loadLayout() {
     // header 이벤트 연결
     bindHeaderEvents();
   } catch (err) {
-    console.error(err);
+    console.error('loadLayout 에러:', err);
   }
 }
+
 
 
 // header 이벤트 바인딩
