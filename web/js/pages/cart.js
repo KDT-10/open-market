@@ -8,7 +8,7 @@ let cartData;
   if (isLoggedIn()) {
     cartData = await fetchGetCart();
   } else {
-    cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
+    cartData = JSON.parse(sessionStorage.getItem("cart")) || [];
   }
   // 장바구니 아이템 렌더링
   renderCartItems(cartData);
@@ -197,7 +197,7 @@ function deleteSessionStorage(id) {
 }
 
 function updateSessionStorage() {
-  sessionStorage.setItem("cartData", JSON.stringify(cartData));
+  sessionStorage.setItem("cart", JSON.stringify(cartData));
 }
 
 // 데이터 렌더링(카트 아이템)
@@ -250,7 +250,7 @@ function calcPriceSum() {
 // "주문하기" 클릭 시 선택된 상품만 orderData로 전달
 function order() {
   const selectedItems = cartData.filter(item => document.getElementById(`item-${item.id}`).checked);
-  sessionStorage.setItem("orderData", JSON.stringify(selectedItems));
+  sessionStorage.setItem("orders", JSON.stringify(selectedItems));
   window.location.href = "order.html";
 }
 
