@@ -15,11 +15,11 @@ class Modal {
     this.modal.classList.add("hidden");
 
     const {
-      parent,
-      content,
-      cancelBtnTxt,
-      confirmBtnTxt
-    } = modalInfo;
+      parent = document.body,
+      content = null,
+      cancelBtnTxt = null,
+      confirmBtnTxt = null
+    } = modalInfo ?? {};
 
     this.#parent = parent;
     this.#content = content;
@@ -39,6 +39,24 @@ class Modal {
     this.#bindEvents();
   }
 
+  setModal(modalInfo) {
+    const {
+      parent,
+      content,
+      cancelBtnTxt,
+      confirmBtnTxt
+    } = modalInfo;
+
+    this.#parent = parent;
+    this.#content = content;
+    this.#cancelBtnTxt = cancelBtnTxt;
+    this.#confirmBtnTxt = confirmBtnTxt;
+
+    this.#setParent();
+    this.#setContent();
+    this.#setBtnTxts();
+  }
+
   open(onConfirm) {
     this.#setConfirmHandler(onConfirm);
     this.modal.classList.remove("hidden");
@@ -54,21 +72,27 @@ class Modal {
   }
 
   #setParent() {
-    this.#parent.appendChild(this.modal);
+    if (this.#parent) this.#parent.appendChild(this.modal);
   }
 
   #setContent() {
-    this.modalContent.replaceChildren(this.#content);
+    if (this.modalContent) this.modalContent.replaceChildren(this.#content);
   }
 
   #setBtnTxts() {
-    this.modalBtnCancel.textContent = this.#cancelBtnTxt;
+    if (this.#cancelBtnTxt) {
+      this.modalBtnCancel.classList.remove("hidden");
+      this.modalBtnCancel.textContent = this.#cancelBtnTxt;
+    }
+    else {
+      this.modalBtnCancel.classList.add("hidden");
+    }
     this.modalBtnConfirm.textContent = this.#confirmBtnTxt;
   }
 
   #bindEvents() {
     this.modalCloseBtn.addEventListener("click", () => this.close());
-    this.modalBtnCancel.addEventListener("click", () => this.close());
+    if (this.modalBtnCancel) this.modalBtnCancel.addEventListener("click", () => this.close());
   }
 }
 
