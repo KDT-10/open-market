@@ -75,6 +75,7 @@ export function initHeader() {
                     })
                 })();
             } else {
+                sessionStorage.setItem('redirectAfterLogin', window.location.href);
                 window.location.href = '/signin.html';
             }
         });
