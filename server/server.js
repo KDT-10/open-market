@@ -317,15 +317,21 @@ apiRouter.post("/accounts/validate-username", (req, res) => {
   const { username } = req.body;
 
   if (!username) {
-    return res.status(400).json({ message: "username 필드를 추가해주세요.", status: "error" });
+    return res
+      .status(400)
+      .json({ message: "username 필드를 추가해주세요.", status: "error" });
   }
 
   const existingUser = db.get("users").find({ username }).value();
   if (existingUser) {
-    return res.status(400).json({ message: "이미 사용 중인 아이디입니다.", status: "error" });
+    return res
+      .status(400)
+      .json({ message: "이미 사용 중인 아이디입니다.", status: "error" });
   }
 
-  res.status(200).json({ message: "사용 가능한 아이디입니다.", status: "success" });
+  res
+    .status(200)
+    .json({ message: "사용 가능한 아이디입니다.", status: "success" });
 });
 
 /**
@@ -605,8 +611,9 @@ apiRouter.get("/products", (req, res) => {
 
   let previousUrl = null;
   if (startIndex > 0) {
-    previousUrl = `${baseUrl}?page=${page - 1
-      }&page_size=${pageSize}${searchParam}`;
+    previousUrl = `${baseUrl}?page=${
+      page - 1
+    }&page_size=${pageSize}${searchParam}`;
   }
 
   res.json({
@@ -1459,7 +1466,8 @@ function handleDirectOrder(req, res) {
       ],
     });
   }
-  const calculatedPrice = product.price * quantity + product.shipping_fee;
+  // const calculatedPrice = product.price * quantity + product.shipping_fee;
+  const calculatedPrice = product.price * quantity;
   if (calculatedPrice !== total_price) {
     return res.status(400).json({
       non_field_errors: `total_price가 맞지 않습니다. 계산 금액은 ${calculatedPrice}원입니다.(배송비 포함)`,
@@ -1589,7 +1597,8 @@ function handleCartOrder(req, res) {
         ],
       });
     }
-    calculatedPrice += product.price * item.quantity + product.shipping_fee;
+    // calculatedPrice += product.price * item.quantity + product.shipping_fee;
+    calculatedPrice += product.price * item.quantity;
   }
 
   if (calculatedPrice !== total_price) {
