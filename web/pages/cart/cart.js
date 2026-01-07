@@ -22,9 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // API에서 장바구니 데이터 가져오기
   fetchCartItems();
 
-  // 초기 렌더링
-  renderCart();
-
   // 모달 이벤트 리스너 초기화
   initModalEventListeners();
 });
@@ -217,6 +214,11 @@ function renderCart() {
 
   // 장바구니가 비어있는지 확인
   if (cartItems.length === 0) {
+    // 빈 장바구니 메시지 복원
+    emptyCart.innerHTML = `
+      <p class="empty-title">장바구니에 담긴 상품이 없습니다.</p>
+      <p class="empty-subtitle">원하는 상품을 찾아가세요!</p>
+    `;
     emptyCart.style.display = "flex";
     cartContainer.style.display = "none";
   } else {
