@@ -1,433 +1,351 @@
-/**
- * ✅ 주문/결제하기 (최종)
- * - orderData 우선순위:
- *   1) sessionStorage.orderData (바로구매/카트 모두 여기 저장 가능)
- *   2) localStorage.orderData
- *   3) (마지막 fallback) 로그인 되어 있으면 /api/cart/ 불러와서 구성
- * - 결제:
- *   /api/order/ POST -> /api/cart/ DELETE -> 메인 이동
- */
+const API_BASE_URL = "http://localhost:3000";
 
-const BASE = "http://localhost:3000";
-const API = `${BASE}/api`;
+// -----------------------------
+// 유틸
+// -----------------------------
+function formatWon(num) {
+  const n = Number(num || 0);
+  return n.toLocaleString("ko-KR") + "원";
+}
 
-document.addEventListener("DOMContentLoaded", async () => {
-  wireHeader();
-  wireModal();
-  wireZipcode();
-
-  const orderItems = await loadOrderItems();
-  renderOrder(orderItems);
-
-  document.getElementById("btnPay").addEventListener("click", () => {
-    handlePay(orderItems);
+function onlyDigits(el) {
+  el.addEventListener("input", () => {
+    el.value = el.value.replace(/[^\d]/g, "");
   });
+}
+
+function getToken() {
+  return localStorage.getItem("token") || "";
+}
+
+async function fetchJSON(url, options = {}) {
+  const res = await fetch(url, options);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const msg = data?.message || data?.error || "요청 실패";
+    throw new Error(msg);
+  }
+  return data;
+}
+
+// -----------------------------
+// DOM
+// -----------------------------
+const $orderItems = document.getElementById("orderItems");
+const $totalPriceText = document.getElementById("totalPriceText");
+
+const $sumProduct = document.getElementById("sumProduct");
+const $sumDiscount = document.getElementById("sumDiscount");
+const $sumShip = document.getElementById("sumShip");
+const $sumPay = document.getElementById("sumPay");
+
+const $payBtn = document.getElementById("payBtn");
+const $agree = document.getElementById("agree");
+
+const $btnPostcode = document.getElementById("btnPostcode");
+const $postcode = document.getElementById("postcode");
+const $addr1 = document.getElementById("addr1");
+const $addr2 = document.getElementById("addr2");
+const $addrExtra = document.getElementById("addrExtra");
+
+// modal
+const $modal = document.getElementById("modal");
+const $modalClose = document.getElementById("modalClose");
+const $modalOk = document.getElementById("modalOk");
+
+// inputs
+const $buyerName = document.getElementById("buyerName");
+const $buyerPhone1 = document.getElementById("buyerPhone1");
+const $buyerPhone2 = document.getElementById("buyerPhone2");
+const $buyerPhone3 = document.getElementById("buyerPhone3");
+const $buyerEmail = document.getElementById("buyerEmail");
+
+const $recvName = document.getElementById("recvName");
+const $recvPhone1 = document.getElementById("recvPhone1");
+const $recvPhone2 = document.getElementById("recvPhone2");
+const $recvPhone3 = document.getElementById("recvPhone3");
+const $shipMsg = document.getElementById("shipMsg");
+
+// -----------------------------
+// 모달
+// -----------------------------
+function openModal() {
+  $modal.classList.remove("hidden");
+  $modal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal() {
+  $modal.classList.add("hidden");
+  $modal.setAttribute("aria-hidden", "true");
+}
+
+$modalClose.addEventListener("click", closeModal);
+$modalOk.addEventListener("click", closeModal);
+$modal.addEventListener("click", (e) => {
+  if (e.target?.dataset?.close === "true") closeModal();
 });
 
-/* ---------------- 헤더 ---------------- */
-function wireHeader() {
-  const form = document.getElementById("searchForm");
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // 검색은 메인에서 처리한다고 가정
-    const q = document.getElementById("searchInput")?.value?.trim() || "";
-    location.href = q
-      ? `/web/index.html?q=${encodeURIComponent(q)}`
-      : `/web/index.html`;
-  });
+// -----------------------------
+// Daum postcode (open 방식)
+// -----------------------------
+function openDaumPostcode() {
+  if (!window.daum?.Postcode) {
+    alert("우편번호 서비스를 불러오지 못했습니다.");
+    return;
+  }
 
-  // 장바구니 / 마이페이지 링크는 html에 이미 href로 박아둠
-}
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = "";
+      let extraAddr = "";
 
-/* ---------------- 모달 ---------------- */
-function wireModal() {
-  const dim = document.getElementById("modalDim");
-  const closeBtn = document.getElementById("modalClose");
-  const okBtn = document.getElementById("modalOk");
+      if (data.userSelectedType === "R") {
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
 
-  const close = () => hideModal();
-
-  closeBtn?.addEventListener("click", close);
-  okBtn?.addEventListener("click", close);
-
-  dim?.addEventListener("click", (e) => {
-    if (e.target === dim) close();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
-  });
-}
-
-function showModal(msg) {
-  document.getElementById("modalMsg").textContent = msg;
-  document.getElementById("modalDim").classList.add("show");
-  document.getElementById("modalDim").setAttribute("aria-hidden", "false");
-}
-function hideModal() {
-  document.getElementById("modalDim").classList.remove("show");
-  document.getElementById("modalDim").setAttribute("aria-hidden", "true");
-}
-
-/* ---------------- 우편번호(다음) ---------------- */
-function wireZipcode() {
-  const btn = document.getElementById("btnZip");
-  btn?.addEventListener("click", () => {
-    if (!window.daum || !window.daum.Postcode) {
-      showModal("우편번호 서비스 스크립트를 불러오지 못했습니다.");
-      return;
-    }
-
-    new daum.Postcode({
-      oncomplete: function (data) {
-        // 도로명/지번 주소
-        const addr =
-          data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
-
-        // 참고항목
-        let extra = "";
-        if (data.userSelectedType === "R") {
-          if (data.bname) extra += data.bname;
-          if (data.buildingName)
-            extra += extra ? `, ${data.buildingName}` : data.buildingName;
-          if (extra) extra = `(${extra})`;
+      if (data.userSelectedType === "R") {
+        if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
         }
-
-        document.getElementById("postcode").value = data.zonecode || "";
-        document.getElementById("addr1").value = addr || "";
-        document.getElementById("addrExtra").value = extra || "";
-        document.getElementById("addr2").focus();
-      },
-    }).open();
-  });
-}
-
-/* ---------------- 주문 데이터 로딩 ---------------- */
-async function loadOrderItems() {
-  // 1) sessionStorage 우선
-  const ss = safeParse(sessionStorage.getItem("orderData"));
-  if (Array.isArray(ss) && ss.length) {
-    return await normalizeItems(ss);
-  }
-  if (ss && Array.isArray(ss.items) && ss.items.length) {
-    return await normalizeItems(ss.items);
-  }
-
-  // 2) localStorage
-  const ls = safeParse(localStorage.getItem("orderData"));
-  if (Array.isArray(ls) && ls.length) {
-    return await normalizeItems(ls);
-  }
-  if (ls && Array.isArray(ls.items) && ls.items.length) {
-    return await normalizeItems(ls.items);
-  }
-
-  // 3) fallback: 로그인 되어 있으면 카트 API
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    try {
-      const cart = await apiFetch(`${API}/cart/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (Array.isArray(cart) && cart.length) {
-        // cart: [{ product_id, quantity }]
-        const items = await Promise.all(
-          cart.map(async (c) => {
-            const product = await fetchProduct(c.product_id);
-            return {
-              product_id: c.product_id,
-              quantity: Number(c.quantity || 1),
-              product,
-            };
-          })
-        );
-        return items;
-      }
-    } catch (e) {
-      // 무시하고 빈 배열
-    }
-  }
-
-  return [];
-}
-
-async function normalizeItems(rawItems) {
-  const items = await Promise.all(
-    rawItems.map(async (it) => {
-      const quantity = Number(it.quantity || it.qty || 1);
-
-      const pid =
-        it.product_id ??
-        it.productId ??
-        it.id ??
-        it.product?.id ??
-        it.product?.product_id;
-
-      let product = it.product || null;
-
-      // product 정보가 없으면 products에서 조회
-      if (!product && pid != null) {
-        product = await fetchProduct(pid);
+        if (data.buildingName !== "" && data.apartment === "Y") {
+          extraAddr +=
+            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
+        }
+        if (extraAddr !== "") extraAddr = " (" + extraAddr + ")";
       }
 
-      return {
-        product_id: pid,
-        quantity,
-        product,
-      };
-    })
-  );
+      $postcode.value = data.zonecode || "";
+      $addr1.value = addr || "";
+      $addrExtra.value = extraAddr || "";
 
-  // product가 없는 항목 제거
-  return items.filter((x) => x.product && x.quantity > 0);
+      $addr2.focus();
+    },
+  }).open();
 }
 
-async function fetchProduct(id) {
-  const pid = String(id);
-  const url = `${BASE}/products/${encodeURIComponent(pid)}`;
-  return await apiFetch(url);
-}
+$btnPostcode.addEventListener("click", openDaumPostcode);
 
-function safeParse(v) {
+// -----------------------------
+// 렌더: 주문상품(세션 orderData)
+// -----------------------------
+function getOrderData() {
   try {
-    return v ? JSON.parse(v) : null;
+    return JSON.parse(sessionStorage.getItem("orderData") || "null");
   } catch {
     return null;
   }
 }
 
-async function apiFetch(url, options = {}) {
-  const res = await fetch(url, options);
-  if (!res.ok) {
-    const txt = await res.text().catch(() => "");
-    throw new Error(`${res.status} ${res.statusText} ${txt}`);
-  }
-  return await res.json();
-}
-
-/* ---------------- 렌더 ---------------- */
-function renderOrder(items) {
-  const rows = document.getElementById("orderRows");
-  rows.innerHTML = "";
+function renderOrderItems(items = []) {
+  $orderItems.innerHTML = "";
 
   if (!items.length) {
-    rows.innerHTML = `
-      <div class="otRow">
-        <div class="infoCell">
-          <div class="meta">
-            <div class="name">주문 정보가 없습니다. 다시 주문해주세요.</div>
-            <div class="qty">orderData가 비어있습니다.</div>
-          </div>
-        </div>
-        <div class="cellRight">0원</div>
-        <div class="cellRight">0원</div>
-        <div class="cellRight"><strong>0원</strong></div>
-      </div>
-    `;
-    updateTotals(0, 0, 0);
-    return;
-  }
-
-  let productSum = 0;
-  let shipSum = 0; // 필요하면 상품별 배송비 합산
-  let discountSum = 0;
-
-  items.forEach((it) => {
-    const p = it.product;
-    const price = Number(p.price || 0);
-    const line = price * it.quantity;
-
-    productSum += line;
-
-    // db.json에 shipping_fee가 있고, 무료배송이면 0
-    const ship = Number(p.shipping_fee || 0);
-    // 보통 “상품별”이 아니라 “주문 전체” 규칙이 있을 수 있는데,
-    // 프로젝트 요구가 없어서 단순합산 대신 0으로 유지하려면 아래 주석 처리하면 됨.
-    // shipSum += ship;
-
-    const imgSrc = resolveImage(p.image);
-
-    const brand = p.info || (p.seller && p.seller.store_name) || "";
-    const name = p.name || "";
-
-    const row = document.createElement("div");
-    row.className = "otRow";
-    row.innerHTML = `
-      <div class="infoCell">
-        <div class="thumb"><img src="${imgSrc}" alt="${escapeHtml(
-      name
-    )}" /></div>
-        <div class="meta">
-          <div class="brand">${escapeHtml(brand)}</div>
-          <div class="name">${escapeHtml(name)}</div>
-          <div class="qty">수량 ${it.quantity}개</div>
+    $orderItems.innerHTML = `
+      <div class="item" style="grid-template-columns: 1fr;">
+        <div class="item-cell" style="text-align:left; padding:10px 0;">
+          주문 정보가 없습니다. (orderData가 비어있어요) 다시 주문해주세요.
         </div>
       </div>
-
-      <div class="cellRight">0원</div>
-      <div class="cellRight">${formatWon(ship)}원</div>
-      <div class="cellRight"><strong>${formatWon(line)}원</strong></div>
     `;
-    rows.appendChild(row);
-  });
-
-  updateTotals(productSum, discountSum, shipSum);
-}
-
-function updateTotals(productSum, discountSum, shipSum) {
-  const total = productSum - discountSum + shipSum;
-
-  setText("topTotalPrice", formatWon(total));
-  setText("sumProduct", formatWon(productSum));
-  setText("sumDiscount", formatWon(discountSum));
-  setText("sumShip", formatWon(shipSum));
-  setText("sumTotal", formatWon(total));
-}
-
-function setText(id, v) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = v;
-}
-
-function formatWon(n) {
-  return Number(n || 0).toLocaleString("ko-KR");
-}
-
-function resolveImage(imagePath) {
-  if (!imagePath) return "";
-  // db.json: "./assets/images/xxx.png" -> "/web/assets/images/xxx.png"
-  if (imagePath.startsWith("./assets/")) return "/web/" + imagePath.slice(2);
-  if (imagePath.startsWith("assets/")) return "/web/" + imagePath;
-  if (imagePath.startsWith("/web/")) return imagePath;
-  return imagePath;
-}
-
-function escapeHtml(s) {
-  return String(s || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-/* ---------------- 결제 처리 ---------------- */
-async function handlePay(orderItems) {
-  // 주문데이터 없으면 결제 불가
-  if (!orderItems || !orderItems.length) {
-    showModal("주문 정보가 없습니다. 다시 주문해주세요.");
-    return;
+    return 0;
   }
 
-  // 필수값 체크
-  const requiredChecks = [
-    ["buyerName", "주문자 이름을 입력해주세요."],
-    ["buyerPhone1", "주문자 휴대폰을 입력해주세요."],
-    ["buyerPhone2", "주문자 휴대폰을 입력해주세요."],
-    ["buyerPhone3", "주문자 휴대폰을 입력해주세요."],
-    ["buyerEmail", "이메일을 입력해주세요."],
-    ["recvName", "수령인 이름을 입력해주세요."],
-    ["recvPhone1", "수령인 휴대폰을 입력해주세요."],
-    ["recvPhone2", "수령인 휴대폰을 입력해주세요."],
-    ["recvPhone3", "수령인 휴대폰을 입력해주세요."],
-    ["postcode", "우편번호 조회를 진행해주세요."],
-    ["addr1", "주소를 입력해주세요."],
-    ["addr2", "상세주소를 입력해주세요."],
-  ];
+  let total = 0;
 
-  for (const [id, msg] of requiredChecks) {
-    const v = document.getElementById(id)?.value?.trim();
-    if (!v) {
-      showModal(msg);
-      document.getElementById(id)?.focus();
-      return;
-    }
+  for (const it of items) {
+    const name = it.name || it.product_name || "상품";
+    const brand = it.brand || it.seller || "백엔드글로벌";
+    const qty = Number(it.quantity || 1);
+    const price = Number(it.price || it.product_price || 0);
+
+    const thumb =
+      it.image ||
+      it.thumbnail ||
+      it.image_url ||
+      "../../assets/images/product1.png";
+
+    const rowPrice = price * qty;
+    total += rowPrice;
+
+    const el = document.createElement("div");
+    el.className = "item";
+    el.innerHTML = `
+      <div class="item-product">
+        <div class="item-thumb"><img src="${thumb}" alt="" /></div>
+        <div class="item-meta">
+          <div class="item-brand">${brand}</div>
+          <div class="item-name">${name}</div>
+          <div class="item-qty">수량 : ${qty}개</div>
+        </div>
+      </div>
+      <div class="item-cell">-</div>
+      <div class="item-cell">무료배송</div>
+      <div class="item-cell item-price">${formatWon(rowPrice)}</div>
+    `;
+    $orderItems.appendChild(el);
   }
 
-  const agree = document.getElementById("agree")?.checked;
-  if (!agree) {
-    showModal("주문 동의 체크를 해주세요.");
-    return;
-  }
+  return total;
+}
 
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    showModal("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
-    return;
-  }
+function updateSummary(total) {
+  $totalPriceText.textContent = formatWon(total);
 
-  const userShippingInfo = collectShippingInfo();
-  const orderData = orderItems.map((x) => ({
-    product_id: x.product_id,
-    quantity: x.quantity,
-    // 서버에는 product 정보까지 보내도 되고, 최소키만 보내도 됨.
-    // 여기선 안전하게 product도 포함
-    product: x.product,
-  }));
+  $sumProduct.textContent = formatWon(total);
+  $sumDiscount.textContent = formatWon(0);
+  $sumShip.textContent = formatWon(0);
+  $sumPay.textContent = formatWon(total);
+}
 
-  try {
-    // 1) 주문 생성
-    await apiFetch(`${API}/order/`, {
+// -----------------------------
+// 결제(주문 생성 API 호출)
+// -----------------------------
+function isShippingValid() {
+  const buyerName = $buyerName.value.trim();
+  const buyerPhone = (
+    $buyerPhone1.value +
+    $buyerPhone2.value +
+    $buyerPhone3.value
+  ).trim();
+  const buyerEmail = $buyerEmail.value.trim();
+
+  const recvName = $recvName.value.trim();
+  const recvPhone = (
+    $recvPhone1.value +
+    $recvPhone2.value +
+    $recvPhone3.value
+  ).trim();
+
+  const postcode = $postcode.value.trim();
+  const addr1 = $addr1.value.trim();
+  const addr2 = $addr2.value.trim();
+
+  //  “배송정보 하나라도 입력하지 않으면” → 사실상 필수 묶음 체크
+  if (!buyerName) return false;
+  if (buyerPhone.length < 10) return false;
+  if (!buyerEmail) return false;
+
+  if (!recvName) return false;
+  if (recvPhone.length < 10) return false;
+
+  if (!postcode || !addr1 || !addr2) return false;
+
+  return true;
+}
+
+async function createOrderByType(orderData) {
+  const token = getToken();
+  if (!token) throw new Error("로그인이 필요합니다.");
+
+  // PROJECT.md 기준: { type:'direct_order' | 'cart', items:[...] }
+  const type = orderData?.type;
+  const items = orderData?.items || [];
+
+  const bodyCommon = {
+    delivery_name: $recvName.value.trim(),
+    delivery_phone: `${$recvPhone1.value}-${$recvPhone2.value}-${$recvPhone3.value}`,
+    delivery_zipcode: $postcode.value.trim(),
+    delivery_address: $addr1.value.trim(),
+    delivery_address_detail: $addr2.value.trim(),
+    delivery_request: $shipMsg.value.trim(),
+  };
+
+  if (type === "direct_order") {
+    // items[0] 기반
+    const first = items[0] || {};
+    const product_id = first.product_id ?? first.id;
+    const quantity = Number(first.quantity || 1);
+
+    if (!product_id) throw new Error("직접구매 상품 정보가 없습니다.");
+
+    return fetchJSON(`${API_BASE_URL}/api/order/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
-      body: JSON.stringify({ orderData, userShippingInfo }),
+      body: JSON.stringify({
+        order_type: "direct_order",
+        product_id,
+        quantity,
+        ...bodyCommon,
+      }),
     });
-
-    // 2) 장바구니 비우기 (요구사항: 결제 완료되면 비움)
-    await apiFetch(`${API}/cart/`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    // 3) orderData 정리(다음 주문 꼬임 방지)
-    sessionStorage.removeItem("orderData");
-    // localStorage는 팀 정책에 따라 남길 수도 있지만, 여기선 안전하게 제거
-    localStorage.removeItem("orderData");
-
-    // 4) 메인으로 이동
-    location.href = "/web/index.html";
-  } catch (e) {
-    showModal("결제 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
-    console.error(e);
   }
+
+  if (type === "cart") {
+    // cart 주문은 cart_items 배열(서버는 cart_item_id(=id) 필요)
+    const cart_items = items.map((it) => ({
+      cart_item_id: it.cart_item_id ?? it.id,
+      quantity: Number(it.quantity || 1),
+    }));
+
+    if (!cart_items.length || !cart_items[0].cart_item_id) {
+      throw new Error("장바구니 주문 정보가 올바르지 않습니다.");
+    }
+
+    return fetchJSON(`${API_BASE_URL}/api/order/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        order_type: "cart",
+        cart_items,
+        ...bodyCommon,
+      }),
+    });
+  }
+
+  throw new Error("orderData.type이 올바르지 않습니다.");
 }
 
-function collectShippingInfo() {
-  const buyerPhone = [
-    v("buyerPhone1"),
-    v("buyerPhone2"),
-    v("buyerPhone3"),
-  ].join("-");
-  const recvPhone = [v("recvPhone1"), v("recvPhone2"), v("recvPhone3")].join(
-    "-"
-  );
+$payBtn.addEventListener("click", async () => {
+  // 버튼은 항상 초록색, 대신 클릭 시 검증해서 모달
+  if (!isShippingValid()) {
+    openModal();
+    return;
+  }
 
-  return {
-    buyer: {
-      name: v("buyerName"),
-      phone: buyerPhone,
-      email: v("buyerEmail"),
-    },
-    receiver: {
-      name: v("recvName"),
-      phone: recvPhone,
-    },
-    address: {
-      postcode: v("postcode"),
-      addr1: v("addr1"),
-      addr2: v("addr2"),
-      extra: v("addrExtra"),
-    },
-    message: v("shipMsg"),
-    payMethod:
-      document.querySelector('input[name="pay"]:checked')?.value || "card",
-  };
-}
+  const orderData = getOrderData();
+  if (!orderData) {
+    alert("주문 정보가 없습니다. 다시 주문해주세요.");
+    return;
+  }
 
-function v(id) {
-  return document.getElementById(id)?.value?.trim() || "";
-}
+  try {
+    await createOrderByType(orderData);
+
+    // 결제 완료 → orderData 삭제 → 메인으로 이동
+    sessionStorage.removeItem("orderData");
+    window.location.href = "../../index.html";
+  } catch (err) {
+    alert(err?.message || "결제 처리 중 오류가 발생했습니다.");
+  }
+});
+
+// -----------------------------
+// 초기화
+// -----------------------------
+(function init() {
+  // 숫자만 입력
+  [
+    $buyerPhone1,
+    $buyerPhone2,
+    $buyerPhone3,
+    $recvPhone1,
+    $recvPhone2,
+    $recvPhone3,
+  ].forEach(onlyDigits);
+
+  // 초기 모달은 숨김 확정
+  closeModal();
+
+  const orderData = getOrderData();
+  const items = orderData?.items || [];
+  const total = renderOrderItems(items);
+  updateSummary(total);
+})();
