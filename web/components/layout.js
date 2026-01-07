@@ -87,7 +87,7 @@ function bindHeaderEvents() {
       if (!isLoggedIn()) {
         window.location.href = '/pages/login/login.html';
       } else {
-        window.location.href = '/pages/404/404.html';
+        window.location.href = '/404.html';
       }
     });
   }
