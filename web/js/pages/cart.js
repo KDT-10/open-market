@@ -314,7 +314,7 @@ async function fetchGetCart() {
 }
 
 async function fetchDeleteCart(cartItemId) {
-  const endpoint = `/cart/${cartItemId}/`;
+  const endpoint = `cart/${cartItemId}/`;
 
   const response = await fetchWithAuth(endpoint, {
     method: "DELETE",
