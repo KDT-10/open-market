@@ -1,4 +1,4 @@
-// URL에서 상품 id 가져오기
+// URL에서 상품 id 가져오기 (?id=1,2,3,4,5)
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
 
@@ -66,7 +66,7 @@ function renderProductDetails(product) {
   updateTotal();
 }
 
-// 상품 불러오기 async/await
+// 상품 불러오기 (async/await)
 async function fetchProduct(productId) {
   try {
     const response = await fetch(`http://localhost:3000/products/${productId}`);
@@ -94,7 +94,7 @@ function openCartConfirmModal() {
   modal.classList.remove('hidden');
 }
 
-// 장바구니 추가 API
+// 장바구니 추가 API (async/await)
 async function addToCart(productId, quantity) {
   const token = getAccessToken();
 
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 장바구니 버튼
+  // 장바구니 버튼 (async/await)
 if (cartBtn) {
   cartBtn.addEventListener(
     'click',
