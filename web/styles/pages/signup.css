@@ -136,7 +136,7 @@ input.success ~ .pw-chk-icon-wrapper {
   color: white;
   background-color: var(--color-btn-disabled);
   border-radius: 5px;
-  cursor: unset;
+  cursor: not-allowed;
 }
 
 @media (min-width: 768px) {

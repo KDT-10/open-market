@@ -247,6 +247,7 @@ function validateTerms() {
 
 function updateSubmitBtn() {
   signupBtn.classList.toggle("disabled-btn", !validateTerms());
+  signupBtn.disabled = !signupBtn.disabled;
 }
 
 // 구매회원 회원가입 제출
