@@ -1,8 +1,9 @@
-// 로그인 관련 공통
+// 로그인 관련 공통 (토큰 저장 위치 LocalStorage)
 function getAccessToken() {
   return localStorage.getItem('access_token'); // login.js랑 맞춤
 }
 
+// 로그인 여부 판단
 function isLoggedIn() {
   return !!getAccessToken();
 }
