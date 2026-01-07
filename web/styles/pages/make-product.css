@@ -133,6 +133,12 @@ ul.guidelines-list {
   width: 100px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .char-count {
   position: absolute;
   right: 8px;
