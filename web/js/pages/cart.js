@@ -105,7 +105,8 @@ function bindDeleteCartItemEvent(cartItem) {
     modalObj.open(() => {
       const id = getCartItemIdFromElem(cartItem);
       if (isLoggedIn()) {
-        fetchDeleteCart();
+        // fetchDeleteCart();
+        deleteSessionStorage(id);
       }
       else {
         deleteSessionStorage(id);
