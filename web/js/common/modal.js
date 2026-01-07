@@ -1,4 +1,4 @@
-import { loadCSS } from "js/common/dom-utils.js";
+import { loadCSS } from "./dom-utils.js";
 
 loadCSS("styles/components/modal.css");
 

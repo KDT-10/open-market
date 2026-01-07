@@ -1,5 +1,5 @@
-import { isLoggedIn, logout } from "js/common/auth.js";
-import { createModal } from "js/common/modal.js";
+import { isLoggedIn, logout } from "./auth.js";
+import { createModal } from "./modal.js";
 
 export function initHeader() {
   const parent = document.body;

@@ -1,5 +1,5 @@
-import { createModal } from "js/common/modal.js";
-import { isLoggedIn } from "js/common/auth.js";
+import { createModal } from "../common/modal.js";
+import { isLoggedIn } from "../common/auth.js";
 
 const modalObj = createModal();
 const checkbox = document.getElementById("agreeCheckbox");

@@ -1,5 +1,5 @@
-import { createModal } from "js/common/modal.js";
-import { isLoggedIn, checkLogin, fetchWithAuth } from "js/common/auth.js";
+import { createModal } from "../common/modal.js";
+import { isLoggedIn, checkLogin, fetchWithAuth } from "../common/auth.js";
 
 // 장바구니 데이터 로드
 let cartData;

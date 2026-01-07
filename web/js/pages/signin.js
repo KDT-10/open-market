@@ -1,4 +1,4 @@
-import { createModal } from "js/common/modal.js";
+import { createModal } from "../common/modal.js";
 
 const modalObj = createModal();
 

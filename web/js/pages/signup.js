@@ -1,6 +1,6 @@
-import Validation from "js/common/validation.js";
-import { setTabGroup } from "js/common/tab-ui.js";
-import { createModal } from "js/common/modal.js";
+import Validation from "../common/validation.js";
+import { setTabGroup } from "../common/tab-ui.js";
+import { createModal } from "../common/modal.js";
 
 const modalObj = await createModal();
 let isUsernameChecked = false;

@@ -1,5 +1,5 @@
-import { loadHTMLElem, loadCSS } from "js/common/dom-utils.js";
-import { initHeader } from "header.js";
+import { loadHTMLElem, loadCSS } from "./dom-utils.js";
+import { initHeader } from "./header.js";
 
 const body = document.body;
 
