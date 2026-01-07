@@ -17,7 +17,7 @@
 
     <!-- 레이아웃 주입 + 페이지 로직 -->
     <script defer src="../../components/layout.js"></script>
-    <script type="module" defer src="./order.js"></script>
+    <script defer src="./order.js"></script>
   </head>
 
   <body>
@@ -90,17 +90,22 @@
             <div class="form-row">
               <div class="label">이메일</div>
               <div class="field">
-                <input id="buyerEmail" type="email" class="input" />
+                <input
+                  id="buyerEmail"
+                  type="email"
+                  class="input"
+                  placeholder="example@zadu.com"
+                />
               </div>
             </div>
           </div>
 
-          <!-- 배송지 정보 -->
+          <!-- 수령인 정보 -->
           <div class="ship-block">
-            <div class="ship-block-title">배송지 정보</div>
+            <div class="ship-block-title">수령인 정보</div>
 
             <div class="form-row">
-              <div class="label">수령인</div>
+              <div class="label">이름</div>
               <div class="field">
                 <input id="recvName" type="text" class="input" />
               </div>
@@ -133,55 +138,50 @@
             </div>
 
             <div class="form-row">
-              <div class="label">배송주소</div>
+              <div class="label">배송지</div>
               <div class="field address">
                 <div class="address-top">
                   <input
                     id="postcode"
-                    type="text"
                     class="input input-zip"
-                    placeholder="우편번호"
+                    type="text"
                     readonly
+                    placeholder="우편번호"
                   />
                   <button id="btnPostcode" type="button" class="btn-zip">
-                    우편번호 조회
+                    우편번호
                   </button>
                 </div>
 
                 <input
                   id="addr1"
-                  type="text"
                   class="input"
-                  placeholder="주소"
+                  type="text"
                   readonly
+                  placeholder="기본주소"
                 />
+                <input
+                  id="addrExtra"
+                  class="input"
+                  type="text"
+                  readonly
+                  placeholder="참고항목"
+                />
+
                 <div class="address-bottom">
                   <input
                     id="addr2"
-                    type="text"
                     class="input"
+                    type="text"
                     placeholder="상세주소"
                   />
                   <input
-                    id="addrExtra"
+                    id="shipMsg"
                     type="text"
                     class="input"
-                    placeholder="참고항목"
-                    readonly
+                    placeholder="예) 문 앞에 놓아주세요"
                   />
                 </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="label">배송 메시지</div>
-              <div class="field">
-                <input
-                  id="shipMsg"
-                  type="text"
-                  class="input"
-                  placeholder="예) 문 앞에 놓아주세요"
-                />
               </div>
             </div>
           </div>
@@ -268,7 +268,9 @@
           ×
         </button>
         <div class="modal-content">
-          <div class="modal-title">배송정보를 빠짐없이 입력해주세요.</div>
+          <div class="modal-title" id="modalTitle">
+            배송정보를 빠짐없이 입력해주세요.
+          </div>
         </div>
         <div class="modal-actions">
           <button id="modalOk" class="modal-ok" type="button">확인</button>

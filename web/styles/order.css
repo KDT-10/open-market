@@ -31,12 +31,15 @@ body {
 
 .order-title {
   text-align: center;
-  font-size: 1.375rem;
-  font-weight: 800;
-  margin: 0.625rem 0 1.375rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+
+  padding-top: 0.8rem;
+  margin-top: -1.5rem;
+  margin-bottom: 2.1875rem;
 }
 
-/* ====== 주문상품 테이블 ====== */
+/* 주문상품 테이블  */
 .order-card {
   border: 0.0625rem solid #e7e7e7;
   border-radius: 0.625rem;
@@ -277,7 +280,7 @@ body {
   gap: 0.625rem;
 }
 
-/* ====== 하단: 결제수단 + 최종결제정보 ====== */
+/* 하단 : 결제수단 + 최종결제정보  */
 .bottom-grid {
   margin-top: 1.5rem;
   display: grid;
@@ -322,7 +325,6 @@ body {
   accent-color: #2f9e44;
 }
 
-/* ✅ 제목은 박스 밖 */
 .summary-title {
   margin: 0 0 0.625rem;
   font-size: 0.875rem;
@@ -373,19 +375,30 @@ body {
   color: #444;
 }
 
+/*  체크해야 초록 활성화 / 미체크는 회색 비활성화 */
 .pay-btn {
   width: 100%;
   height: 2.75rem;
   border: none;
   border-radius: 0.25rem;
-  background: #66b866; /* 항상 초록 */
   color: #fff;
   font-size: 0.875rem;
   font-weight: 900;
+}
+
+/* 기본: 비활성(회색) */
+.pay-btn:disabled {
+  background: #cfcfcf;
+  cursor: not-allowed;
+}
+
+/* 활성: 초록 */
+.pay-btn:not(:disabled) {
+  background: #66b866;
   cursor: pointer;
 }
 
-/* ====== 모달 ====== */
+/*  모달  */
 .modal.hidden {
   display: none;
 }
@@ -450,8 +463,7 @@ body {
   cursor: pointer;
 }
 
-/* ====== 반응형 ====== */
-/* 모바일 ~30rem */
+/*  반응형  */
 @media (max-width: 30rem) {
   .order-container {
     padding: 1.625rem 0.875rem 3.75rem;
@@ -490,7 +502,6 @@ body {
   }
 }
 
-/* 태블릿 481~64rem */
 @media (min-width: 30.0625rem) and (max-width: 64rem) {
   .order-container {
     max-width: 56.25rem;
@@ -501,7 +512,6 @@ body {
   }
 }
 
-/* 데스크탑 64.0625rem~ */
 @media (min-width: 64.0625rem) {
   .order-container {
     max-width: 61.25rem;
