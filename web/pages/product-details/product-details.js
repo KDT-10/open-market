@@ -58,7 +58,7 @@ function renderProductDetails(product) {
   price = product.price;
 
   const imgEl = document.querySelector('.product-image img');
-  if (imgEl) imgEl.src = `../../assets/images/product${product.id}.png`;
+  if (imgEl) imgEl.src = `/assets/images/product${product.id}.png`;
 
   const nameEl = document.getElementById('productName');
   if (nameEl) nameEl.textContent = product.name;
@@ -223,3 +223,4 @@ if (cartBtn) {
     });
   }
 });
+
