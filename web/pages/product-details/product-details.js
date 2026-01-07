@@ -219,7 +219,7 @@ if (cartBtn) {
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   if (modalYes) {
     modalYes.addEventListener('click', () => {
-      window.location.href = 'pages/cart/cart.html';
+      window.location.href = '../cart/cart.html';
     });
   }
 });
