@@ -58,7 +58,7 @@ function renderProductDetails(product) {
   price = product.price;
 
   const imgEl = document.querySelector('.product-image img');
-  if (imgEl) imgEl.src = `../../assets/images/product${product.id}.png`;
+  if (imgEl) imgEl.src = `/assets/images/product${product.id}.png`;
 
   const nameEl = document.getElementById('productName');
   if (nameEl) nameEl.textContent = product.name;
@@ -75,7 +75,7 @@ function renderProductDetails(product) {
 // 상품 불러오기 (async/await)
 async function fetchProduct(productId) {
   try {
-    const response = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const response = await fetch(`http://localhost:3000/products/${productId}`);
     console.log('응답 status:', response.status);
     if (!response.ok) throw new Error('상품 조회 실패');
 
@@ -110,7 +110,7 @@ async function addToCart(productId, quantity) {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/api/cart`, {
+    const res = await fetch(`http://localhost:3000/cart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -223,3 +223,4 @@ if (cartBtn) {
     });
   }
 });
+
