@@ -111,7 +111,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       if (data.user.user_type !== userType) {
-        showSimpleModal(`${userType === "BUYER" ? "구매회원" : "판매회원"} 계정으로 로그인해주세요.`);
+        showSimpleModal(
+          `${
+            userType === "BUYER" ? "구매회원" : "판매회원"
+          } 계정으로 로그인해주세요.`
+        );
         return;
       }
 
@@ -125,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // 사용자 타입에 따라 페이지 이동
 
-      const dest = sessionStorage.getItem('redirectAfterLogin');
+      const dest = sessionStorage.getItem("redirectAfterLogin");
       window.location.href = dest;
     } catch (error) {
       console.error("로그인 오류:", error);
@@ -144,7 +148,7 @@ async function showSimpleModal(infoTxt) {
     parent: document.body,
     content: content,
     cancelBtnTxt: null,
-    confirmBtnTxt: "확인"
+    confirmBtnTxt: "확인",
   });
   (await modalObj).open((await modalObj).close());
 }
