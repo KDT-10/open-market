@@ -1,6 +1,12 @@
 // URL에서 상품 id 가져오기 (?id=1,2,3,4,5)
 const params = new URLSearchParams(window.location.search);
-const productId = params.get('id');
+
+const productId = parseInt(params.get('id'), 10);
+
+if (!productId) {
+  alert('잘못된 상품 접근입니다.');
+  throw new Error('productId가 없습니다.');
+}
 
 // 가격, 수량
 let quantity = 1;
