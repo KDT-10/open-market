@@ -1,5 +1,7 @@
+import { createModal } from "/js/common/modal.js";
 import { isLoggedIn } from "/js/common/auth.js";
 
+const modalObj = createModal();
 const checkbox = document.getElementById("agreeCheckbox");
 const payButton = document.getElementById("payButton");
 
@@ -18,7 +20,20 @@ payButton.addEventListener("click", () => {
     return;
   }
 
-  alert("결제 완료되었습니다.");
+  (async () => {
+    const parent = document.body;
+    const content = document.createElement("p");
+    content.textContent = "결제 완료되었습니다.";
+    const cancelBtnTxt = null;
+    const confirmBtnTxt = "메인으로 이동";
+    (await modalObj).setModal({
+      parent,
+      content,
+      cancelBtnTxt,
+      confirmBtnTxt
+    });
+    (await modalObj).open(() => window.location.href = '/');
+  })();
 });
 
 let orderData;
@@ -113,27 +128,27 @@ function updateFinalData() {
 function validateInputs() {
   const customerName = document.getElementById("customerName");
   if (customerName.value === "") {
-    alert("주문자 이름을 입력해주세요.");
+    createSimpleModal("주문자 이름을 입력해주세요.");
     return false;
   }
   const customerPhone = ["customerPhone1", "customerPhone2", "customerPhone3"].map((str) => document.getElementById(str));
   if (customerPhone.some((el) => el.value === "")) {
-    alert("주문자 휴대폰을 입력해주세요.");
+    createSimpleModal("주문자 휴대폰을 입력해주세요.");
     return false;
   }
   const email = document.getElementById("email");
   if (email.value === "") {
-    alert("이메일을 입력해주세요.");
+    createSimpleModal("이메일을 입력해주세요.");
     return false;
   }
   const receiverName = document.getElementById("receiverName");
   if (receiverName.value === "") {
-    alert("배송지 수령인을 입력해주세요.");
+    createSimpleModal("배송지 수령인을 입력해주세요.");
     return false;
   }
   const receiverPhone = ["receiverPhone1", "receiverPhone2", "receiverPhone3"].map((str) => document.getElementById(str));
   if (receiverPhone.some((el) => el.value === "")) {
-    alert("배송지 휴대폰을 입력해주세요.");
+    createSimpleModal("배송지 휴대폰을 입력해주세요.");
     return false;
   }
   const receiverAddress = [
@@ -142,13 +157,13 @@ function validateInputs() {
     "receiverAddress3"
   ].map((str) => document.getElementById(str));
   if (receiverAddress.some((el) => el.value === "")) {
-    alert("배송지 주소를 입력해주세요.");
+    createSimpleModal("배송지 주소를 입력해주세요.");
     return false;
   }
   const selected = document.querySelector('input[name="pay-radiobtn"]:checked');
   const value = selected ? selected.value : null;
   if (!value) {
-    alert("결제수단을 선택해주세요.");
+    createSimpleModal("결제수단을 선택해주세요.");
     return false;
   }
 
@@ -164,4 +179,19 @@ async function fetchGetProduct(id) {
 
 function getQuantity(id) {
   return sessionOrderData.find(item => Number(item.product_id) === Number(id)).quantity;
+}
+
+async function createSimpleModal(msg) {
+  const parent = document.body;
+  const content = document.createElement("p");
+  content.textContent = msg;
+  const cancelBtnTxt = null;
+  const confirmBtnTxt = "확인";
+  (await modalObj).setModal({
+    parent,
+    content,
+    cancelBtnTxt,
+    confirmBtnTxt
+  });
+  (await modalObj).open(async () => (await modalObj).close());
 }
