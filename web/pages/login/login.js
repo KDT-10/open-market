@@ -112,7 +112,7 @@ form.addEventListener("submit", async (e) => {
     saveLogin(data, username);
 
     alert("로그인에 성공했습니다!");
-    window.location.href = "/index.html";
+    window.location.href = "../../index.html";
   } catch (err) {
     console.error(err);
     setError(err?.message || "서버에 연결할 수 없습니다.");
