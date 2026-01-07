@@ -120,7 +120,7 @@ window.buyNow = function () {
     product_id: productId,
     quantity
   };
-  sessionStorage.setItem('orderData', JSON.stringify(order));
+  sessionStorage.setItem('orderData', JSON.stringify([order]));
   // 구매 확인 모달
   createModal({
     parent: document.body,

@@ -223,6 +223,9 @@ main span {
   flex: 1;
   padding: 1rem;
 }
+.pay-container {
+  align-self: flex-start;
+}
 .footer-bill-top {
   display: flex;
   flex-direction: column;
@@ -245,37 +248,6 @@ main span {
 .footer-last-input {
   display: flex;
   gap: 0.2rem;
-}
-
-.primary-cbox input {
-  display: none;
-}
-.checkmark {
-  display: inline-block;
-  width: 0.8rem;
-  height: 0.8rem;
-  border: 1px solid #c4c4c4;
-  background-color: white;
-  position: relative;
-  cursor: pointer;
-  vertical-align: middle;
-}
-.checkmark::after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 4px;
-  width: 4px;
-  height: 9px;
-  border: solid var(--color-primary);
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-}
-.primary-cbox input:checked + .checkmark::after {
-  display: block;
-}
-.primary-cbox input:checked + .checkmark {
-  border-color: var(--color-primary);
 }
 
 .btn-last {
