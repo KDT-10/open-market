@@ -27,7 +27,7 @@ function logout(reason = "로그인이 만료되었습니다. 다시 로그인�
   localStorage.removeItem("user");
 
   alert(reason);
-  window.location.href = "/pages/login/login.html";
+  window.location.href = "../login/login.html";
 }
 
 let logoutTimerId = null;
@@ -57,7 +57,7 @@ function requireLogin(callback) {
   return function (e) {
     e.preventDefault();
     if (!isLoggedIn()) {
-      window.location.href = "/pages/login/login.html";
+      window.location.href = "../login/login.html";
       return;
     }
     callback();
@@ -65,7 +65,7 @@ function requireLogin(callback) {
 }
 
 // CSS 로드
-loadCSS("./layout.css");
+loadCSS("../../components/layout.css");
 
 function loadCSS(url) {
   const link = document.createElement("link");
@@ -81,7 +81,7 @@ scheduleAutoLogout();
 
 async function loadLayout() {
   try {
-    const res = await fetch("./layout.html");
+    const res = await fetch("../../components/layout.html");
     if (!res.ok) throw new Error("layout.html 로드 실패");
 
     const html = await res.text();
@@ -127,7 +127,7 @@ function bindHeaderEvents() {
     cartBtn.addEventListener(
       "click",
       requireLogin(() => {
-        window.location.href = "../pages/cart/cart.html";
+        window.location.href = "../cart/cart.html";
       })
     );
   }
@@ -139,7 +139,7 @@ function bindHeaderEvents() {
   if (mypageBtn) {
     mypageBtn.addEventListener("click", () => {
       if (!isLoggedIn()) {
-        window.location.href = "../pages/login/login.html";
+        window.location.href = "../login/login.html";
       } else {
         window.location.href = "/404.html";
       }
