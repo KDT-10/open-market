@@ -1,6 +1,6 @@
-import Validation from "/js/common/validation.js";
-import { setTabGroup } from "/js/common/tab-ui.js";
-import { createModal } from "/js/common/modal.js";
+import Validation from "js/common/validation.js";
+import { setTabGroup } from "js/common/tab-ui.js";
+import { createModal } from "js/common/modal.js";
 
 const modalObj = await createModal();
 let isUsernameChecked = false;
@@ -9,7 +9,7 @@ let isRegistrationNumberChecked = false;
 // 로고 버튼
 const logoBtn = document.getElementById("signup-logo-btn");
 logoBtn.addEventListener("click", () => {
-  window.location.href = "/";
+  window.location.href = "index.html";
 });
 
 // 탭 전환 (구매회원/판매회원)

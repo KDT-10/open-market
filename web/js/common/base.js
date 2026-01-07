@@ -1,4 +1,4 @@
-import { loadCSS } from "/js/common/dom-utils.js";
+import { loadCSS } from "js/common/dom-utils.js";
 
-loadCSS('/styles/base/reset.css');
-loadCSS('/styles/base/variables.css');
+loadCSS('styles/base/reset.css');
+loadCSS('styles/base/variables.css');

@@ -3,9 +3,9 @@ const detailContainer = document.getElementById('detail-container');
 // URL에서 상품 id 추출
 const productId = getProductIdFromURL();
 // 인증 유틸 import
-import { isLoggedIn, checkLogin } from "/js/common/auth.js";
+import { isLoggedIn, checkLogin } from "js/common/auth.js";
 // 모달 함수 import
-import { createModal } from "/js/common/modal.js";
+import { createModal } from "js/common/modal.js";
 
 // 상품 ID가 유효하면 상세 정보 요청, 아니면 에러 메시지
 if (productId) {
@@ -82,7 +82,7 @@ window.addToCart = function () {
       confirmBtnTxt: '예'
     }).then(goCartModal => {
       if (goCartModal) goCartModal.open(() => {
-        window.location.href = '/cart.html';
+        window.location.href = 'cart.html';
       });
     });
     return;
@@ -102,7 +102,7 @@ window.addToCart = function () {
     confirmBtnTxt: '예'
   }).then(goCartModal => {
     if (goCartModal) goCartModal.open(() => {
-      window.location.href = '/cart.html';
+      window.location.href = 'cart.html';
     });
   });
 }
@@ -137,7 +137,7 @@ window.buyNow = function () {
         confirmBtnTxt: '확인'
       }).then(successModal => {
         if (successModal) successModal.open(() => {
-          window.location.href = '/order.html';
+          window.location.href = 'order.html';
         });
       });
     });

@@ -1,5 +1,5 @@
-import { createModal } from "/js/common/modal.js";
-import { isLoggedIn } from "/js/common/auth.js";
+import { createModal } from "js/common/modal.js";
+import { isLoggedIn } from "js/common/auth.js";
 
 const modalObj = createModal();
 const checkbox = document.getElementById("agreeCheckbox");
@@ -32,7 +32,7 @@ payButton.addEventListener("click", () => {
       cancelBtnTxt,
       confirmBtnTxt
     });
-    (await modalObj).open(() => window.location.href = '/');
+    (await modalObj).open(() => window.location.href = 'index.html');
   })();
 });
 

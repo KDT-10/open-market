@@ -1,4 +1,4 @@
-import { createModal } from "/js/common/modal.js";
+import { createModal } from "js/common/modal.js";
 
 export function isLoggedIn() {
   return !!localStorage.getItem("access_token");
@@ -40,7 +40,7 @@ export function logout() {
   localStorage.removeItem("refresh_token");
   localStorage.removeItem("user");
 
-  window.location.href = "/";
+  window.location.href = "index.html";
 }
 
 /**

@@ -1,5 +1,5 @@
-import { isLoggedIn, logout } from "/js/common/auth.js";
-import { createModal } from "/js/common/modal.js";
+import { isLoggedIn, logout } from "js/common/auth.js";
+import { createModal } from "js/common/modal.js";
 
 export function initHeader() {
   const parent = document.body;
@@ -18,7 +18,7 @@ export function initHeader() {
   const mainLogo = document.getElementById("main-logo");
   if (mainLogo) {
     mainLogo.addEventListener("click", () => {
-      window.location.href = "/";
+      window.location.href = "index.html";
     });
     mainLogo.style.cursor = "pointer";
   }
@@ -58,7 +58,7 @@ export function initHeader() {
   const cartIcon = document.getElementById("cart-icon");
   if (cartIcon) {
     cartIcon.addEventListener("click", () => {
-      window.location.href = "/cart.html";
+      window.location.href = "cart.html";
     });
   }
 
@@ -74,7 +74,7 @@ export function initHeader() {
         })();
       } else {
         sessionStorage.setItem("redirectAfterLogin", window.location.href);
-        window.location.href = "/signin.html";
+        window.location.href = "signin.html";
       }
     });
   }

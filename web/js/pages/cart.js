@@ -1,5 +1,5 @@
-import { createModal } from "/js/common/modal.js";
-import { isLoggedIn, checkLogin, fetchWithAuth } from "/js/common/auth.js";
+import { createModal } from "js/common/modal.js";
+import { isLoggedIn, checkLogin, fetchWithAuth } from "js/common/auth.js";
 
 // 장바구니 데이터 로드
 let cartData;
@@ -323,22 +323,6 @@ async function fetchDeleteCart(cartItemId) {
     throw new Error("장바구니 삭제 실패");
   }
 }
-
-// TODO: Quantity 키가 없음
-// async function fetchPutCart(cartItemId) {
-//   const endpoint = `/cart/${cartItemId}/`;
-
-//   const response = await fetchWithAuth(endpoint, {
-//     method: "PUT",
-//     body: JSON.stringify({
-//       "quantity": 0
-//     })
-//   });
-
-//   if (!response.ok) {
-//     throw new Error("장바구니 수정 실패");
-//   }
-// }
 
 function setIncludeInTotal(id, state) {
   sessionCartData.find(item => Number(item.product_id) === Number(id)).includeInTotal = state;

@@ -1,6 +1,6 @@
-import { loadCSS } from "/js/common/dom-utils.js";
+import { loadCSS } from "js/common/dom-utils.js";
 
-loadCSS("/styles/components/modal.css");
+loadCSS("styles/components/modal.css");
 
 class Modal {
   #parent;
@@ -102,7 +102,7 @@ class Modal {
 
 export async function createModal(modalInfo) {
   try {
-    const modalURL = "/components/modal.html";
+    const modalURL = "components/modal.html";
     const res = await fetch(modalURL);
     if (!res.ok) throw new Error('HTML 불러오기 실패');
 

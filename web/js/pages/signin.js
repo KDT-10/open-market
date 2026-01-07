@@ -1,4 +1,4 @@
-import { createModal } from "/js/common/modal.js";
+import { createModal } from "js/common/modal.js";
 
 const modalObj = createModal();
 
@@ -112,8 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (data.user.user_type !== userType) {
         showSimpleModal(
-          `${
-            userType === "BUYER" ? "구매회원" : "판매회원"
+          `${userType === "BUYER" ? "구매회원" : "판매회원"
           } 계정으로 로그인해주세요.`
         );
         return;
