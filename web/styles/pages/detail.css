@@ -1,5 +1,4 @@
 /* 모바일 우선, 카드형 디자인, 컬러 포인트, 반응형 개선 */
-
 .detail-container {
   width: var(--content-size);
   margin: 0 auto;
@@ -9,15 +8,15 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
+  transition: padding 0.6s ease, gap 0.6s ease, max-width 0.6s ease;
 }
-
 .product-detail {
   display: flex;
   flex-direction: column;
   gap: 18px;
   align-items: center;
+  transition: flex-direction 0.6s ease, gap 0.6s ease, align-items 0.6s ease;
 }
-
 .product-image {
   width: 180px;
   height: 180px;
@@ -26,8 +25,8 @@
   box-shadow: 0 2px 10px 0 rgba(0,0,0,0.10);
   background: #f8f9fa;
   border: 1.5px solid #e3e5e8;
+  transition: width 0.6s ease, height 0.6s ease;
 }
-
 .product-shell {
   width: 100%;
   display: flex;
@@ -35,52 +34,39 @@
   gap: 10px;
   padding: 10px 0;
   border-bottom: 1.5px solid #e3e5e8;
+  transition: flex 0.6s ease;
 }
-
 .product-name {
   font-size: 1.18rem;
   font-weight: 700;
   margin-bottom: 2px;
   color: #222;
+  transition: font-size 0.6s ease;
 }
 .seller-name {
   color: #7c7c7c;
   font-size: 0.98rem;
   font-weight: 500;
+  transition: font-size 0.6s ease;
 }
 .price {
   font-size: 1.12rem;
   color: #03c75a;
   font-weight: 700;
+  transition: font-size 0.6s ease;
 }
 .delivery-charge, .stock {
   font-size: 0.98rem;
   color: #555;
   font-weight: 500;
+  transition: font-size 0.6s ease;
 }
-
 .quantity-selector {
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 12px 0;
-}
-.quantity-selector button {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid #03c75a;
-  background: #fff;
-  color: #03c75a;
-  font-size: 1.2rem;
-  border-radius: 50%;
-  transition: background 0.2s, color 0.2s, border 0.2s;
-  cursor: pointer;
-  font-weight: 700;
-}
-.quantity-selector button:hover {
-  background: #03c75a;
-  color: #fff;
-  border: 1.5px solid #03c75a;
+  transition: margin 0.6s ease;
 }
 .quantity-selector input {
   width: 44px;
@@ -91,15 +77,15 @@
   border-radius: 7px;
   background: #f8f9fa;
   font-weight: 600;
+  transition: width 0.6s ease, height 0.6s ease, font-size 0.6s ease;
 }
-
 .total-price {
   font-size: 1.08rem;
   font-weight: 700;
   color: #222;
   margin: 10px 0 0 0;
+  transition: font-size 0.6s ease, margin 0.6s ease;
 }
-
 .detail-info-container {
   display: flex;
   flex-direction: row;
@@ -111,20 +97,185 @@
   padding-bottom: 6px;
   background: #f8f9fa;
   border-radius: 8px 8px 0 0;
+  transition: margin-top 0.6s ease;
 }
 
-@media (min-width: 768px) {
+/* 태블릿 (690px 이상) */
+@media (min-width: 690px) {
   .detail-container {
-    padding: 10px 2vw;
-    gap: 18px;
+    padding: 24px;
+    gap: 24px;
   }
   .product-detail {
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
   }
   .product-image {
-    width: 160px;
-    height: 160px;
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+  }
+  .product-shell {
+    flex: 1;
+  }
+  .product-name {
+    font-size: 1.4rem;
+  }
+  .seller-name {
+    font-size: 1.05rem;
+  }
+  .price {
+    font-size: 1.3rem;
+  }
+  .delivery-charge, .stock {
+    font-size: 1.05rem;
+  }
+  .quantity-selector {
+    margin: 16px 0;
+  }
+  .total-price {
+    font-size: 1.2rem;
+  }
+  .detail-info-container {
+    margin-top: 16px;
+  }
+}
+
+/* 데스크탑 (1024px 이상 - HD) */
+@media (min-width: 1024px) {
+  .detail-container {
+    max-width: 1000px;
+    padding: 28px;
+    gap: 28px;
+  }
+  .product-detail {
+    gap: 40px;
+  }
+  .product-image {
+    width: 350px;
+    height: 350px;
+  }
+  .product-name {
+    font-size: 1.5rem;
+  }
+  .seller-name {
+    font-size: 1.08rem;
+  }
+  .price {
+    font-size: 1.4rem;
+  }
+  .delivery-charge, .stock {
+    font-size: 1.08rem;
+  }
+  .quantity-selector input {
+    width: 56px;
+    height: 38px;
+    font-size: 1.15rem;
+  }
+  .total-price {
+    font-size: 1.3rem;
+    margin: 14px 0 0 0;
+  }
+}
+
+/* 일반 데스크탑 (1366px 이상) */
+@media (min-width: 1366px) {
+  .detail-container {
+    max-width: 1280px;
+    padding: 32px;
+    gap: 32px;
+  }
+  .product-detail {
+    gap: 48px;
+  }
+  .product-image {
+    width: 420px;
+    height: 420px;
+  }
+  .product-name {
+    font-size: 1.65rem;
+  }
+  .seller-name {
+    font-size: 1.12rem;
+  }
+  .price {
+    font-size: 1.55rem;
+  }
+  .delivery-charge, .stock {
+    font-size: 1.12rem;
+  }
+  .quantity-selector input {
+    width: 62px;
+    height: 42px;
+    font-size: 1.25rem;
+  }
+  .total-price {
+    font-size: 1.45rem;
+    margin: 16px 0 0 0;
+  }
+}
+
+/* 큰 데스크탑 (1600px 이상) */
+@media (min-width: 1600px) {
+  .detail-container {
+    max-width: 1480px;
+    padding: 36px;
+    gap: 36px;
+  }
+  .product-image {
+    width: 480px;
+    height: 480px;
+  }
+  .product-name {
+    font-size: 1.75rem;
+  }
+  .price {
+    font-size: 1.65rem;
+  }
+  .quantity-selector input {
+    width: 68px;
+    height: 44px;
+    font-size: 1.3rem;
+  }
+  .total-price {
+    font-size: 1.55rem;
+  }
+}
+
+/* Full HD (1920px 이상) */
+@media (min-width: 1920px) {
+  .detail-container {
+    max-width: 1720px;
+    padding: 40px;
+    gap: 40px;
+  }
+  .product-detail {
+    gap: 56px;
+  }
+  .product-image {
+    width: 540px;
+    height: 540px;
+  }
+  .product-name {
+    font-size: 1.9rem;
+  }
+  .seller-name {
+    font-size: 1.18rem;
+  }
+  .price {
+    font-size: 1.8rem;
+  }
+  .delivery-charge, .stock {
+    font-size: 1.18rem;
+  }
+  .quantity-selector input {
+    width: 72px;
+    height: 48px;
+    font-size: 1.4rem;
+  }
+  .total-price {
+    font-size: 1.7rem;
+    margin: 18px 0 0 0;
   }
 }

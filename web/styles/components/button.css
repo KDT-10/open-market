@@ -57,6 +57,23 @@ detail 시작
   color: #fff;
   box-shadow: 0 2px 8px 0 rgba(3,199,90,0.12) inset;
 }
+.quantity-selector button {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid #03c75a;
+  background: #fff;
+  color: #03c75a;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  cursor: pointer;
+  font-weight: 700;
+}
+.quantity-selector button:hover {
+  background: #03c75a;
+  color: #fff;
+  border: 1.5px solid #03c75a;
+}
 .decrease-qty {
   background-color: #ff4d4d;
   border: none;
