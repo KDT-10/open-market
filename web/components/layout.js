@@ -127,7 +127,7 @@ function bindHeaderEvents() {
     cartBtn.addEventListener(
       "click",
       requireLogin(() => {
-        window.location.href = "../pages/cart/cart.html";
+        window.location.href = "/pages/cart/cart.html";
       })
     );
   }
@@ -139,7 +139,7 @@ function bindHeaderEvents() {
   if (mypageBtn) {
     mypageBtn.addEventListener("click", () => {
       if (!isLoggedIn()) {
-        window.location.href = "../pages/login/login.html";
+        window.location.href = "/pages/login/login.html";
       } else {
         window.location.href = "/404.html";
       }
