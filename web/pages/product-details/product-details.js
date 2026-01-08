@@ -55,23 +55,38 @@ function renderProductDetails(product) {
   if (imgEl && product.image) {
     const isGitHubPages = window.location.hostname.includes("github.io");
 
-    // ./assets/images/product1.png → web/assets/images/product1.png
-    let imagePath = product.image.replace('./', 'web/');
+    // ./assets/images/product1.png → assets/images/product1.png
+    const imagePath = product.image.replace('./', '');
 
     if (isGitHubPages) {
-      // GitHub Pages: /team1-JADUPAGE/web/assets/images/product1.png
-      imgEl.src = `/team1-JADUPAGE/${imagePath}`;
+      // GitHub Pages: 절대 경로로 시작
+      const paths = [
+        `/team1-JADUPAGE/web/${imagePath}`,    // /team1-JADUPAGE/web/assets/images/product1.png
+        `/team1-JADUPAGE/${imagePath}`,        // /team1-JADUPAGE/assets/images/product1.png
+      ];
+
+      let pathIndex = 0;
+      imgEl.src = paths[pathIndex];
+      console.log('이미지 경로 시도:', imgEl.src);
+
+      imgEl.onerror = () => {
+        pathIndex++;
+        if (pathIndex < paths.length) {
+          console.log('이미지 로드 실패, 다른 경로 시도:', paths[pathIndex]);
+          imgEl.src = paths[pathIndex];
+        } else {
+          console.error('모든 이미지 경로 실패:', paths);
+        }
+      };
     } else {
-      // Vercel/로컬: ../../web/assets/images/product1.png (상대경로)
+      // Vercel/로컬: 상대 경로
       imgEl.src = `../../${imagePath}`;
+      console.log('이미지 경로:', imgEl.src);
+
+      imgEl.onerror = () => {
+        console.error('이미지 로드 실패:', imgEl.src);
+      };
     }
-
-    console.log('이미지 경로:', imgEl.src);
-
-    // 로드 실패 시 에러 로그
-    imgEl.onerror = () => {
-      console.error('이미지 로드 실패:', imgEl.src);
-    };
   }
 
   const nameEl = document.getElementById('productName');
