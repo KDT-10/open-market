@@ -1,9 +1,16 @@
 import { fetchProducts } from "../common/api.js";
 import { createModal } from "../common/modal.js";
 
-
-const modal = await createModal();
-loadProducts();
+let modal = await createModal();
+let searchTermQuery = sessionStorage.getItem("searchTerm");
+if (searchTermQuery) {
+  loadProducts(searchTermQuery);
+  searchTermQuery = null;
+  sessionStorage.removeItem("searchTerm");
+}
+else {
+  loadProducts();
+}
 
 export async function loadProducts(searchTerm = "") {
   const productData = await fetchProducts(searchTerm);

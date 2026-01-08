@@ -1,4 +1,3 @@
-import { loadProducts } from "../pages/index.js";
 import { isLoggedIn, logout } from "./auth.js";
 import { createModal } from "./modal.js";
 
@@ -36,10 +35,11 @@ export async function initHeader() {
     const searchInput = document.getElementById("search-input");
     const searchIcon = searchBar.querySelector("#search-bar > svg");
 
-    const performSearch = () => {
+    const performSearch = async () => {
       const query = searchInput.value.trim();
       if (query) {
-        loadProducts(query);
+        sessionStorage.setItem("searchTerm", query);
+        window.location.href = "index.html";
       }
     };
 
