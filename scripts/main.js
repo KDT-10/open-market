@@ -1,10 +1,16 @@
-import { fetchAPI } from './api.js';
-
 // 전역 변수
 let allProducts = [];
 let currentPage = 1;
 const ITEMS_PER_PAGE = 8;
 let currentCategory = "all";
+
+// 환경 감지
+const isGitHubPages = window.location.hostname.includes("github.io");
+
+// 데이터 경로 - 상대 경로 사용 (로컬과 GitHub Pages 모두 작동)
+function getDataPath() {
+  return "./db.json";
+}
 
 function getProductDetailPath(productId) {
   return `./pages/product-details/product-details.html?id=${productId}`;
@@ -112,12 +118,12 @@ async function loadProducts() {
     errorMessage.style.display = "none";
     productGrid.style.display = "none";
 
-    // API에서 상품 데이터 가져오기
-    const response = await fetchAPI('/products?page_size=1000');
+    // db.json에서 상품 데이터 가져오기
+    const response = await fetch(getDataPath());
     if (!response.ok) throw new Error("데이터 로드 실패");
 
     const data = await response.json();
-    allProducts = data.results || [];
+    allProducts = data.products || [];
 
     // 상품 렌더링
     renderProducts();
@@ -260,12 +266,17 @@ function initSearch() {
       loadingSkeleton.style.display = "grid";
       productGrid.style.display = "none";
 
-      // API에서 검색
-      const response = await fetchAPI(`/products?search=${encodeURIComponent(query)}&page_size=1000`);
-      if (!response.ok) throw new Error("검색 실패");
+      // db.json에서 검색
+      const response = await fetch(getDataPath());
+      if (!response.ok) throw new Error("데이터 로드 실패");
 
       const data = await response.json();
-      allProducts = data.results || [];
+      const products = data.products || [];
+
+      // 클라이언트 측 검색 (이름 포함)
+      allProducts = products.filter(product =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
 
       currentPage = 1;
       renderProducts();

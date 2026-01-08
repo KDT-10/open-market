@@ -2,8 +2,99 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=./web/index.html" />
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU - 오픈 마켓</title>
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
-  <body></body>
+  <body>
+    <!-- 슬라이드(캐러셀) 섹션 -->
+    <section class="hero-slider">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h2>개발자를 위한 특별한 아이템</h2>
+              <p>코딩이 즐거워지는 개발자 굿즈</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h2>새로운 제품 출시</h2>
+              <p>귀여운 캐릭터와 함께하는 개발 생활</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h2>인기 상품 할인 중</h2>
+              <p>지금 바로 만나보세요</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </section>
+
+    <!-- 탭 UI 섹션 -->
+    <section class="product-section">
+      <div class="container">
+        <div class="tab-container" role="tablist">
+          <button
+            class="tab-button active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-all"
+            data-category="all">
+            전체 상품
+          </button>
+          <button
+            class="tab-button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-accessories"
+            data-category="accessories">
+            액세서리
+          </button>
+          <button
+            class="tab-button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-stationery"
+            data-category="stationery">
+            문구류
+          </button>
+        </div>
+
+        <!-- 로딩 스켈레톤 UI -->
+        <div id="loading-skeleton" class="skeleton-container" style="display: none;">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+
+        <!-- 에러 메시지 -->
+        <div id="error-message" class="error-container" style="display: none;">
+          <p class="error-text">상품을 불러오는데 실패했습니다.</p>
+          <button class="retry-button">다시 시도</button>
+        </div>
+
+        <!-- 상품 목록 -->
+        <div id="product-grid" class="product-grid" role="tabpanel" aria-labelledby="tab-all">
+          <!-- 상품 카드가 동적으로 렌더링됩니다 -->
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div id="pagination" class="pagination">
+          <!-- 페이지네이션 버튼이 동적으로 렌더링됩니다 -->
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./components/layout.js"></script>
+    <script type="module" src="./scripts/main.js"></script>
+  </body>
 </html>
