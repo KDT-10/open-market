@@ -57,7 +57,7 @@ function renderProductDetails(product) {
     const isGitHubPages = window.location.hostname.includes('github.io');
     
     if (isGitHubPages) {
-      imgEl.src = `/team1-JADUPAGE/${product.image.slice(2)}`;
+      imgEl.src = `/team1-JADUPAGE/web/${product.image.slice(2)}`;
     } else {
       imgEl.src = product.image.replace('./', '../../');
     }
