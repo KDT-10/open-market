@@ -1,4 +1,8 @@
-const API_BASE = "http://localhost:3000";
+// 환경 감지
+const isGitHubPages = window.location.hostname.includes("github.io");
+const API_BASE = isGitHubPages
+  ? "https://open-market-jade.vercel.app"
+  : "http://localhost:3000";
 //탭 전환
 const tabs = document.querySelectorAll(".tab");
 tabs.forEach((btn) => {

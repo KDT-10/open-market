@@ -1,3 +1,9 @@
+// 환경 감지
+const isGitHubPages = window.location.hostname.includes("github.io");
+const API_BASE_URL = isGitHubPages
+  ? "https://open-market-jade.vercel.app/api"
+  : "http://localhost:3000";
+
 // URL에서 상품 id 가져오기 (?id=1,2,3,4,5)
 const params = new URLSearchParams(window.location.search);
 
@@ -75,7 +81,7 @@ function renderProductDetails(product) {
 // 상품 불러오기 (async/await)
 async function fetchProduct(productId) {
   try {
-    const response = await fetch(`http://localhost:3000/products/${productId}`);
+    const response = await fetch(`${API_BASE_URL}/products/${productId}`);
     console.log('응답 status:', response.status);
     if (!response.ok) throw new Error('상품 조회 실패');
 
@@ -110,7 +116,7 @@ async function addToCart(productId, quantity) {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/cart`, {
+    const res = await fetch(`${API_BASE_URL}/cart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

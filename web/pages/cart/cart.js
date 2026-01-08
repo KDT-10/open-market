@@ -1,8 +1,11 @@
 // 장바구니 데이터
 let cartItems = [];
 
-// API 기본 URL 설정
-const API_BASE_URL = "http://localhost:3000";
+// 환경 감지 및 API 기본 URL 설정
+const isGitHubPages = window.location.hostname.includes("github.io");
+const API_BASE_URL = isGitHubPages
+  ? "https://open-market-jade.vercel.app/api"
+  : "http://localhost:3000";
 
 // 로딩 상태 관리
 let isLoading = false;
