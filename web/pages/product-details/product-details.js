@@ -53,9 +53,14 @@ function renderProductDetails(product) {
     const imgEl = document.querySelector('.product-image img');
 
   if (imgEl && product.image) {
-
-    // product.image가 "./assets/images/product3.png" 형태이므로
-    imgEl.src = product.image.replace('./', '../../');
+    
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    
+    if (isGitHubPages) {
+      imgEl.src = `/team1-JADUPAGE/${product.image.slice(2)}`;
+    } else {
+      imgEl.src = product.image.replace('./', '../../');
+    }
     console.log('이미지 경로:', imgEl.src);
 
     imgEl.onerror = () => {
