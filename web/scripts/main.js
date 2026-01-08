@@ -150,7 +150,7 @@ function renderProducts() {
     .map(
       (product) => `
     <article class="product-card" data-product-id="${product.id}">
-      <a href="pages/product-details/product-details.html?id=${product.id}" class="product-link">
+      <a href="./pages/product-details/product-details.html?id=${product.id}" class="product-link">
         <div class="product-image">
           <img src="${product.image}" alt="${product.name}" loading="lazy" />
         </div>

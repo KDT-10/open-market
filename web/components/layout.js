@@ -27,8 +27,7 @@ function logout(reason = "로그인이 만료되었습니다. 다시 로그인�
   localStorage.removeItem("user");
 
   alert(reason);
-  const basePath = getBasePath();
-  window.location.href = `${basePath}/pages/login/login.html`;
+  window.location.href = "../pages/login/login.html";
 }
 
 let logoutTimerId = null;
@@ -58,20 +57,11 @@ function requireLogin(callback) {
   return function (e) {
     e.preventDefault();
     if (!isLoggedIn()) {
-      const basePath = getBasePath();
-      window.location.href = `${basePath}/pages/login/login.html`;
+      window.location.href = "../pages/login/login.html";
       return;
     }
     callback();
   };
-}
-
-// 현재 페이지의 web 폴더 기준 경로 계산
-function getBasePath() {
-  const path = window.location.pathname;
-  // web/index.html 또는 web/pages/cart/cart.html 등에서 web 폴더까지의 상대 경로 계산
-  const depth = path.split('/').filter(p => p && p !== 'web').length - 1;
-  return depth === 0 ? '.' : '../'.repeat(depth);
 }
 
 // CSS 로드
@@ -127,27 +117,8 @@ function movePageContentToMain() {
   pageContents.forEach((el) => main.appendChild(el));
 }
 
-// 현재 페이지의 web 폴더 기준 경로 계산
-function getBasePath() {
-  const path = window.location.pathname;
-  // web/index.html 또는 web/pages/cart/cart.html 등에서 web 폴더까지의 상대 경로 계산
-  const depth = path.split('/').filter(p => p && p !== 'web').length - 1;
-  return depth === 0 ? '.' : '../'.repeat(depth);
-}
-
 // header 이벤트 바인딩
 function bindHeaderEvents() {
-  const basePath = getBasePath();
-
-  // 로고 클릭 이벤트
-  const logoLink = document.querySelector('header .logo a');
-  if (logoLink) {
-    logoLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = `${basePath}/index.html`;
-    });
-  }
-
   // 장바구니 버튼
   const cartBtn = document.querySelector(
     'header .icon-item[aria-label="장바구니"]'
@@ -156,7 +127,7 @@ function bindHeaderEvents() {
     cartBtn.addEventListener(
       "click",
       requireLogin(() => {
-        window.location.href = `${basePath}/pages/cart/cart.html`;
+        window.location.href = "../pages/cart/cart.html";
       })
     );
   }
@@ -168,9 +139,9 @@ function bindHeaderEvents() {
   if (mypageBtn) {
     mypageBtn.addEventListener("click", () => {
       if (!isLoggedIn()) {
-        window.location.href = `${basePath}/pages/login/login.html`;
+        window.location.href = "../pages/login/login.html";
       } else {
-        window.location.href = `${basePath}/404.html`;
+        window.location.href = "../404.html";
       }
     });
   }

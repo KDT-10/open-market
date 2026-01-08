@@ -1,5 +1,5 @@
 // API 기본 설정
-const API_BASE_URL = "https://open-market-jade.vercel.app/api";
+const API_BASE_URL = "http://localhost:3000";
 
 // 기본 fetch 래퍼 함수
 async function fetchAPI(url, options = {}) {
