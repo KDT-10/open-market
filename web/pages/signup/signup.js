@@ -338,7 +338,7 @@ buyerForm?.addEventListener("submit", async (e) => {
     });
 
     alert("구매자 회원가입 성공! 로그인 페이지로 이동합니다.");
-    window.location.href = "login.html";
+    window.location.href = "../login/login.html";
   } catch (err) {
     alert(err.message);
   }
