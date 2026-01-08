@@ -53,9 +53,9 @@ function renderProductDetails(product) {
     const imgEl = document.querySelector('.product-image img');
 
   if (imgEl && product.image) {
-    // product-details.html 이 pages 폴더 안에 있으므로
-    // assets/images 로 가려면 ../assets/images/
-    imgEl.src = `../${product.image.slice(2)}`;
+
+    // product.image가 "./assets/images/product3.png" 형태이므로
+    imgEl.src = product.image.replace('./', '../../');
     console.log('이미지 경로:', imgEl.src);
 
     imgEl.onerror = () => {
