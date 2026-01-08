@@ -27,7 +27,7 @@ function logout(reason = "로그인이 만료되었습니다. 다시 로그인�
   localStorage.removeItem("user");
 
   alert(reason);
-  window.location.href = "../pages/login/login.html";
+  window.location.href = "../web/pages/login/login.html";
 }
 
 let logoutTimerId = null;
@@ -57,7 +57,7 @@ function requireLogin(callback) {
   return function (e) {
     e.preventDefault();
     if (!isLoggedIn()) {
-      window.location.href = "../pages/login/login.html";
+      window.location.href = "../web/pages/login/login.html";
       return;
     }
     callback();
@@ -127,7 +127,7 @@ function bindHeaderEvents() {
     cartBtn.addEventListener(
       "click",
       requireLogin(() => {
-        window.location.href = "../pages/cart/cart.html";
+        window.location.href = "../web/pages/cart/cart.html";
       })
     );
   }
@@ -139,9 +139,9 @@ function bindHeaderEvents() {
   if (mypageBtn) {
     mypageBtn.addEventListener("click", () => {
       if (!isLoggedIn()) {
-        window.location.href = "../pages/login/login.html";
+        window.location.href = "../web/pages/login/login.html";
       } else {
-        window.location.href = "../404.html";
+        window.location.href = "../web/404.html";
       }
     });
   }
