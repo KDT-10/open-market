@@ -21,6 +21,26 @@ payButton.addEventListener("click", () => {
     return;
   }
 
+  // 주문 데이터 비우기
+  sessionStorage.removeItem("orderData");
+  orderData = [];
+
+  // 장바구니에서 구매한 것들 비우기
+  const orderProductIds = new Set(sessionOrderData.map(item => item.product_id));
+  const updatedCartData = sessionCartData.filter(
+    item => !orderProductIds.has(item.product_id)
+  );
+
+  // 결과 sessionStorage에 반영
+  if (updatedCartData.length > 0) {
+    sessionStorage.setItem('cartData', JSON.stringify(updatedCartData));
+  } else {
+    sessionStorage.removeItem('cartData');
+  }
+
+  // 렌더링
+  renderOrderItems();
+
   (async () => {
     const parent = document.body;
     const content = document.createElement("p");
@@ -39,6 +59,8 @@ payButton.addEventListener("click", () => {
 
 let orderData;
 let sessionOrderData;
+let cartData;
+let sessionCartData;
 (async () => {
   // 로그인 상태에 따른 데이터 로드
   if (isLoggedIn()) {
@@ -46,7 +68,13 @@ let sessionOrderData;
     orderData = await Promise.all(
       sessionOrderData.map(async ({ product_id }) => ({
         ...(await fetchGetProduct(product_id)),
-        includeInTotal: false,
+      }))
+    );
+
+    sessionCartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
+    cartData = await Promise.all(
+      sessionCartData.map(async ({ product_id }) => ({
+        ...(await fetchGetProduct(product_id)),
       }))
     );
   } else {
@@ -56,13 +84,18 @@ let sessionOrderData;
 })();
 
 function renderOrderItems() {
-  const orderItems = document.querySelector(".order-container");
+  const orderItemContainer = document.querySelector(".order-container");
+  const orderItems = document.querySelectorAll(".header-p");
+  // 템플릿 제외 모두 삭제
+  Array.from(orderItems).forEach((orderItemEl) => {
+    orderItemEl.remove();
+  });
 
   orderData.forEach((data) => {
     data.quantity ??= 1;
     data.includeInTotal ??= false;
     const orderItem = createOrderItem(data);
-    orderItems.appendChild(orderItem);
+    orderItemContainer.appendChild(orderItem);
   });
 
   updateFinalData();
