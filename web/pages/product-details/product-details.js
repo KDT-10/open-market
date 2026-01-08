@@ -55,13 +55,16 @@ function renderProductDetails(product) {
   if (imgEl && product.image) {
     const isGitHubPages = window.location.hostname.includes("github.io");
 
+    // 이미지 경로에서 ./assets/images/product1.png 같은 형태 처리
+    const imagePath = product.image.replace('./', '');  // assets/images/product1.png
+
     // 가능한 모든 경로 목록
     const imagePaths = isGitHubPages ? [
-      product.image.replace('./', '/team1-JADUPAGE/web/'),     // /web/assets
-      product.image.replace('./', '/team1-JADUPAGE/'),         // 루트 assets
+      `/team1-JADUPAGE/web/${imagePath}`,           // /team1-JADUPAGE/web/assets/images/product1.png
+      `/team1-JADUPAGE/${imagePath}`,               // /team1-JADUPAGE/assets/images/product1.png
     ] : [
-      product.image.replace('./', '../../'),                   // 상대 경로
-      product.image.replace('./', '/web/'),                    // 절대 경로 (혹시 모를 경우)
+      `../../${imagePath}`,                         // ../../assets/images/product1.png (상대경로)
+      `/web/${imagePath}`,                          // /web/assets/images/product1.png (절대경로)
     ];
 
     // 첫 번째 경로 시도
