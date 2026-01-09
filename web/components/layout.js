@@ -98,12 +98,12 @@ function requireLogin(callback) {
 function getBasePath() {
   const path = window.location.pathname;
   // web/index.html 또는 web/pages/cart/cart.html 등에서 web 폴더까지의 상대 경로 계산
-  const depth = path.split('/').filter(p => p && p !== 'web').length - 1;
-  return depth === 0 ? '.' : '../'.repeat(depth);
+  const depth = path.split("/").filter((p) => p && p !== "web").length - 1;
+  return depth === 0 ? "." : "../".repeat(depth);
 }
 
 // CSS 로드
-loadCSS("./layout.css");
+loadCSS("../../components/layout.css");
 
 function loadCSS(url) {
   const link = document.createElement("link");
@@ -193,8 +193,8 @@ function movePageContentToMain() {
 function getBasePath() {
   const path = window.location.pathname;
   // web/index.html 또는 web/pages/cart/cart.html 등에서 web 폴더까지의 상대 경로 계산
-  const depth = path.split('/').filter(p => p && p !== 'web').length - 1;
-  return depth === 0 ? '.' : '../'.repeat(depth);
+  const depth = path.split("/").filter((p) => p && p !== "web").length - 1;
+  return depth === 0 ? "." : "../".repeat(depth);
 }
 
 // header 이벤트 바인딩
