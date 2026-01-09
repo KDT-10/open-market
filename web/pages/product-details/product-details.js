@@ -55,13 +55,14 @@ function renderProductDetails(product) {
   if (imgEl && product.image) {
     // product-details.html 이 pages 폴더 안에 있으므로
     // assets/images 로 가려면 ../assets/images/
-    imgEl.src = `../${product.image.slice(2)}`;
+    imgEl.src = product.image.replace('./', '/');
     console.log('이미지 경로:', imgEl.src);
 
     imgEl.onerror = () => {
       console.error('이미지 로드 실패:', imgEl.src);
     };
   }
+
 
   const nameEl = document.getElementById('productName');
   if (nameEl) nameEl.textContent = product.name;
