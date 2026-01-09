@@ -550,24 +550,27 @@ function initModalEventListeners() {
     overlay.addEventListener("click", () => closeModal(deleteModal));
 
     confirmBtn.addEventListener("click", async () => {
-      if (currentModalItem) {
-        try {
-          await deleteCartItem(currentModalItem.id);
-          const itemIndex = cartItems.findIndex(
-            (item) => item.id === currentModalItem.id
-          );
-          if (itemIndex !== -1) {
-            cartItems.splice(itemIndex, 1);
-            renderCart();
-          }
-          closeModal(deleteModal);
-          // 삭제 성공 알림 (선택사항 - 원하면 제거 가능)
-          console.log(
-            `✓ "${currentModalItem.name}" 상품이 장바구니에서 삭제되었습니다.`
-          );
-        } catch (error) {
-          console.error("삭제 실패:", error);
+      if (!currentModalItem) {
+        closeModal(deleteModal);
+        return;
+      }
+
+      const itemToDelete = currentModalItem;
+      try {
+        await deleteCartItem(itemToDelete.id);
+        const itemIndex = cartItems.findIndex(
+          (item) => item.id === itemToDelete.id
+        );
+        if (itemIndex !== -1) {
+          cartItems.splice(itemIndex, 1);
+          renderCart();
         }
+        closeModal(deleteModal);
+        console.log(
+          `✓ "${itemToDelete.name}" 상품이 장바구니에서 삭제되었습니다.`
+        );
+      } catch (error) {
+        console.error("삭제 실패:", error);
       }
     });
   }

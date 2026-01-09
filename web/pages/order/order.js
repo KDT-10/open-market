@@ -143,7 +143,31 @@ function normalizeImagePath(img) {
 }
 
 function loadOrderDataLocalOnly() {
-  // 1) sessionStorage.orderData
+  // 1) URL query string (id/quantity) - 상품 상세에서 바로 구매 시 우선 처리
+  const qs = getQuery();
+  const productId = qs.get("id");
+  const quantity = Number(qs.get("quantity") || 1);
+  if (productId) {
+    // 바로 구매 시 기존 orderData 제거
+    sessionStorage.removeItem("orderData");
+    localStorage.removeItem("orderData");
+
+    return {
+      type: "direct_order",
+      items: [
+        {
+          product_id: Number(productId),
+          name: "상품",
+          brand: "백엔드글로벌",
+          price: 0,
+          image: `../../assets/images/product${productId}.png`,
+          quantity: Math.max(1, quantity || 1),
+        },
+      ],
+    };
+  }
+
+  // 2) sessionStorage.orderData - 장바구니에서 주문 시
   try {
     const s = sessionStorage.getItem("orderData");
     if (s) {
@@ -153,7 +177,7 @@ function loadOrderDataLocalOnly() {
     }
   } catch {}
 
-  // 2) localStorage.orderData
+  // 3) localStorage.orderData
   try {
     const l = localStorage.getItem("orderData");
     if (l) {
@@ -163,27 +187,6 @@ function loadOrderDataLocalOnly() {
         return { type: "cart_order", items: parsed.items };
     }
   } catch {}
-
-  // 3) query string (id/quantity)이 있더라도 서버를 안 쓰기로 했으니
-  //    최소 표시용 더미로만 구성 (상품명/가격이 없다면 화면엔 기본값으로 표시됨)
-  const qs = getQuery();
-  const productId = qs.get("id");
-  const quantity = Number(qs.get("quantity") || 1);
-  if (productId) {
-    return {
-      type: "direct_order",
-      items: [
-        {
-          product_id: Number(productId),
-          name: "상품",
-          brand: "백엔드글로벌",
-          price: 0,
-          image: "../../assets/images/product1.png",
-          quantity: Math.max(1, quantity || 1),
-        },
-      ],
-    };
-  }
 
   return { type: null, items: [] };
 }
