@@ -51,19 +51,10 @@ function renderProductDetails(product) {
   price = product.price;
 
   const imgEl = document.querySelector('.product-image img');
-  // 이미지 경로 설정 (환경별 분기)
+  // API에서 받아온 이미지 경로를 상대 경로로 변환
   if (imgEl && product.image) {
-    const isGitHubPages = window.location.hostname.includes("github.io");
-
-    if (isGitHubPages) {
-      // GitHub Pages: 절대 경로 사용
-      // "./assets/images/product1.png" -> "/team1-JADUPAGE/web/assets/images/product1.png"
-      imgEl.src = product.image.replace('./', '/team1-JADUPAGE/web/');
-    } else {
-      // Vercel/로컬: 상대 경로 사용
-      // "./assets/images/product1.png" -> "../../assets/images/product1.png"
-      imgEl.src = product.image.replace('./', '../../');
-    }
+    // "./assets/images/product1.png" -> "../../assets/images/product1.png"
+    imgEl.src = product.image.replace('./', '../../');
   }
 
   const nameEl = document.getElementById('productName');
