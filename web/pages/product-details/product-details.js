@@ -103,53 +103,29 @@ function openCartConfirmModal() {
   modal.classList.remove("hidden");
 }
 
-// 장바구니 추가 API (async/await)
-async function addToCart(productId, quantity) {
-  const token = getAccessToken();
-
-  if (!token) {
-    console.error("토큰이 없습니다!");
-    throw new Error("로그인이 필요합니다.");
-  }
+// 장바구니 추가 API (sessionStorage 방식으로 변경)
+function addToCart(productId, quantity) {
+  let cart = [];
 
   try {
-    const res = await fetch(`${API_BASE_URL}/cart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        product_id: productId,
-        quantity,
-      }),
-    });
-
-    console.log("fetch 요청 status:", res.status); // 디버깅용
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error("서버 응답 오류:", errData);
-      throw new Error("장바구니 추가 실패");
-    }
-
-    return await res.json();
-  } catch (err) {
-    console.error("addToCart 에러:", err);
-    throw err;
+    cart = JSON.parse(sessionStorage.getItem("cartData")) || [];
+  } catch (e) {
+    cart = [];
   }
-}
 
-// 로그인 체크 공통
-function requireLogin(callback) {
-  return function (e) {
-    e.preventDefault();
-    if (!isLoggedIn()) {
-      openModal();
-      return;
-    }
-    callback();
-  };
+  const existing = cart.find(item => item.product_id === productId);
+
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({
+      product_id: productId,
+      quantity,
+    });
+  }
+
+  sessionStorage.setItem("cartData", JSON.stringify(cart));
+  console.log("장바구니 저장 완료:", cart);
 }
 
 // DOMContentLoaded
@@ -199,18 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 장바구니 버튼 (async/await)
   if (cartBtn) {
-    cartBtn.addEventListener(
-      "click",
-      requireLogin(async () => {
-        try {
-          const data = await addToCart(productId, quantity);
-          console.log("장바구니 추가 성공:", data);
-          openCartConfirmModal();
-        } catch (e) {
-          alert("장바구니 추가 실패");
-        }
-      })
-    );
+     cartBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    addToCart(productId, quantity);
+    openCartConfirmModal();
+    });
   }
 
   // 모달 버튼
