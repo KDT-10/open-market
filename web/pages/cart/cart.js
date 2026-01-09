@@ -1,11 +1,7 @@
 // 장바구니 데이터
 let cartItems = [];
 
-// 환경 감지 및 API 기본 URL 설정
-const isGitHubPages = window.location.hostname.includes("github.io");
-const API_BASE_URL = isGitHubPages
-  ? "https://open-market-jade.vercel.app/api"
-  : "http://localhost:3000";
+import { API_BASE_URL } from "../../scripts/api.js";
 
 // 로딩 상태 관리
 let isLoading = false;
@@ -57,13 +53,13 @@ async function fetchCartItems() {
     const data = await response.json();
 
     // 데이터가 있는 경우
-    if (Array.isArray(data) && data.length > 0) {
+    if (Array.isArray(data.results) && data.results.length > 0) {
       // 각 장바구니 아이템에 대해 상품 상세 정보 가져오기
       const cartItemsWithProducts = await Promise.all(
-        data.map(async (item) => {
+        data.results.map(async (item) => {
           try {
             const productResponse = await fetch(
-              `${API_BASE_URL}/products/${item.product_id}`
+              `${API_BASE_URL}/products/${item.product.id}`
             );
             if (!productResponse.ok) {
               throw new Error("상품 정보를 불러올 수 없습니다.");
