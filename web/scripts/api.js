@@ -1,8 +1,9 @@
 // API 기본 설정 - 환경에 따라 자동 선택
-const isGitHubPages = window.location.hostname.includes("github.io");
-const API_BASE_URL = isGitHubPages
-  ? "https://open-market-jade.vercel.app/api" // GitHub Pages: Vercel API 사용
-  : "http://localhost:3000"; // 로컬: localhost 사용
+export const API_BASE_URL =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3000/api" // 로컬 개발
+    : "https://open-market-jade.vercel.app/api"; // Vercel 배포
 
 // 기본 fetch 래퍼 함수
 async function fetchAPI(url, options = {}) {
