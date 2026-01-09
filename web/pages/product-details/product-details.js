@@ -67,20 +67,16 @@ function renderProductDetails(product) {
       `/web/${imagePath}`,                          // /web/assets/images/product1.png (절대경로)
     ];
 
-    let currentIndex = 0;
-
     // 첫 번째 경로 시도
-    imgEl.src = imagePaths[currentIndex];
+    imgEl.src = imagePaths[0];
 
     // 로드 실패 시 다음 경로 시도
     imgEl.onerror = () => {
-      currentIndex++;
-      if (currentIndex < imagePaths.length) {
-        console.log(`이미지 로드 실패, 다른 경로 시도 (${currentIndex}): ${imagePaths[currentIndex]}`);
-        imgEl.src = imagePaths[currentIndex];
-      } else {
-        console.error(`모든 이미지 경로 시도 실패:`, imagePaths);
+      const nextPath = imagePaths[1];
+      if (nextPath && imgEl.src !== window.location.origin + nextPath) {
+        console.log(`이미지 로드 실패, 다른 경로 시도: ${nextPath}`);
         imgEl.onerror = null; // 무한 루프 방지
+        imgEl.src = nextPath;
       }
     };
   }
