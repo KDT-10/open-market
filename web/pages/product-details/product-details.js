@@ -51,31 +51,19 @@ function renderProductDetails(product) {
   price = product.price;
 
   const imgEl = document.querySelector('.product-image img');
-  // 이미지 경로 설정 (여러 경로 시도 with fallback)
+  // 이미지 경로 설정 (환경별 분기)
   if (imgEl && product.image) {
     const isGitHubPages = window.location.hostname.includes("github.io");
 
-    // 가능한 모든 경로 목록
-    const imagePaths = isGitHubPages ? [
-      product.image.replace('./', '/team1-JADUPAGE/web/'),     // /web/assets
-      product.image.replace('./', '/team1-JADUPAGE/'),         // 루트 assets
-    ] : [
-      product.image.replace('./', '../../'),                   // 상대 경로
-      product.image.replace('./', '/web/'),                    // 절대 경로 (혹시 모를 경우)
-    ];
-
-    // 첫 번째 경로 시도
-    imgEl.src = imagePaths[0];
-
-    // 로드 실패 시 다음 경로 시도
-    imgEl.onerror = () => {
-      const nextPath = imagePaths[1];
-      if (nextPath && imgEl.src !== window.location.origin + nextPath) {
-        console.log(`이미지 로드 실패, 다른 경로 시도: ${nextPath}`);
-        imgEl.onerror = null; // 무한 루프 방지
-        imgEl.src = nextPath;
-      }
-    };
+    if (isGitHubPages) {
+      // GitHub Pages: /web/assets 폴더 사용
+      // "./assets/images/product1.png" -> "/team1-JADUPAGE/web/assets/images/product1.png"
+      imgEl.src = product.image.replace('./', '/team1-JADUPAGE/web/');
+    } else {
+      // Vercel/로컬: 상대 경로 사용
+      // "./assets/images/product1.png" -> "../../assets/images/product1.png"
+      imgEl.src = product.image.replace('./', '../../');
+    }
   }
 
   const nameEl = document.getElementById('productName');
