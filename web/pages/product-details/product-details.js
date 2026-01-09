@@ -11,9 +11,10 @@ if (!productId) {
   throw new Error("productId가 없습니다.");
 }
 
-// 가격, 수량
+// 가격, 수량, 상품 정보
 let quantity = 1;
 let price = 0;
+let currentProduct = null;
 
 // DOM (TODO: 확인하기01.06)
 const minusBtn = document.querySelector(".quantify button:first-child");
@@ -58,6 +59,7 @@ function updateTotal() {
 function renderProductDetails(product) {
   if (!product) return;
 
+  currentProduct = product;
   price = product.price;
 
   const imgEl = document.querySelector(".product-image img");
@@ -169,6 +171,25 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../login/login.html";
         return;
       }
+
+      // 상품 정보를 sessionStorage에 저장
+      if (currentProduct) {
+        const orderData = {
+          type: "direct_order",
+          items: [
+            {
+              product_id: currentProduct.id,
+              name: currentProduct.name,
+              brand: currentProduct.info || "백엔드글로벌",
+              price: currentProduct.price,
+              image: `../../assets/images/product${currentProduct.id}.png`,
+              quantity: quantity,
+            },
+          ],
+        };
+        sessionStorage.setItem("orderData", JSON.stringify(orderData));
+      }
+
       window.location.href = `../order/order.html?id=${productId}&quantity=${quantity}`;
     });
   }

@@ -143,15 +143,27 @@ function normalizeImagePath(img) {
 }
 
 function loadOrderDataLocalOnly() {
-  // 1) URL query string (id/quantity) - 상품 상세에서 바로 구매 시 우선 처리
   const qs = getQuery();
   const productId = qs.get("id");
-  const quantity = Number(qs.get("quantity") || 1);
-  if (productId) {
-    // 바로 구매 시 기존 orderData 제거
-    sessionStorage.removeItem("orderData");
-    localStorage.removeItem("orderData");
 
+  // 1) URL에 id가 있으면 (상품 상세에서 바로 구매) sessionStorage의 direct_order 확인
+  if (productId) {
+    try {
+      const s = sessionStorage.getItem("orderData");
+      if (s) {
+        const parsed = JSON.parse(s);
+        // direct_order 타입이고 상품 ID가 일치하면 사용
+        if (parsed?.type === "direct_order" && Array.isArray(parsed?.items)) {
+          // 사용 후 삭제 (장바구니 데이터와 충돌 방지)
+          sessionStorage.removeItem("orderData");
+          localStorage.removeItem("orderData");
+          return parsed;
+        }
+      }
+    } catch {}
+
+    // sessionStorage에 없으면 기본값 반환 (fallback)
+    const quantity = Number(qs.get("quantity") || 1);
     return {
       type: "direct_order",
       items: [
