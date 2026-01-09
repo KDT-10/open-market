@@ -44,7 +44,7 @@ async function fetchCartItems() {
           sessionCart.map(async (item) => {
             try {
               // db.json에서 상품 정보 가져오기
-              const dbResponse = await fetch("/team1-JADUPAGE/web/db.json");
+              const dbResponse = await fetch("/team1-JADUPAGE/server/db.json");
               const db = await dbResponse.json();
               const product = db.products.find(p => p.id === item.product_id);
 
