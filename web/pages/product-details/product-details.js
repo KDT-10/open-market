@@ -80,7 +80,7 @@ function renderProductDetails(product) {
       };
     } else {
       // Vercel/로컬: 상대 경로
-      imgEl.src = `../${imagePath}`;
+      imgEl.src = `../../${imagePath}`;
       console.log('이미지 경로:', imgEl.src);
 
       imgEl.onerror = () => {
