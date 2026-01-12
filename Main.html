@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZADU 샵 메인</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fafbfb;
+      font-family: 'Noto Sans KR', Arial, sans-serif;
+      color: #222;
+    }
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 0 0 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 32px;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #7AC15A;
+      letter-spacing: 2px;
+      font-family: 'Arial Black', Arial, sans-serif;
+    }
+    .search-box {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 32px;
+    }
+    .search-input {
+      width: 340px;
+      height: 38px;
+      border: 2px solid #7AC15A;
+      border-radius: 19px;
+      padding: 0 16px;
+      font-size: 16px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .search-input:focus {
+      border-color: #21BF48;
+    }
+    .search-icon {
+      margin-left: -36px;
+      color: #7AC15A;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .header-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .header-menu a {
+      color: #222;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 0 16px;
+    }
+    .carousel {
+      width: 100%;
+      height: 220px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 32px;
+      color: #bbb;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .carousel-arrow.left { left: 16px; }
+    .carousel-arrow.right { right: 16px; }
+    .carousel-dots {
+      position: absolute;
+      bottom: 18px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .carousel-dot.active {
+      background: #bbb;
+    }
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px 32px;
+      justify-content: flex-start;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      width: 220px;
+      padding: 18px 18px 24px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .product-img {
+      width: 184px;
+      height: 184px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: #f5f5f5;
+    }
+    .product-brand {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .product-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #222;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 184px;
+    }
+    .product-price {
+      font-size: 17px;
+      font-weight: bold;
+      color: #222;
+      margin-top: 4px;
+    }
+    @media (max-width: 900px) {
+      .header-inner, .main { max-width: 100%; padding: 0 8px; }
+      .product-list { gap: 24px 8px; }
+      .product-card { width: 46vw; min-width: 160px; }
+      .product-img { width: 100%; height: 30vw; min-height: 120px; }
+    }
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; height: auto; padding: 8px; }
+      .search-box { margin: 8px 0; }
+      .main { padding: 8px; }
+      .product-card { width: 100%; min-width: 0; }
+      .product-img { height: 40vw; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">ZADÚ</div>
+      <form class="search-box" onsubmit="return false;">
+        <input class="search-input" type="text" placeholder="상품을 검색해보세요!">
+        <button class="search-icon" type="submit" aria-label="검색" style="padding:0; background:none; border:none; display:flex; align-items:center;">
+          <img src="search-icon.png" alt="검색" style="width:28px; height:28px; display:block;">
+        </button>
+      </form>
+      <nav class="header-menu">
+        <a href="#" style="display:inline-flex;align-items:center;padding:0 8px;" aria-label="장바구니">
+          <img src="cart-icon.png" alt="장바구니" style="width:32px;height:30px;display:block;">
+        </a>
+        <a href="#" style="display:inline-flex;align-items:center;padding:0 8px;" aria-label="마이페이지">
+          <img src="mypage-icon.png" alt="마이페이지" style="width:32px;height:36px;display:block;">
+        </a>
+      </nav>
+    </div>
+  </header>
+  <main class="main">
+    <section class="carousel">
+      <button class="carousel-arrow left" aria-label="이전">&#60;</button>
+      <!-- 이미지/배너 영역 -->
+      <div style="width:100%;height:100%;"></div>
+      <button class="carousel-arrow right" aria-label="다음">&#62;</button>
+      <div class="carousel-dots">
+        <div class="carousel-dot active"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+      </div>
+    </section>
+    <section class="product-list">
+      <div class="product-card">
+        <img class="product-img" src="hack-your-life.png" alt="Hack Your Life 개발자 노트북 파우치">
+        <div class="product-brand">상명대학교 라이프 설렘씨</div>
+        <div class="product-title">Hack Your Life 개발자 노트북 파우치</div>
+        <div class="product-price">29,000원</div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="dev-keyring.png" alt="내 개발인디 개발자키링 금속키링">
+        <div class="product-brand">과학도베이스캠프</div>
+        <div class="product-title">내 개발인디 개발자키링 금속키링</div>
+        <div class="product-price">29,000원</div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="bunny-blanket.png" alt="단무지 개발자 우든 담요">
+        <div class="product-brand">박터는크롭탑</div>
+        <div class="product-title">단무지 개발자 우든 담요</div>
+        <div class="product-price">29,000원</div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="java-bug-keyring.png" alt="우당탕탕 라이언의 천천 스티커 팩">
+        <div class="product-brand">코딩타임</div>
+        <div class="product-title">우당탕탕 라이언의 천천 스티커 팩</div>
+        <div class="product-price">29,000원</div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="java-bug-keyring.png" alt="버그도 Java처럼 느긋한 거북이 키링 개발자키링">
+        <div class="product-brand">라이프설렘</div>
+        <div class="product-title">버그도 Java처럼 느긋한 거북이 키링 개발자키링...</div>
+        <div class="product-price">29,000원</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+

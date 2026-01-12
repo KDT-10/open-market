@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주문/결제하기</title>
+
+    <!-- 공통 폰트 -->
+    <link rel="stylesheet" href="../../styles/fonts.css" />
+    <!-- 레이아웃(헤더/푸터) -->
+    <link rel="stylesheet" href="../../components/layout.css" />
+    <!-- order.css  -->
+    <link rel="stylesheet" href="../../styles/order.css" />
+
+    <!-- Daum 우편번호 (open 방식) -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <!-- 레이아웃 주입 + 페이지 로직 -->
+    <script defer src="../../components/layout.js"></script>
+    <script defer src="./order.js"></script>
+  </head>
+
+  <body>
+    <!-- layout.js가 header/footer를 body에 주입하는 구조 -->
+    <main class="order-page">
+      <div class="order-container">
+        <h2 class="order-title">주문/결제하기</h2>
+
+        <!-- 주문상품 -->
+        <section class="order-card" aria-label="주문상품">
+          <div class="order-table-head">
+            <span class="th th-product">상품정보</span>
+            <span class="th">할인</span>
+            <span class="th">배송비</span>
+            <span class="th th-price">주문금액</span>
+          </div>
+
+          <div id="orderItems" class="order-items">
+            <!-- JS로 렌더 -->
+          </div>
+
+          <div class="order-total-row">
+            <span class="total-label">총 주문금액</span>
+            <span id="totalPriceText" class="total-price">0원</span>
+          </div>
+        </section>
+
+        <!-- 배송정보 -->
+        <section class="ship-section" aria-label="배송정보">
+          <h3 class="ship-title">배송정보</h3>
+          <div class="ship-line"></div>
+
+          <!-- 주문자 정보 -->
+          <div class="ship-block">
+            <div class="ship-block-title">주문자 정보</div>
+
+            <div class="form-row">
+              <div class="label">이름</div>
+              <div class="field">
+                <input id="buyerName" type="text" class="input" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="label">휴대폰</div>
+              <div class="field phone">
+                <input
+                  id="buyerPhone1"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="3"
+                />
+                <span class="dash">-</span>
+                <input
+                  id="buyerPhone2"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="4"
+                />
+                <span class="dash">-</span>
+                <input
+                  id="buyerPhone3"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="4"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="label">이메일</div>
+              <div class="field">
+                <input
+                  id="buyerEmail"
+                  type="email"
+                  class="input"
+                  placeholder="example@zadu.com"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 수령인 정보 -->
+          <div class="ship-block">
+            <div class="ship-block-title">수령인 정보</div>
+
+            <div class="form-row">
+              <div class="label">이름</div>
+              <div class="field">
+                <input id="recvName" type="text" class="input" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="label">휴대폰</div>
+              <div class="field phone">
+                <input
+                  id="recvPhone1"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="3"
+                />
+                <span class="dash">-</span>
+                <input
+                  id="recvPhone2"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="4"
+                />
+                <span class="dash">-</span>
+                <input
+                  id="recvPhone3"
+                  type="text"
+                  class="input input-sm"
+                  maxlength="4"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="label">배송지</div>
+              <div class="field address">
+                <div class="address-top">
+                  <input
+                    id="postcode"
+                    class="input input-zip"
+                    type="text"
+                    readonly
+                    placeholder="우편번호"
+                  />
+                  <button id="btnPostcode" type="button" class="btn-zip">
+                    우편번호
+                  </button>
+                </div>
+
+                <input
+                  id="addr1"
+                  class="input"
+                  type="text"
+                  readonly
+                  placeholder="기본주소"
+                />
+                <input
+                  id="addrExtra"
+                  class="input"
+                  type="text"
+                  readonly
+                  placeholder="참고항목"
+                />
+
+                <div class="address-bottom">
+                  <input
+                    id="addr2"
+                    class="input"
+                    type="text"
+                    placeholder="상세주소"
+                  />
+                  <input
+                    id="shipMsg"
+                    type="text"
+                    class="input"
+                    placeholder="예) 문 앞에 놓아주세요"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 하단: 결제수단(좌) + 최종결제정보(우) -->
+        <section class="bottom-grid" aria-label="결제수단 및 최종결제 정보">
+          <!-- 결제수단 -->
+          <div class="pay-left">
+            <div class="pay-head">
+              <h3 class="pay-title">결제수단</h3>
+              <div class="pay-line"></div>
+            </div>
+
+            <div class="pay-methods" role="radiogroup" aria-label="결제수단">
+              <label class="radio">
+                <input type="radio" name="pay" value="card" checked />
+                신용/체크카드
+              </label>
+              <label class="radio">
+                <input type="radio" name="pay" value="bank" />
+                무통장입금
+              </label>
+              <label class="radio">
+                <input type="radio" name="pay" value="mobile" />
+                휴대폰 결제
+              </label>
+              <label class="radio">
+                <input type="radio" name="pay" value="naver" />
+                네이버페이
+              </label>
+              <label class="radio">
+                <input type="radio" name="pay" value="kakao" />
+                카카오페이
+              </label>
+            </div>
+          </div>
+
+          <!-- 최종결제정보 -->
+          <div class="pay-right">
+            <h3 class="summary-title">최종결제 정보</h3>
+
+            <div class="summary-box">
+              <div class="summary-row">
+                <span>상품금액</span>
+                <strong id="sumProduct">0원</strong>
+              </div>
+              <div class="summary-row">
+                <span>할인금액</span>
+                <strong id="sumDiscount">0원</strong>
+              </div>
+              <div class="summary-row">
+                <span>배송비</span>
+                <strong id="sumShip">0원</strong>
+              </div>
+
+              <div class="summary-divider"></div>
+
+              <div class="summary-total">
+                <span>결제금액</span>
+                <strong id="sumPay" class="sum-pay">0원</strong>
+              </div>
+
+              <label class="agree">
+                <input id="agree" type="checkbox" />
+                주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+              </label>
+
+              <!-- 항상 초록색 활성화 -->
+              <button id="payBtn" type="button" class="pay-btn">
+                결제하기
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- 모달(처음엔 hidden) -->
+    <div id="modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-dim" data-close="true"></div>
+      <div class="modal-card" role="dialog" aria-modal="true">
+        <button class="modal-x" type="button" aria-label="닫기" id="modalClose">
+          ×
+        </button>
+        <div class="modal-content">
+          <div class="modal-title" id="modalTitle">
+            배송정보를 빠짐없이 입력해주세요.
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="modalOk" class="modal-ok" type="button">확인</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
