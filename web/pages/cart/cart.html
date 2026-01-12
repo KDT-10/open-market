@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니 - ZADU</title>
+    <link rel="stylesheet" href="/web/styles/cart.css" />
+    <link rel="stylesheet" href="/web/components/layout.css" />
+    <script src="/web/pages/cart/cart.js" defer></script>
+    <script src="/web/components/layout.js" defer></script>
+  </head>
+  <body>
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+      <!-- 페이지타이틀 -->
+      <h1 class="page-title">장바구니</h1>
+      <!--  물품 정보 -->
+      <div class="article-list">
+        <input type="checkbox" class="article-checkbox" id="step1" checked />
+        <label for="step1" class="article-checkbox-label"></label>
+        <div class="article-item active">
+          <div class="article-item-label">상품정보</div>
+        </div>
+        <div class="article-item">
+          <div class="article-item-label">수령</div>
+        </div>
+        <div class="article-item">
+          <div class="article-item-label">상품결제</div>
+        </div>
+      </div>
+
+      <!-- 빈 장바구니 메시지 -->
+      <div class="empty-cart" id="emptyCart">
+        <p class="empty-title">장바구니에 담긴 상품이 없습니다.</p>
+        <p class="empty-subtitle">원하는 상품을 찾아가세요!</p>
+      </div>
+
+      <div class="cart-container" id="cartContainer" style="display: none">
+        <div class="cart-products" id="cartProducts"></div>
+
+        <div class="order-summary">
+          <div class="summary-item">
+            <div class="summary-label">총 상품금액</div>
+            <div class="summary-divider">-</div>
+            <div class="summary-value" id="totalProductPrice">0원</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">상품 할인</div>
+            <div class="summary-divider">+</div>
+            <div class="summary-value" id="totalDiscount">0원</div>
+          </div>
+
+          <div class="summary-item">
+            <div class="summary-label">배송비</div>
+            <div class="summary-divider"></div>
+            <div class="summary-value" id="shippingFee">0원</div>
+          </div>
+          <div class="summary-total">
+            <div class="total-label">결제 예정 금액</div>
+            <div class="total-value" id="finalTotal">0원</div>
+          </div>
+        </div>
+
+        <!-- 주문하기 버튼 -->
+        <div class="checkout-container">
+          <button class="btn-checkout" id="checkoutBtn">주문하기</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- 모달 컨테이너 -->
+    <!-- 수량 선택 모달 -->
+    <div id="quantityModal" class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <div class="quantity-selector">
+            <button class="qty-modal-btn minus">-</button>
+            <input type="number" class="qty-modal-input" value="1" min="1" />
+            <button class="qty-modal-btn plus">+</button>
+          </div>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">취소</button>
+            <button class="modal-btn confirm">수정</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 삭제 확인 모달 -->
+    <div id="deleteModal" class="modal modal-to-check">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <p class="modal-message">상품을 삭제하시겠습니까?</p>
+          <p class="modal-submessage">&nbsp;</p>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">아니오</button>
+            <button class="modal-btn confirm">예</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 로그인 요청 모달 -->
+    <div id="loginModal" class="modal modal-to-check">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-body">
+          <p class="modal-message">로그인이 필요합니다.</p>
+          <p class="modal-submessage">로그인 하시겠습니까?</p>
+          <div class="modal-buttons">
+            <button class="modal-btn cancel">아니오</button>
+            <button class="modal-btn confirm">예</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

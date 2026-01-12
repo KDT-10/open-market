@@ -1,0 +1,519 @@
+/* 공통 CSS 변수 import */
+@import '../styles/variables.css';
+
+:root {
+  /* order.css 전용 변수 */
+  --card: #ffffff;
+  --line: #e6e6e6;
+  --line2: #dcdcdc;
+
+  --greenBorder: rgba(53, 178, 74, 0.6);
+  --red: #e24b3b;
+
+  --w: 61.25rem;
+
+  --inputH: 1.375rem;
+  --fs11: 0.6875rem;
+  --fs12: 0.75rem;
+  --fs13: 0.8125rem;
+  --fs14: 0.875rem;
+  --fs18: 1.125rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+}
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text);
+}
+
+.wrap {
+  width: min(var(--w), calc(100% - 3rem));
+  margin: 2.25rem auto 5.625rem;
+  background: #fff;
+}
+
+.pageTitle {
+  text-align: center;
+  font-size: var(--fs18);
+  font-weight: 800;
+  margin: 0 0 1.125rem;
+}
+
+/* 주문상품 */
+.orderCard {
+  background: var(--card);
+  border: 0.0625rem solid var(--line);
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+
+.otHead,
+.otRow {
+  display: grid;
+  grid-template-columns: 1.9fr 0.5fr 0.7fr 0.6fr;
+  align-items: center;
+}
+
+.otHead {
+  background: var(--soft);
+  border-bottom: 0.0625rem solid var(--line);
+  font-size: var(--fs12);
+  font-weight: 700;
+}
+.otHead > div {
+  padding: 0.625rem 0.875rem;
+  text-align: center;
+}
+.otBody {
+  background: #fff;
+}
+
+.otRow {
+  min-height: 4.875rem;
+  border-bottom: 0.0625rem solid var(--line);
+  font-size: var(--fs12);
+}
+.otRow:last-child {
+  border-bottom: none;
+}
+.otRow > div {
+  padding: 0.75rem 0.875rem;
+  text-align: center;
+}
+
+.cAmt,
+.amt {
+  text-align: right;
+  padding-right: 1.375rem !important;
+  font-weight: 700;
+}
+
+.infoCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.875rem;
+  text-align: left;
+}
+.thumb {
+  width: 3.375rem;
+  height: 3.375rem;
+  border-radius: 0.625rem;
+  background: #e7e7e7;
+  border: 0.0625rem solid #e2e2e2;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.metaTop {
+  font-size: 0.625rem;
+  color: #9a9a9a;
+  line-height: 1;
+}
+.name {
+  font-size: var(--fs12);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 32.5rem;
+}
+.qty {
+  font-size: 0.625rem;
+  color: var(--muted);
+}
+.freeShip {
+  color: var(--muted);
+}
+
+.otFoot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 0.0625rem solid var(--line);
+  padding: 0.625rem 0.875rem;
+}
+.footSum {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+}
+.footLabel {
+  font-size: var(--fs12);
+  font-weight: 700;
+  color: #333;
+}
+.footMoney {
+  font-size: var(--fs14);
+  font-weight: 900;
+  color: var(--red);
+}
+
+/* 배송정보 */
+.shipSection {
+  margin-top: 1.625rem;
+  background: #fff;
+}
+
+.sectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.625rem;
+}
+.sectionTitle {
+  font-size: var(--fs14);
+  font-weight: 900;
+  margin: 0;
+  min-width: 5rem;
+}
+.sectionLine {
+  height: 0.0625rem;
+  background: var(--line);
+  flex: 1;
+}
+
+.subBlock {
+  margin-top: 1rem;
+}
+
+.subHead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 0.625rem;
+}
+.subTitle {
+  margin: 0;
+  font-size: var(--fs12);
+  font-weight: 900;
+  min-width: 5rem;
+  color: #222;
+}
+.subLine {
+  height: 0.0625rem;
+  background: var(--line);
+  flex: 1;
+}
+
+.formRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 5.625rem 1fr;
+  align-items: center;
+  column-gap: 1.375rem;
+}
+
+.lab {
+  font-size: var(--fs12);
+  font-weight: 700;
+  color: #333;
+}
+
+.input {
+  height: var(--inputH);
+  width: 32.5rem;
+  max-width: 100%;
+  border: 0.0625rem solid var(--line2);
+  border-radius: 0.125rem;
+  padding: 0 0.5rem;
+  font-size: var(--fs12);
+  outline: none;
+  background: #fff;
+}
+.input:focus {
+  border-color: rgba(53, 178, 74, 0.7);
+  box-shadow: 0 0 0 0.125rem rgba(53, 178, 74, 0.1);
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dash {
+  color: #9a9a9a;
+  font-weight: 700;
+}
+.input--sm {
+  width: 3.5rem;
+  text-align: center;
+  padding: 0 0.375rem;
+}
+.input--sm2 {
+  width: 5.625rem;
+  text-align: center;
+  padding: 0 0.375rem;
+}
+
+.addr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 32.5rem;
+  max-width: 100%;
+}
+.zipRow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.btnZip {
+  height: var(--inputH);
+  border: none;
+  border-radius: 0.125rem;
+  padding: 0 0.75rem;
+  background: var(--green);
+  color: #fff;
+  font-size: var(--fs11);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* 하단 */
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 22.5rem;
+  gap: 1.625rem;
+  margin-top: 1.375rem;
+  align-items: start;
+  background: #fff;
+}
+
+.payHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.375rem;
+}
+.payTitle {
+  margin: 0;
+  font-size: var(--fs14);
+  font-weight: 900;
+}
+.payLine {
+  height: 0.0625rem;
+  background: var(--line);
+  width: 100%;
+}
+
+.payMethods {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--fs12);
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  user-select: none;
+}
+.radio input {
+  accent-color: var(--green);
+}
+
+.sideTitle {
+  margin: 0 0 0.625rem;
+  font-size: var(--fs14);
+  font-weight: 900;
+}
+
+.payBox {
+  border: 0.125rem solid var(--greenBorder);
+  border-radius: 0.375rem;
+  padding: 0.875rem 0.875rem 1rem;
+  background: #fff;
+}
+
+.sumList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: var(--fs12);
+}
+.sumRow {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0.625rem;
+  position: relative;
+}
+.sumRow::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: #555;
+}
+.sumVal {
+  font-weight: 800;
+}
+
+.sumDivider {
+  height: 0.0625rem;
+  background: var(--line);
+  margin: 0.75rem 0;
+}
+
+.payTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.payTotalKey {
+  font-size: var(--fs13);
+  font-weight: 900;
+}
+.payTotalVal {
+  font-size: var(--fs14);
+  font-weight: 900;
+  color: var(--red);
+}
+
+.agree {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0.75rem 0 0.75rem;
+  font-size: 0.625rem;
+  color: #555;
+  line-height: 1.35;
+}
+.agree input {
+  margin-top: 0.125rem;
+  accent-color: var(--green);
+}
+
+.btnPay {
+  display: block;
+  width: 16.25rem;
+  height: 2.75rem;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0.125rem;
+  background: #d9d9d9;
+  color: #888;
+  font-size: var(--fs13);
+  font-weight: 900;
+  cursor: not-allowed;
+}
+.btnPay.enabled {
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 모달 */
+.modalBack {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 9999;
+}
+
+/* hidden 속성은 무조건 숨기게 */
+.modalBack[hidden] {
+  display: none !important;
+}
+
+.modal {
+  width: 20rem;
+  background: #fff;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.75rem 1.875rem rgba(0, 0, 0, 0.18);
+  position: relative;
+  padding: 1.375rem 1.125rem 1rem;
+}
+
+.modalX {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.625rem;
+  border: none;
+  background: transparent;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+}
+
+.modalBody {
+  padding: 0.375rem 0.375rem 0.875rem;
+  text-align: center;
+}
+
+.modalText {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.modalOk {
+  width: 7.5rem;
+  height: 2.125rem;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  border-radius: 0.125rem;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* 반응형 */
+@media (max-width: 30rem) {
+  .wrap {
+    width: calc(100% - 1.5rem);
+    margin: 1.5rem auto 4.375rem;
+  }
+  .name {
+    max-width: 13.75rem;
+  }
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+  .btnPay {
+    width: 100%;
+  }
+}
+@media (min-width: 30.0625rem) and (max-width: 64rem) {
+  .wrap {
+    width: min(var(--w), calc(100% - 3rem));
+  }
+  .bottomGrid {
+    grid-template-columns: 1fr 22.5rem;
+  }
+}
