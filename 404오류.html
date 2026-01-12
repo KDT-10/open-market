@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>페이지를 찾을 수 없습니다.</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			background: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Noto Sans KR', Arial, sans-serif;
+		}
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 60px;
+		}
+		.error-graphic {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		.monitor {
+			width: 260px;
+			height: 180px;
+			border: 4px solid #21BF48;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 0;
+			position: relative;
+		}
+		.btn-main, .btn-prev {
+			font-size: 18px;
+			font-weight: 600;
+			border-radius: 8px;
+			padding: 16px 48px;
+			cursor: pointer;
+			min-width: 160px;
+			min-height: 56px;
+			box-sizing: border-box;
+			transition: background 0.2s, border 0.2s, color 0.2s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.btn-main {
+			background: #7AC15A;
+			color: #fff;
+			border: none;
+		}
+		.btn-main:hover {
+			background: #5ea043;
+		}
+		.btn-prev {
+			background: #fff;
+			color: #888;
+			border: 2px solid #ddd;
+		}
+		.btn-prev:hover {
+			border-color: #7AC15A;
+			color: #7AC15A;
+		}
+			min-width: 340px;
+		}
+		.error-title {
+			font-size: 1800px;
+			font-weight: 900;
+			margin-bottom: 18px;
+			color: #000;
+			letter-spacing: -1.5px;
+		}
+		.error-desc {
+			font-size: 10px;
+			color: #767676;
+			margin-bottom: 32px;
+			line-height: 1.5;
+		}
+		.error-btns {
+			display: flex;
+			gap: 18px;
+		}
+		.btn-main {
+			background: #21BF48;
+			color: #fff;
+			font-size: 18px;
+			font-weight: 600;
+			border: none;
+			border-radius: 8px;
+			padding: 16px 48px;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		.btn-main:hover {
+			background:#21BF48;
+		}
+		.btn-prev {
+			background: #fff;
+			color: #888;
+			font-size: 18px;
+			font-weight: 600;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			padding: 16px 48px;
+			cursor: pointer;
+			transition: border 0.2s, color 0.2s;
+		}
+		.btn-prev:hover {
+			border-color: #21BF48;
+			color: #21BF48;
+		}
+		@media (max-width: 900px) {
+			.container { flex-direction: column; gap: 30px; }
+			.error-content { min-width: 0; width: 100%; align-items: center; }
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="error-graphic">
+			<img src="404-monitor.png" alt="404 모니터" style="width:276px; height:236px; display:block; margin-bottom:0;">
+		</div>
+		<div class="error-content">
+			<div class="error-title">페이지를 찾을 수 없습니다.</div>
+			<div class="error-desc">페이지가 존재하지 않거나 사용할 수 없는 페이지입니다.<br>웹 주소가 올바른지 확인해 주세요.</div>
+			<div class="error-btns">
+				<button class="btn-main" onclick="location.href='/'">메인으로</button>
+				<button class="btn-prev" onclick="history.back()">이전 페이지</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

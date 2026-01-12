@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU 로그인</title>
+    <link rel="stylesheet" href="../../styles/login.css" />
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <main class="login-page">
+      <h1 class="brand">
+        <a href="../../index.html" aria-label="ZADU 홈으로 이동">
+          <img src="../../assets/images/Logo-jadu-lg.png" alt="ZADU 로고" />
+        </a>
+      </h1>
+
+      <!-- 로그인 카드 -->
+      <section class="login-card" aria-label="로그인 영역">
+        <!-- 탭 -->
+        <div class="tabs" role="tablist" aria-label="로그인 유형 선택">
+          <button
+            type="button"
+            class="tab is-active"
+            role="tab"
+            aria-selected="true"
+            data-role="buyer"
+          >
+            구매회원 로그인
+          </button>
+          <button
+            type="button"
+            class="tab"
+            role="tab"
+            aria-selected="false"
+            data-role="seller"
+          >
+            판매회원 로그인
+          </button>
+        </div>
+
+        <!-- 폼 -->
+        <form class="form" id="loginForm" action="#" method="post">
+          <label class="field">
+            <span class="label">아이디</span>
+            <input
+              type="text"
+              id="userId"
+              name="id"
+              placeholder="아이디"
+              autocomplete="username"
+            />
+          </label>
+
+          <label class="field">
+            <span class="label">비밀번호</span>
+            <input
+              type="password"
+              id="userPw"
+              name="pw"
+              placeholder="비밀번호"
+              autocomplete="current-password"
+            />
+          </label>
+          <!-- 에러 메시지 영역-->
+          <p class="error-message" id="errorMessage"></p>
+          <!--로그인 버튼-->
+          <button class="submit" type="submit">로그인</button>
+          <!--회원가입 및 비밀번호 찾기 버튼-->
+          <div class="links">
+            <a href="../signup/signup.html">회원가입</a>
+            <span class="dot">|</span>
+            <a href="#">비밀번호 찾기</a>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

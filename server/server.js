@@ -1460,7 +1460,8 @@ function handleDirectOrder(req, res) {
       ],
     });
   }
-  const calculatedPrice = product.price * quantity + product.shipping_fee;
+  // const calculatedPrice = product.price * quantity + product.shipping_fee;
+  const calculatedPrice = product.price * quantity;
   if (calculatedPrice !== total_price) {
     return res.status(400).json({
       non_field_errors: `total_price가 맞지 않습니다. 계산 금액은 ${calculatedPrice}원입니다.(배송비 포함)`,
@@ -1590,7 +1591,8 @@ function handleCartOrder(req, res) {
         ],
       });
     }
-    calculatedPrice += product.price * item.quantity + product.shipping_fee;
+    // calculatedPrice += product.price * item.quantity + product.shipping_fee;
+    calculatedPrice += product.price * item.quantity;
   }
 
   if (calculatedPrice !== total_price) {

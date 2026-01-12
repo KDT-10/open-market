@@ -1,0 +1,45 @@
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 사용 */
+    gap: 2.5rem; /* 아이콘과 텍스트 사이 간격 */
+    font-family: 'Pretendard', sans-serif; /* 폰트 설정 */
+}
+
+.text-box h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: .625rem;
+}
+
+.text-box p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1.875rem;
+}
+
+.button-group {
+    display: flex;
+    gap: .625rem;
+}
+
+/* 초록색 버튼 */
+.btn-main {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: .75rem 1.5625rem;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+
+/* 흰색 버튼 */
+.btn-prev {
+    background-color: white;
+    color: #333;
+    border: .0625rem solid #ddd;
+    padding: .75rem 1.5625rem;
+    border-radius: .25rem;
+    cursor: pointer;
+}
