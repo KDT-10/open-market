@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZADU - 결제</title>
+  <script type="module" src="js/common/base.js"></script>
+  <script type="module" src="js/common/layout.js"></script>
+  <link rel="stylesheet" href="styles/pages/order.css">
+  <link rel="stylesheet" href="styles/components/checkbox.css">
+  <script type="module" src="js/pages/order.js"></script>
+</head>
+
+<body>
+  <div class="whole-container">
+    <div class="container order-container">
+      <div class="header-title"><strong>주문/결제하기</strong></div>
+      <div class="order-list-grid header-s-title">
+        <div>상품정보</div>
+        <div>할인</div>
+        <div>배송비</div>
+        <div>주문금액</div>
+      </div>
+      <template id="order-item-template">
+        <div class="order-list-grid header-p">
+          <div class="header-p-fornt">
+            <img src="assets/images/product3.png" alt="rabit">
+            <div>
+              <div class="header-p-fornt-text order-item-brand">백엔드글로벌</div>
+              <div class="order-item-name order-item-name">딥러닝 개발자 무릎 담요</div>
+              <div class="header-p-fornt-text order-item-quantity">수량 : 1개</div>
+            </div>
+          </div>
+          <div class="order-item-discount">-</div>
+          <div class="header-p-midle order-item-shopping-fee">무료배송</div>
+          <div class="order-item-price"><strong>17,500원</strong></div>
+        </div>
+      </template>
+    </div>
+    <div class="header-p-back" id="price-sum">
+      <strong>총 주문금액 <span>0</span>원</strong>
+    </div>
+    <div class="container">
+      <div class="main-front"><strong>배송정보</strong></div>
+      <div class="main-front2"><strong>주문자 정보</strong></div>
+      <div class="main-back">
+        <div class="main-back-title">이름</div>
+        <div class="main-back-input">
+          <input type="text" class="input-text" id="customerName">
+        </div>
+      </div>
+      <div class="main-back">
+        <div class="main-back-title">휴대폰</div>
+        <div class="main-back-input">
+          <input type="tel" class="input-text-number" id="customerPhone1">
+          <span>-</span>
+          <input type="tel" class="input-text-number2" id="customerPhone2">
+          <span>-</span>
+          <input type="tel" class="input-text-number2" id="customerPhone3">
+        </div>
+      </div>
+      <div class="main-back">
+        <div class="main-back-title">이메일</div>
+        <div class="main-back-input">
+          <input type="email" class="input-text" id="email">
+        </div>
+      </div>
+      <div class="main-front2"><strong>배송지 정보</strong></div>
+      <div class="main-back">
+        <div class="main-back-title">수령인</div>
+        <div class="main-back-input">
+          <input type="text" class="input-text" id="receiverName">
+        </div>
+      </div>
+      <div class="main-back">
+        <div class="main-back-title">휴대폰</div>
+        <div class="main-back-input">
+          <input type="tel" class="input-text-number" id="receiverPhone1">
+          <span>-</span>
+          <input type="tel" class="input-text-number2" id="receiverPhone2">
+          <span>-</span>
+          <input type="tel" class="input-text-number2" id="receiverPhone3">
+        </div>
+      </div>
+      <div class="main-back main-back-long">
+        <div class="main-back-title">배송주소</div>
+        <div class="main-back-input">
+          <div class="main-back-add">
+            <div class="btn-div">
+              <input type="text" class="input-text2" id="receiverAddress1">
+              <button class="main-btn">우편번호 조회</button>
+            </div>
+            <input type="text" class="input-text3" id="receiverAddress2">
+            <input type="text" class="input-text3" id="receiverAddress3">
+          </div>
+        </div>
+      </div>
+      <div class="main-back main-back-long">
+        <div class="main-back-title">배송 메시지</div>
+        <div class="main-back-input">
+          <input type="text" class="input-text3" id="text">
+        </div>
+      </div>
+    </div>
+    <div class="pay-container">
+      <div class="pay-method">
+        <div class="main-front"><strong>결제수단</strong></div>
+        <div class="pay-radiobtn">
+          <label><input type="radio" name="pay-radiobtn"> 신용/체크카드</label>
+          <label><input type="radio" name="pay-radiobtn"> 무통장 입금</label>
+          <label><input type="radio" name="pay-radiobtn"> 휴대폰 결제</label>
+          <label><input type="radio" name="pay-radiobtn">네이버페이</label>
+          <label><input type="radio" name="pay-radiobtn">카카오페이</label>
+        </div>
+      </div>
+      <div class="footer-bill">
+        <div class="main-front no-bottom-border"><strong>최종결제 정보</strong></div>
+        <div class="footer-box">
+          <div class="footer-box-in">
+            <div class="footer-bill-top">
+              <div class="footer-last">
+                <div>- 상품금액</div>
+                <div class="footer-last-bill" id="bill-price">
+                  <strong>0</strong>
+                  <div class="header-p-fornt-text2">원</div>
+                </div>
+              </div>
+              <div class="footer-last">
+                <div>- 할인금액</div>
+                <div class="footer-last-bill" id="bill-discount-amount">
+                  <strong>0</strong>
+                  <div class="header-p-fornt-text2">원</div>
+                </div>
+              </div>
+              <div class="footer-last">
+                <div>- 배송비</div>
+                <div class="footer-last-bill" id="bill-shopping-fee">
+                  <strong>0</strong>
+                  <div class="header-p-fornt-text2">원</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer-last">
+              <div>- 결제금액</div>
+              <div class="footer-last-bill" id="bill-total-price">
+                <strong class="red-strong">0</strong>
+                <span class="header-p-fornt-red">원</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer-last-last">
+            <div class="footer-last-input">
+              <label class="primary-cbox" for="agreeCheckbox">
+                <input type="checkbox" id="agreeCheckbox">
+                <span class="checkmark"></span>
+                주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+              </label>
+            </div>
+            <button class="btn-last" id="payButton" disabled>결제하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

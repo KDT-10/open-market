@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZADU - 404</title>
+  <style>
+    /* 1. 기본 스타일 및 폰트 설정 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+        Roboto, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #ffffff;
+    }
+
+    /* 2. 메인 컨테이너 (이미지 좌측, 텍스트 우측 배치) */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+      /* 이미지와 텍스트 사이 간격 */
+      max-width: 1000px;
+      padding: 1rem;
+    }
+
+    /* 3. SVG 이미지 스타일링 */
+    .error-image img {
+      width: 276px;
+      /* 피그마의 이미지 가로 크기 반영 */
+      height: auto;
+    }
+
+    /* 4. 우측 텍스트 영역 */
+    .text-content {
+      text-align: center;
+    }
+
+    .text-content h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #000;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .text-content p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    /* 5. 버튼 그룹 스타일 */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 156px;
+      height: 52px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* 메인으로 버튼 (초록색) */
+    .btn-main {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+    }
+
+    .btn-main:hover {
+      background-color: #27ae60;
+    }
+
+    /* 이전 페이지 버튼 (테두리형) */
+    .btn-prev {
+      background-color: #ffffff;
+      color: #333;
+      border: 1px solid #d1d1d1;
+    }
+
+    .btn-prev:hover {
+      background-color: #f8f8f8;
+    }
+
+    @media (min-width: 768px) {
+      .text-content h1 {
+        font-size: 2.25rem;
+      }
+
+      .text-content p {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        flex-direction: row;
+      }
+
+      .btn-group * {
+        flex: 1;
+      }
+
+      .text-content {
+        text-align: left;
+      }
+
+      .text-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .text-content p {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="error-image">
+      <img src="assets/icons/icon-404.svg" alt="404 Error Icon">
+    </div>
+
+    <div class="text-content">
+      <h1>페이지를 찾을 수 없습니다.</h1>
+      <p>
+        페이지가 존재하지 않거나 사용할 수 없는 페이지입니다.<br>
+        웹 주소가 올바른지 확인해 주세요.
+      </p>
+
+      <div class="btn-group">
+        <a href="index.html" class="btn btn-main">메인으로</a>
+        <a href="javascript:history.back();" class="btn btn-prev">이전 페이지</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

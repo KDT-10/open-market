@@ -1,0 +1,309 @@
+/*
+모바일 우선 반응형 개발
+*/
+
+/* 기본 스타일 (모바일 - ~479px) */
+
+.header-container {
+  position: sticky;
+  background-color: #fff;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  border-bottom: 2px solid #ffffff;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  display: flex;
+  width: var(--content-size);
+  margin: auto;
+  min-height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+/* 로고 */
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.logo img {
+  height: 35px;
+  width: auto;
+}
+
+/* 검색바 - 모바일에서 숨김 */
+.search-bar {
+  display: none;
+}
+.search-bar > svg {
+  cursor: pointer;
+}
+
+/* 아이콘 그룹 */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.cart-icon,
+.user-icon {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.cart-icon:hover,
+.user-icon:hover {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.search-icon {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.search-icon:hover {
+  color: var(--color-primary);
+}
+
+/* 판매자 센터 버튼 - 기본 숨김 */
+
+.seller-center-button {
+  display: none;
+}
+
+/* 판매자 모드 스타일 */
+
+/* 판매자: 판매자 센터 버튼 표시 */
+.seller-center-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.seller-center-button:hover {
+  background-color: #1aa33d;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(33, 191, 72, 0.3);
+}
+
+.seller-center-button:active {
+  transform: translateY(0);
+}
+
+.seller-center-button span {
+  display: none;
+}
+
+/* 480px 이상 (작은 모바일) */
+@media (min-width: 480px) {
+  .header {
+    min-height: 65px;
+    padding: 10px 20px;
+  }
+
+  .logo img {
+    height: 38px;
+  }
+
+  .cart-icon,
+  .user-icon {
+    width: 23px;
+    height: 23px;
+  }
+
+  .seller-center-button span {
+    display: inline;
+  }
+}
+
+/*
+-------------- 모바일 이후 미디어 생성만 하고 QA 안했음----------------
+----------------------주석처리가 안되어서 방치함.---------------------
+
+TODO
+모든 코드 검토 및 QA 필요
+
+Need to FIX
+1. 해상도가 변경될때 서치바가 갑자기 나타나는 문제
+2. 태블릿 ~ 대형 데스크탑까지 서치바가 부자연스럽게 커지는 문제
+3. px -> 반응형으로 변경 필요
+
+*/
+
+/* 768px 이상 (태블릿) */
+@media (min-width: 768px) {
+  .header {
+    min-height: 70px;
+    padding: 10px 30px;
+  }
+
+  .logo img {
+    height: 42px;
+  }
+
+  /* 검색바 표시 */
+  .search-bar {
+    display: flex;
+    flex: 1;
+    border: 2px solid #21bf48;
+    border-radius: 50px;
+    max-width: 400px;
+    margin: 0 20px;
+    align-items: center;
+    padding: 0 15px;
+    background: #fff;
+    transition: border-color 0.3s ease;
+  }
+
+  .search-bar:focus-within {
+    border-color: #1a9638;
+    box-shadow: 0 0 0 3px rgba(33, 191, 72, 0.1);
+  }
+
+  .search-bar input {
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 13px;
+    background: transparent;
+  }
+
+  .search-bar input::placeholder {
+    color: #999;
+  }
+
+  .search-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header-icons {
+    gap: 18px;
+  }
+
+  .cart-icon,
+  .user-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* 1280px 이상 (데스크탑) */
+@media (min-width: 1280px) {
+  .header {
+    min-height: 80px;
+    padding: 10px 50px;
+  }
+
+  .logo img {
+    height: 46px;
+  }
+
+  .search-bar {
+    max-width: 520px;
+    margin: 0 30px;
+    padding: 0 18px;
+  }
+
+  .search-bar input {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .search-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .header-icons {
+    gap: 22px;
+  }
+
+  .cart-icon,
+  .user-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* 1920px 이상 (대형 데스크탑) */
+@media (min-width: 1920px) {
+  .header {
+    min-height: 90px;
+    padding: 10px 80px;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .search-bar {
+    max-width: 650px;
+    margin: 0 40px;
+    padding: 0 20px;
+  }
+
+  .search-bar input {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+
+  .search-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header-icons {
+    gap: 28px;
+  }
+
+  .cart-icon,
+  .user-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* 추가 유틸리티 스타일 */
+.header-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.header-nav-link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.header-nav-link:hover {
+  color: #21bf48;
+}
+
+.hidden {
+  display: none;
+}

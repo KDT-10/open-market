@@ -1,0 +1,36 @@
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* background-color: #f2f2f2; */
+  /* background-color: #f9f9f9; */
+  /* font-family: 'Arial', sans-serif; */
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input {
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZADU - 상품 등록</title>
+  <link rel="stylesheet" href="styles/base/reset.css">
+  <link rel="stylesheet" href="styles/base/variables.css">
+  <link rel="stylesheet" href="styles/pages/make-product.css">
+  <script type="module" src="js/common/layout.js"></script>
+</head>
+
+<body data-mode="seller">
+  <!-- Main Container -->
+  <main class="main-container">
+    <h1 class="page-title">상품 등록</h1>
+    <div class="content-wrapper">
+      <!-- Left Sidebar - Guidelines -->
+      <aside class="guidelines">
+        <p class="guidelines-title">* 상품 등록 주의사항</p>
+        <ul class="guidelines-list">
+          <li>- 최대 업로드 가능한 이미지 용량은 5MB 이하입니다.</li>
+          <li>- 한번에 업로드 가능한 이미지 개수는 10개입니다.</li>
+          <li>
+            - 저작권 침해로 판단되는 이미지는 관리자가 임의로 삭제할 수
+            있습니다.
+          </li>
+        </ul>
+      </aside>
+      <!-- Form -->
+      <div class="form-section">
+        <div class="form-row">
+          <!-- Product Image -->
+          <div class="form-group image-upload">
+            <label class="form-label">상품 이미지</label>
+            <div class="image-placeholder">
+              <svg width="20" height="20">
+                <use href="assets/icons/sprite.svg#icon-image"></use>
+              </svg>
+            </div>
+          </div>
+          <!-- Product Details -->
+          <div class="form-details">
+            <!-- Product Name -->
+            <div class="form-group">
+              <label class="form-label">상품명</label>
+              <div class="input-wrapper">
+                <input type="text" class="form-input" maxlength="100">
+              </div>
+            </div>
+            <!-- Price -->
+            <div class="form-group">
+              <label class="form-label">판매가</label>
+              <div class="input-with-unit">
+                <input type="number" class="form-input small">
+                <span class="unit">원</span>
+              </div>
+            </div>
+            <!-- Shipping Method -->
+            <div class="form-group">
+              <label class="form-label">배송방법</label>
+              <div class="toggle-buttons">
+                <button class="toggle-btn">택배, 소포, 등기</button>
+                <button class="toggle-btn">직접배송(화물배달)</button>
+              </div>
+            </div>
+            <!-- Shipping Fee -->
+            <div class="form-group">
+              <label class="form-label">기본 배송비</label>
+              <div class="input-with-unit">
+                <input type="number" class="form-input small">
+                <span class="unit">원</span>
+              </div>
+            </div>
+            <!-- Stock -->
+            <div class="form-group">
+              <label class="form-label">재고</label>
+              <div class="input-with-unit">
+                <input type="number" class="form-input small">
+                <span class="unit">개</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Product Description Editor -->
+        <div class="form-group editor-section">
+          <label class="form-label">상품 상세 정보</label>
+          <div class="editor-placeholder">
+            <span class="editor-text">에디터 영역</span>
+          </div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn btn-cancel">취소</button>
+          <button class="btn btn-save">저장하기</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

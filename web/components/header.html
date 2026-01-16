@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEADER COMPONENT</title>
+  <script type="module" src="js/common/base.js"></script>
+  <link rel="stylesheet" href="styles/components/header.css">
+  <script src="js/common/header.js"></script>
+</head>
+
+<body>
+  <!--
+    TODO
+    서치 바 기능 구현
+    -->
+  <!-- Container for the header -->
+  <div id="header" class="header-container" data-mode="buyer">
+    <!-- Header Section -->
+    <div class="header">
+      <!-- Logo -->
+      <div class="logo" id="main-logo">
+        <img src="assets/images/Logo-jadu-lg.png" alt="Logo">
+      </div>
+      <!-- Search Bar -->
+      <div class="search-bar" id="search-bar">
+        <input type="text" placeholder="상품을 검색해보세요!">
+        <a href="*" class="search-icon" id="search-icon">
+          <svg width="24" height="24">
+            <use href="assets/icons/sprite.svg#icon-search"></use>
+          </svg>
+        </a>
+      </div>
+      <!-- Header Icons -->
+      <div class="header-icons">
+        <!-- Cart Icon (Buyer Only) -->
+        <a class="cart-icon" id="cart-icon">
+          <svg width="32" height="32">
+            <use href="assets/icons/sprite.svg#icon-cart"></use>
+          </svg>
+        </a>
+        <!-- User Icon SVG -->
+        <a class="user-icon" id="user-icon">
+          <svg width="32" height="32">
+            <use href="assets/icons/sprite.svg#icon-user"></use>
+          </svg>
+        </a>
+        <!-- Seller Center Button (Seller Only) -->
+        <a href="seller-center.html" class="seller-center-button hidden" id="seller-center-button">
+          <svg width="32" height="32">
+            <use href="assets/icons/sprite.svg#icon-seller-center"></use>
+          </svg>
+          <span>판매자 센터</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

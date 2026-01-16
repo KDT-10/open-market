@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODAL COMPONENT</title>
+  <script type="module" src="js/common/base.js"></script>
+  <link rel="stylesheet" href="styles/components/modal.css">
+</head>
+
+<body>
+  <div class="modal-overlay" id="modal-cancel-confirm">
+    <div class="modal-container">
+      <button class="modal-close-btn">
+        <svg width="34" height="34">
+          <use href="assets/icons/sprite.svg#icon-close"></use>
+        </svg>
+      </button>
+      <div class="modal-wrapper">
+        <div class="modal-content"></div>
+        <div class="modal-button-group">
+          <button class="modal-btn modal-btn-cancel">-</button>
+          <button class="modal-btn modal-btn-confirm">-</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
