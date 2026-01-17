@@ -1,0 +1,38 @@
+/*
+사용 예)
+<label class="primary-cbox" for="체크박스_아이디">
+  <input type="checkbox" id="체크박스_아이디">
+  <span class="checkmark"></span>
+  label 내용
+</label>
+*/
+
+.primary-cbox input {
+  display: none;
+}
+.checkmark {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--color-primary);
+  position: relative;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 4px;
+  width: 4px;
+  height: 9px;
+  border: solid var(--color-primary);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+.primary-cbox input:checked + .checkmark::after {
+  display: block;
+}
+.primary-cbox input:checked + .checkmark {
+  border-color: var(--color-primary);
+}
