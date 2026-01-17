@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZADU - Seller Main</title>
+    <link rel="stylesheet" href="styles/base/reset.css" />
+    <link rel="stylesheet" href="styles/base/variables.css" />
+    <link rel="stylesheet" href="styles/pages/seller-main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+    <script type="module" src="js/common/layout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script type="module" src="js/pages/seller-main.js"></script>
+  </head>
+  <body data-mode="seller">
+    <!-- Hero Swiper Section -->
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="assets/images/product1.png" alt="상품1" />
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/images/product2.png" alt="상품2" />
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/images/product3.png" alt="상품3" />
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/images/product4.png" alt="상품4" />
+        </div>
+        <div class="swiper-slide">
+          <img src="assets/images/product5.png" alt="상품5" />
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+    <!-- Products Section -->
+    <section class="products-section">
+      <div class="products-container">
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img
+                src="assets/images/product1.png"
+                alt="Hack Your Life 개발자 노트북 파우치"
+              />
+            </div>
+            <div class="product-info">
+              <span class="seller-name">우당탕탕 라이캣의 실험실</span>
+              <h3 class="product-title">Hack Your Life 개발자 노트북 파우치</h3>
+              <div class="product-price">
+                <span class="price">29,000</span>
+                <span class="currency">원</span>
+              </div>
+            </div>
+          </div>
+          <!-- Product 2 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img
+                src="assets/images/product2.png"
+                alt="내 개발잡니다 개발자키링 금속키링"
+              />
+            </div>
+            <div class="product-info">
+              <span class="seller-name">제주코딩베이스캠프</span>
+              <h3 class="product-title">내 개발잡니다 개발자키링 금속키링</h3>
+              <div class="product-price">
+                <span class="price">29,000</span>
+                <span class="currency">원</span>
+              </div>
+            </div>
+          </div>
+          <!-- Product 3 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img
+                src="assets/images/product3.png"
+                alt="딥러닝 개발자 무릎 담요"
+              />
+            </div>
+            <div class="product-info">
+              <span class="seller-name">백엔드글로벌</span>
+              <h3 class="product-title">딥러닝 개발자 무릎 담요</h3>
+              <div class="product-price">
+                <span class="price">29,000</span>
+                <span class="currency">원</span>
+              </div>
+            </div>
+          </div>
+          <!-- Product 4 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img
+                src="assets/images/product4.png"
+                alt="우당탕탕 라이캣의 실험실 스티커 팩"
+              />
+            </div>
+            <div class="product-info">
+              <span class="seller-name">코딩앤유</span>
+              <h3 class="product-title">우당탕탕 라이캣의 실험실 스티커 팩</h3>
+              <div class="product-price">
+                <span class="price">29,000</span>
+                <span class="currency">원</span>
+              </div>
+            </div>
+          </div>
+          <!-- Product 5 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img
+                src="assets/images/product5.png"
+                alt="버그를 Java라 버그잡는 개리씨 키링 개발자키링"
+              />
+            </div>
+            <div class="product-info">
+              <span class="seller-name">파이썬스쿨</span>
+              <h3 class="product-title">
+                버그를 Java라 버그잡는 개리씨 키링 개발자키링
+              </h3>
+              <div class="product-price">
+                <span class="price">29,000</span>
+                <span class="currency">원</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
